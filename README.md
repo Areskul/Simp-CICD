@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://gitea.com/AreskaEntreprise/SimpCICD" target="_blank" rel="noopener noreferrer">
-    <img width="180" src="https://gitea.com/AreskaEntreprise/SimpCICD/src/branch/master/public/images/simp_dark.png" alt="SimpCICD logo">
+  <a href="https://simp.areskul.com/image/simp_dark.png" target="_blank" rel="noopener noreferrer">
+    <img width="180" src="./public/images/simp_dark.png" alt="SimpCICD logo">
   </a>
 </p>
 <br/>
