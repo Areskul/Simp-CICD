@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register test/test.ts",
+    "dev": "ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./bin"
   },
   "bin": {

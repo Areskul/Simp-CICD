@@ -1,3 +1,10 @@
+<p align="center">
+  <a href="https://gitea.com/AreskaEntreprise/SimpCICD" target="_blank" rel="noopener noreferrer">
+    <img width="180" src=".public/image/simp_dark.png" alt="SimpCICD logo">
+  </a>
+</p>
+<br/>
+
 # Simp CICD
 
 ## What it is
