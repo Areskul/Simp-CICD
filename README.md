@@ -27,6 +27,7 @@ pipeline : {
       image: "node:latest"
       commands: ["yarn install", "yarn build"]
     },
+  ],
   trigger: {
     branch: [
       "main",
