@@ -11,6 +11,7 @@
     "simp": "bin/simp.js"
   },
   "dependencies": {
+    "cac": "^6.7.12",
     "cosmiconfig": "^7.0.1",
     "tslog": "^3.3.1",
     "zx": "^4.3.0"
