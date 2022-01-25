@@ -1,0 +1,20 @@
+{
+  "name": "SimpCICD",
+  "version": "0.0.1",
+  "author": "Areska <areskul@areskul.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "ts-node -r tsconfig-paths/register test/test.ts"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "commander": "^8.3.0",
+    "conf": "^10.1.1",
+    "cosmiconfig": "^7.0.1",
+    "tslog": "^3.3.1",
+    "zx": "^4.3.0"
+  },
+  "devDependencies": {
+    "tsconfig-paths": "^3.12.0"
+  }
+}
