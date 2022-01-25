@@ -25,22 +25,20 @@ PS: optimized for Node.js for now.
 It uses cosmicconfig so feel free to use your favorite file format.
 And if you are use to DRONE CI, things wan't change a lot.
 
-```json
-pipeline : {
-  name: "test",
-  steps: [
-    {
-      name: "build",
-      image: "node:latest",
-      commands: ["yarn install", "yarn build"]
-    },
-  ],
-  trigger: {
-    branch: [
-      "main",
-      "master",
-      "dev"
-    ]
+```js
+module.exports = {
+  pipeline: {
+    name: "test",
+    steps: [
+      {
+        name: "build",
+        image: "node:latest",
+        commands: ["yarn install", "yarn build"]
+      }
+    ],
+    trigger: {
+      branch: ["main", "master", "dev"]
+    }
   }
-}
+};
 ```
