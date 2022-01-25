@@ -31,7 +31,7 @@ pipeline : {
   steps: [
     {
       name: "build",
-      image: "node:latest"
+      image: "node:latest",
       commands: ["yarn install", "yarn build"]
     },
   ],
