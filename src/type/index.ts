@@ -1,11 +1,7 @@
-export interface Config {
+interface Config {
   pipelines: Pipeline[];
 }
-export interface Config {
-  pipelines: Pipeline[];
-}
-
-export interface Pipeline {
+interface Pipeline {
   name: string;
   commands?: string[];
   steps: Step[];
@@ -28,3 +24,4 @@ interface Trigger {
   branch?: string[];
   action?: string[];
 }
+export { Config, Pipeline, Step };

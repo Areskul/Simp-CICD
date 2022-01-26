@@ -11,7 +11,7 @@ const cli = cac("simp");
 
 cli
   .command("[root]")
-  .option("-c, --config", `print config`)
+  .option("-p, --print-config", `print loaded config`)
   .action(async (options: any) => {
     if (options?.config) {
       try {
@@ -23,9 +23,12 @@ cli
     }
   });
 
-cli.command("deploy").action(async (options: any) => {
-  await deploy();
-});
+cli
+  .command("deploy")
+  .option("-c, --config", "<file> to load config from")
+  .action((options: any) => {
+    deploy();
+  });
 
 cli.help();
 cli.parse();
