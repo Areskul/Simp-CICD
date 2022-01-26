@@ -19,7 +19,7 @@ const exec = async (cmd: string) => {
   } catch (err) {
     log.error(err);
     console.log(red("Some commands couldn't be executed"));
-    return err;
+    throw err;
   }
 };
 const execStep = async (step: Step) => {
@@ -27,7 +27,7 @@ const execStep = async (step: Step) => {
     try {
       await exec(command);
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 };
@@ -36,7 +36,8 @@ const execPipeline = async (pipeline: Pipeline) => {
     try {
       await execStep(step);
     } catch (err) {
-      return err;
+      throw err;
+      // return err;
     }
   }
 };

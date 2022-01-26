@@ -11,7 +11,7 @@ export const deploy = async () => {
     try {
       await execPipeline(pipeline);
     } catch (err) {
-      return;
+      return err;
     }
   }
 };
