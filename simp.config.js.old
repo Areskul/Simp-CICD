@@ -1,0 +1,23 @@
+module.exports = {
+  pipelines: [
+    {
+      name: "nightly",
+      steps: [
+        {
+          type: "exec",
+          name: "install",
+          commands: ["yarn", "yarn build"]
+        },
+        {
+          type: "exec",
+          name: `image`,
+          commands: ["cd dist", "cd .."]
+        }
+      ],
+      trigger: {
+        branch: ["main", "master", "dev"],
+        action: ["push"]
+      }
+    }
+  ]
+};

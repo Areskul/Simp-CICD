@@ -1,6 +1,9 @@
 export interface Config {
   pipelines: Pipeline[];
 }
+export interface Config {
+  pipelines: Pipeline[];
+}
 
 interface Pipeline {
   name: string;
@@ -9,15 +12,16 @@ interface Pipeline {
   trigger?: any;
 }
 
+enum StepType {
+  exec,
+  docker
+}
+type StepTypeString = keyof typeof StepType;
+
 interface Step {
-  type?: StepType;
+  type?: StepTypeString;
   name?: string;
   commands?: string[];
-}
-
-enum StepType {
-  exec = "exec",
-  docker = "docker"
 }
 
 interface Trigger {
