@@ -1,18 +1,31 @@
 import { cac } from "cac";
+import { log } from "@composables/logger";
+import { useConfig } from "@composables/config";
+import { deploy } from "@resolvers/deploy";
 
 export const useCli = () => ({
   cli
 });
 
 const cli = cac("simp");
+
 cli
-  .option("-c, --config <file>", `[string] use specified config file`)
-  .option("--base <path>", `[string] public base path (default: /)`)
-  .option("-l, --logLevel <level>", `[string] info | warn | error | silent`)
-  .option("--clearScreen", `[boolean] allow/disable clear screen when logging`)
-  .option("-d, --debug [feat]", `[string | boolean] show debug logs`)
-  .option("-f, --filter <filter>", `[string] filter debug logs`)
-  .option("-m, --mode <mode>", `[string] set env mode`);
+  .command("[root]")
+  .option("-c, --config", `print config`)
+  .action(async (options: any) => {
+    if (options?.config) {
+      try {
+        const config = await useConfig();
+        log.info(config);
+      } catch (err) {
+        log.error(err);
+      }
+    }
+  });
+
+cli.command("deploy").action(async (options: any) => {
+  await deploy();
+});
 
 cli.help();
 cli.parse();

@@ -1,10 +1,10 @@
 import { $ } from "zx";
 import { log } from "@composables/logger";
 
-export const useBash = () => ({
-  bash
+export const useExec = () => ({
+  exec
 });
 
-const bash = async (cmd: string) => {
+const exec = async (cmd: string) => {
   await $`${cmd}`;
 };

@@ -27,6 +27,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
+      "@type/*": ["src/type/*"],
       "@composables/*": ["src/composables/*"],
       "@middleware/*": ["src/middleware/*"]
     }

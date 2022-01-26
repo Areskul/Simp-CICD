@@ -1,14 +1,19 @@
-module.exports = {
+const nightly = {
+  suffix: "front"
+  version:"nightly"
+  network: "my_bridge",
+}
+const network = "my_brige"
+
+export default {
   pipelines: [
     {
       name: "production",
-      //define top level variables
-      commands: ["VERSION=nightly", "SUFFIX=api", "NETWORK=my_bridge"],
       steps: [
         {
           type: "exec",
           name: "build",
-          commands: ["docker build --network $NETWORK"]
+          commands: ["docker build --network=${network}"]
         }
       ],
       trigger: {
