@@ -5,10 +5,10 @@ export interface Config {
   pipelines: Pipeline[];
 }
 
-interface Pipeline {
+export interface Pipeline {
   name: string;
   commands?: string[];
-  steps?: Step[];
+  steps: Step[];
   trigger?: any;
 }
 
@@ -20,8 +20,8 @@ type StepTypeString = keyof typeof StepType;
 
 interface Step {
   type?: StepTypeString;
-  name?: string;
-  commands?: string[];
+  name: string;
+  commands: string[];
 }
 
 interface Trigger {

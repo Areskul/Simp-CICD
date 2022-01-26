@@ -26,7 +26,6 @@ const useConfig = async () => {
   try {
     const res = await explorer.search();
     if (res) {
-      log.debug(res);
       const config = res.config;
       return config;
     }

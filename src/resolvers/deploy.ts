@@ -1,15 +1,26 @@
 import { log } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
+import type { Pipeline } from "@type/index";
+
+const { exec } = useExec();
 
 export const deploy = async () => {
-  const { exec } = useExec();
   const config = await useConfig();
   for (const pipeline of config.pipelines) {
-    for (const command of pipeline.commands) {
-      exec(command);
+    if (!!pipeline.commands) {
+      for (const command of pipeline.commands) {
+        exec(command);
+      }
     }
-    for (const step of pipeline.steps) {
+    execSteps(pipeline);
+  }
+};
+
+const execSteps = (pipeline: Pipeline) => {
+  for (const step of pipeline.steps) {
+    for (const command of step.commands) {
+      exec(command);
     }
   }
 };
