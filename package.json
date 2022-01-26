@@ -6,11 +6,11 @@
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register test/test.ts",
     "dev": "ts-node -r tsconfig-paths/register src/index.ts",
-    "start": "node dist/src/index.js",
+    "serve": "node bin/simp.js",
     "build": "rollup -c"
   },
   "bin": {
-    "simp": "dist/simp.js"
+    "simp": "bin/simp.js"
   },
   "dependencies": {
     "cac": "^6.7.12",
