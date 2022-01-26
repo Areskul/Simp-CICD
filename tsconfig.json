@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
-    "sourceMap": true,
-    "outDir": "./dist",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
     "composite": false,
     "removeComments": true,
     "noImplicitAny": true,
@@ -21,15 +20,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
+    "declaration": true,
     "baseUrl": ".",
     "rootDir": ".",
-    "declaration": true,
+    "outDir": "./dist",
     "paths": {
       "@/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
       "@type/*": ["src/type/*"],
-      "@composables/*": ["src/composables/*"],
-      "@middleware/*": ["src/middleware/*"]
+      "@composables/*": ["src/composables/*"]
     }
   },
   "include": [

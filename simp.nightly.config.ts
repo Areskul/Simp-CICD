@@ -4,7 +4,7 @@ const app_name = "theeevent";
 const suffix = "front";
 const version = "nightly";
 
-export const config = defineConfig({
+export default defineConfig({
   pipelines: [
     {
       name: "nightly",
