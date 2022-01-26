@@ -19,7 +19,7 @@ const config: Config = {
           name: `image:${version}`,
           commands: [
             "cd dist",
-            "docker build -t ${app_name}/${suffix}:${version}",
+            `docker build -t ${app_name}/${suffix}:${version}`,
             "cd .."
           ]
         }
