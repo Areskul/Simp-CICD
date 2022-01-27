@@ -4,9 +4,9 @@
   "author": "Areskul <areskul@areskul.com>",
   "license": "MIT",
   "scripts": {
-    "test": "ts-node -r tsconfig-paths/register test/test.ts",
-    "dev": "ts-node -r tsconfig-paths/register src/index.ts",
-    "build": "rollup -c"
+    "dev": "ts-node -r tsconfig-paths/register test/test.ts",
+    "build": "rollup -c",
+    "build:ts": "tsc --project tsconfig.json"
   },
   "main": "index.ts",
   "bin": {
