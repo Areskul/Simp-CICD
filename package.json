@@ -2,24 +2,25 @@
   "name": "simpcicd",
   "version": "0.0.3",
   "author": "Areskul <areskul@areskul.com>",
-  "license": "MIT",
   "scripts": {
     "dev": "ts-node -r tsconfig-paths/register test/test.ts",
     "build": "rollup -c",
     "build:ts": "tsc --project tsconfig.json"
   },
   "main": "index.ts",
+  "types": "./dist/types/index.d.ts",
   "bin": {
     "simp": "bin/simp.js"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "dependencies": {
-    "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",
     "cac": "^6.7.12",
-    "cosmiconfig": "^7.0.1",
     "picocolors": "^1.0.0",
     "tslog": "^3.3.1",
     "typescript": "^4.5.5",
-    "zx": "^4.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.0",
@@ -28,5 +29,6 @@
     "simple-git-hooks": "^2.7.0",
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1"
-  }
+  },
+  "license": "MIT"
 }
