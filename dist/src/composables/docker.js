@@ -1,4 +1,4 @@
-import { $ } from "zx";
+import { execSync as $ } from "child_process";
 import { log } from "@composables/logger";
 export const useDocker = () => ({
     dockerize,
@@ -6,8 +6,8 @@ export const useDocker = () => ({
 });
 const dockerize = async ({ name, image }) => {
     try {
-        await $ `docker container create --name=${name} ${image}`;
-        await $ `docker container start ${name}`;
+        await $(`docker container create --name=${name} ${image}`);
+        await $(`docker container start ${name}`);
     }
     catch (err) {
         log.error(err);
@@ -15,8 +15,8 @@ const dockerize = async ({ name, image }) => {
 };
 const undockerize = async ({ name }) => {
     try {
-        await $ `docker container stop ${name}`;
-        await $ `docker container rm ${name}`;
+        await $(`docker container stop ${name}`);
+        await $(`docker container rm ${name}`);
     }
     catch (err) {
         console.log(err);
