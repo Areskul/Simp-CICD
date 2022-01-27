@@ -20,6 +20,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
       "@src/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
