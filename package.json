@@ -1,14 +1,14 @@
 {
   "name": "simpcicd",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register test/test.ts",
     "simp": "ts-node test/test.package.ts",
     "build": "tsc -b tsconfig.json tsconfig.esm.json tsconfig.types.json && tspath -f"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/cjs/src/index.js",
+  "module": "./dist/esm/src/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.12",
-    "simpcicd": "^0.0.10",
+    "simpcicd": "^0.0.11",
     "simple-git-hooks": "^2.7.0",
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1",
