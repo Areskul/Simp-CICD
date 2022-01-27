@@ -21,7 +21,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@src/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
       "@type/*": ["src/type/*"],
       "@composables/*": ["src/composables/*"]
