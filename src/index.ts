@@ -3,10 +3,12 @@ import { useDocker } from "@composables/docker";
 import { useConfig } from "@composables/config";
 import { useCli } from "@composables/cli";
 import { green, red, blue } from "picocolors";
+import type { Config } from "@type/index";
 
-const start = async () => {
+const useSimp = (config: Config) => {
   console.log(blue("SimpCICD"));
-  const cli = useCli();
+  const cli = useCli(config);
+  return cli;
 };
 
-start();
+export { useSimp };

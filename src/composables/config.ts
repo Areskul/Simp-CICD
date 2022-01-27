@@ -2,7 +2,7 @@ import type { Config } from "@type/index";
 import { log } from "@composables/logger";
 
 interface Store {
-  config?: Config;
+  config?: any;
 }
 let store: Store = {};
 
@@ -12,12 +12,10 @@ const useConfig = () => ({
   get
 });
 
-const set = (filePath?: string) => {
+const set = async (config: Config) => {
   try {
-    const path = filePath ? filePath : "@/../simp.config";
-    const config = require(path);
     store.config = config;
-    return config;
+    return;
   } catch (err) {
     log.error(err);
     return;
