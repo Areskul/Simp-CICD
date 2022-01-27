@@ -1,7 +1,7 @@
 {
   "name": "simpcicd",
   "version": "0.0.2",
-  "author": "Areska <areskul@areskul.com>",
+  "author": "Areskul <areskul@areskul.com>",
   "license": "MIT",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register test/test.ts",
@@ -28,8 +28,5 @@
     "simple-git-hooks": "^2.7.0",
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1"
-  },
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
   }
 }
