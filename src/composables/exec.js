@@ -43,6 +43,7 @@ const execPipeline = async (pipeline) => {
         }
         catch (err) {
             throw err;
+            // return err;
         }
     }
 };

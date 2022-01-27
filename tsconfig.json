@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./dist",
     "target": "esnext",
     "module": "commonjs",
-    "lib": ["dom", "es6","es2017","esnext.asynciterable"],
     "moduleResolution": "node",
     "strict": true,
     "sourceMap": true,
     "declaration": true,
-    "removeComments": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -23,6 +18,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "rootDir": "./src",
     "paths": {
       "@/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
@@ -30,6 +27,7 @@
       "@composables/*": ["src/composables/*"]
     }
   },
+  "outDir": "dist/cjs",
   "include": ["src/*.ts", "src/**/*.ts"],
   "exclude": [
     "node_modules",
