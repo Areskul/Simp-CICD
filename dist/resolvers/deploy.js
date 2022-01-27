@@ -1,8 +1,11 @@
-import { useConfig } from "@composables/config";
-import { useExec } from "@composables/exec";
-const { execPipeline } = useExec();
-const config = useConfig();
-export const deploy = async () => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deploy = void 0;
+const config_1 = require("@composables/config");
+const exec_1 = require("@composables/exec");
+const { execPipeline } = (0, exec_1.useExec)();
+const config = (0, config_1.useConfig)();
+const deploy = async () => {
     const conf = config.get();
     if (!conf)
         return;
@@ -15,4 +18,5 @@ export const deploy = async () => {
         }
     }
 };
+exports.deploy = deploy;
 //# sourceMappingURL=deploy.js.map

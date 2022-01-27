@@ -1,9 +1,12 @@
-import { useCli } from "@composables/cli";
-import { blue } from "picocolors";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useSimp = void 0;
+const cli_1 = require("@composables/cli");
+const picocolors_1 = require("picocolors");
 const useSimp = (config) => {
-    console.log(blue("SimpCICD"));
-    const cli = useCli(config);
+    console.log((0, picocolors_1.blue)("SimpCICD"));
+    const cli = (0, cli_1.useCli)(config);
     return cli;
 };
-export { useSimp };
+exports.useSimp = useSimp;
 //# sourceMappingURL=index.js.map

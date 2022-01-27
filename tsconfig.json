@@ -4,6 +4,7 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "target": "esnext",
+    "module": "commonjs",
     "lib": ["dom", "es6","es2017","esnext.asynciterable"],
     "moduleResolution": "node",
     "strict": true,
