@@ -23,6 +23,7 @@ const exec = async (cmd: string) => {
   }
 };
 const execStep = async (step: Step) => {
+  console.log(`step: ${step.name}`);
   out: for (const command of step.commands) {
     try {
       await exec(command);
@@ -32,6 +33,7 @@ const execStep = async (step: Step) => {
   }
 };
 const execPipeline = async (pipeline: Pipeline) => {
+  console.log(`pipeline: ${pipeline.name}`);
   out: for (const step of pipeline.steps) {
     try {
       await execStep(step);

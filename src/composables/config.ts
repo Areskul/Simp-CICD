@@ -1,41 +1,18 @@
-import { cosmiconfig } from "cosmiconfig";
-import TypeScriptLoader from "cosmiconfig-typescript-loader";
 import type { Config } from "@type/index";
 import { log } from "@composables/logger";
 
-const useConfig = async () => {
-  const moduleName = "simp";
-  const explorer = cosmiconfig(moduleName, {
-    searchPlaces: [
-      "package.json",
-      `.${moduleName}rc`,
-      `.${moduleName}rc.json`,
-      `.${moduleName}rc.yml`,
-      `.${moduleName}rc.js`,
-      `.${moduleName}rc.ts`,
-      `${moduleName}.config.js`,
-      `${moduleName}.config.ts`,
-      `${moduleName}.nightly.config.ts`,
-      `${moduleName}.production.config.js`,
-      `${moduleName}.stagging.config.js`
-    ],
-    loaders: {
-      ".ts": TypeScriptLoader()
-    }
-  });
+const useConfig = async (filePath?: string) => {
   try {
-    const res = await explorer.search();
-    if (res) {
-      const config = res.config;
-      return config;
-    }
+    const path = filePath ? filePath : "@/../simp.config";
+    const config = require(path);
+    return config;
   } catch (err) {
     log.error(err);
-    return err;
+    return;
   }
 };
 
-const defineConfig = (config: Config) => {
+const defineConfig = (config: Config): Config => {
   return config;
 };
 

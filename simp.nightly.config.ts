@@ -4,7 +4,7 @@ const app_name = "theeevent";
 const suffix = "front";
 const version = "nightly";
 
-const config: Config = {
+const nightlyConfig: Config = {
   pipelines: [
     {
       name: "nightly",
@@ -19,7 +19,7 @@ const config: Config = {
           name: `image:${version}`,
           commands: [
             "cd dist",
-            `docker build -t ${app_name}/${suffix}:${version}`,
+            `docker build -t ${app_name}/${suffix}:${version} .`,
             "cd .."
           ]
         }
@@ -31,4 +31,4 @@ const config: Config = {
     }
   ]
 };
-export default config;
+export { nightlyConfig };

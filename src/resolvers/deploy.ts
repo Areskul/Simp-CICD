@@ -7,7 +7,9 @@ const { execPipeline } = useExec();
 
 export const deploy = async () => {
   const config = await useConfig();
-  out: for (const pipeline of config.pipelines) {
+
+  if (!config) return;
+  for (const pipeline of config.pipelines) {
     try {
       await execPipeline(pipeline);
     } catch (err) {
