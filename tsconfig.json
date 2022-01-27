@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./dist",
     "target": "esnext",
     "lib": ["dom", "es6","es2017","esnext.asynciterable"],
