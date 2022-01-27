@@ -14,7 +14,7 @@ const useConfig = () => ({
 
 const set = (filePath?: string) => {
   try {
-    const path = filePath ? filePath : "@/../simp.config";
+    const path = filePath ? filePath : "/simp.config";
     const config = require(path);
     store.config = config;
     return config;

@@ -5,10 +5,8 @@ import { useCli } from "@composables/cli";
 import { green, red, blue } from "picocolors";
 
 const start = async () => {
-  console.log(blue("SimpCICD Started..."));
-
-  const config = await useConfig();
-  const cli = await useCli();
+  console.log(blue("SimpCICD"));
+  const cli = useCli();
 };
 
 start();
