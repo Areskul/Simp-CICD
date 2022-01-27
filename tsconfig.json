@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
+    "outDir": "dist/cjs",
     "moduleResolution": "node",
     "strict": true,
     "sourceMap": true,
@@ -19,7 +20,6 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "rootDir": "./src",
     "paths": {
       "@/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
@@ -27,7 +27,6 @@
       "@composables/*": ["src/composables/*"]
     }
   },
-  "outDir": "dist/cjs",
   "include": ["src/*.ts", "src/**/*.ts"],
   "exclude": [
     "node_modules",
