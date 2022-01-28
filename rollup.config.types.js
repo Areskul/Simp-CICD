@@ -1,9 +1,9 @@
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
 export default {
-  input: "dist/cjs/index.ts",
+  input: "dist/types/index.ts",
   output: {
-    file: "dist/cjs/simp.js",
+    file: "dist/types/index.ts",
     format: "cjs",
     sourcemap: true
   },

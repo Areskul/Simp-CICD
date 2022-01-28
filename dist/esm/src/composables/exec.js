@@ -1,22 +1,26 @@
-import { log } from "@composables/logger";
-import { execSync as $ } from "child_process";
-import { green, red } from "picocolors";
-export const useExec = () => ({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useExec = void 0;
+const logger_1 = require("@composables/logger");
+const child_process_1 = require("child_process");
+const picocolors_1 = require("picocolors");
+const useExec = () => ({
     execPipeline,
     execStep,
     exec
 });
+exports.useExec = useExec;
 const exec = async (cmd) => {
     try {
-        const res = await $(cmd, {
+        const res = await (0, child_process_1.execSync)(cmd, {
             stdio: ["ignore", "ignore", "pipe"]
         });
-        log.debug(green(cmd));
+        logger_1.log.debug((0, picocolors_1.green)(cmd));
         return;
     }
     catch (err) {
-        log.error(err);
-        console.log(red("Some commands couldn't be executed"));
+        logger_1.log.error(err);
+        console.log((0, picocolors_1.red)("Some commands couldn't be executed"));
         throw err;
     }
 };
