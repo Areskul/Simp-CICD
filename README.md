@@ -2,11 +2,14 @@
   <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
     <img width="200" src="https://simp.areskul.com/images/simp.png" alt="SimpCICD logo">
   </a>
-  <h1>Simp CICD</h1>
 </p>
 <br/>
 
-# Warning
+# Simp CICD
+
+[Checkout the official documentation](https://simp.areskul.com/)
+
+## Warning
 
 Don't dowload now!
 
@@ -14,9 +17,9 @@ It's still in early stage development!
 
 See you nex week 😊...
 
-# Getting Started
+## Getting Started
 
-## Install
+### Install
 
 Install cli
 
@@ -38,4 +41,4 @@ yarn add -D simpcicd
 npm install -save-dev simpcicd
 ```
 
-[Checkout the official documentation](https://simp.areskul.com/)
+[More in the documentation...](https://simp.areskul.com/)
