@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://simp.areskul.com/guide" target="_blank" rel="noopener noreferrer">
+  <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
     <img width="200" src="https://simp.areskul.com/images/simp.png" alt="SimpCICD logo">
   </a>
   <h1>Simp CICD</h1>
@@ -38,4 +38,4 @@ yarn add -D simpcicd
 npm install -save-dev simpcicd
 ```
 
-[Checkout the official documentation](https://simp.areskul.com/guide)
+[Checkout the official documentation](https://simp.areskul.com/)
