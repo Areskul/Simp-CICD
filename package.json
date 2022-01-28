@@ -29,5 +29,12 @@
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1"
   },
+  "keywords":[
+    "simp",
+    "simpcicd",
+    "cicd",
+    "deployement",
+    "typescript"
+  ],
   "license": "MIT"
 }
