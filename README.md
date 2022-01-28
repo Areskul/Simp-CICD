@@ -5,11 +5,13 @@
 </p>
 <br/>
 
-# Simp CICD
+# Warning
 
-# WARNING: EARLY DEVELOPMENT STAGE!!!
+Don't dowload now!
 
-# NOT PRODUCTION READY!!! DON'T USE NOW
+It's still in early stage development!
+
+See you nex week 😊...
 
 # Getting Started
 
