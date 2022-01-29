@@ -2,11 +2,12 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "outDir": "dist/cjs",
+    "declarationDir":"dist/dts",
     "moduleResolution": "node",
     "strict": true,
     "sourceMap": true,
     "declaration": true,
+    "emitDeclarationOnly": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -20,7 +21,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "rootDir": ".",
+    "rootDir": "src",
     "paths": {
       "@src/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],

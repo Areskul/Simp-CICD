@@ -17,5 +17,13 @@ interface Step {
     name: string;
     commands: string[];
 }
-export { Config, Pipeline, Step };
-//# sourceMappingURL=index.d.ts.map
+declare type ExecOptions = {
+    verbose?: boolean | null;
+};
+declare type StepOptions = {
+    cwd?: string | boolean | null;
+};
+declare type TriggerOptions = {
+    verbose?: boolean;
+};
+export { Config, Pipeline, Step, ExecOptions, StepOptions, TriggerOptions };

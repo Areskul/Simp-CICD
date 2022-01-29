@@ -23,7 +23,7 @@ const exec = async (cmd: string) => {
     const res = await $(cmd, {
       stdio: ["ignore", "pipe", "pipe"]
     });
-    log.debug(green(cmd));
+    console.log(green("\t\t" + cmd));
     if (ctx.verbose) log.debug(res.toString());
     return;
   } catch (err) {
@@ -33,7 +33,7 @@ const exec = async (cmd: string) => {
   }
 };
 const execStep = async (step: Step) => {
-  console.log(`step: ${step.name}`);
+  console.log(`\t step: ${step.name}`);
   out: for (const command of step.commands) {
     try {
       await exec(command);
