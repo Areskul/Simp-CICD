@@ -1,10 +1,12 @@
 import { cac } from "cac";
 import { log } from "@composables/logger";
 import { useConfig } from "@composables/config";
-import { deploy } from "@resolvers/deploy";
+import { useExec } from "@composables/exec";
+import { trigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
 
 const config = useConfig();
+const execCtx = useExec();
 
 export const useCli = (conf: Config) => {
   const cli = cac("simp");
@@ -17,7 +19,7 @@ export const useCli = (conf: Config) => {
     }
   };
   const getConfigAction = async (options: any) => {
-    if (!options.parseConfig) return;
+    if (!options.printConfig) return;
     try {
       const conf = config.get();
       log.info(conf);
@@ -25,8 +27,17 @@ export const useCli = (conf: Config) => {
       log.error(err);
     }
   };
+  const setVerbosityAction = async (options: any) => {
+    if (!options.verbose) return;
+    try {
+      execCtx.set({ verbose: true });
+    } catch (err) {
+      log.error(err);
+    }
+  };
 
-  cli.option("--parse-config", "parse loaded config");
+  cli.option("--print-config", "parse loaded config");
+  cli.option("-v , --verbose", "print successful commands output");
 
   cli.command("").action(async (options: any) => {
     await setConfigAction(options);
@@ -34,12 +45,13 @@ export const useCli = (conf: Config) => {
   });
 
   cli
-    .command("deploy")
-    .option("-p, --pipeline", "<srting> pipeline to execute")
+    .command("trigger")
+    .option("-p, --pipeline", "<srting> name of pipeline to execute")
     .action(async (options: any) => {
       await setConfigAction(options);
       await getConfigAction(options);
-      deploy();
+      setVerbosityAction(options);
+      trigger();
     });
 
   cli.help();

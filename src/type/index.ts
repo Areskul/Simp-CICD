@@ -24,4 +24,17 @@ interface Trigger {
   branch?: string[];
   action?: string[];
 }
-export { Config, Pipeline, Step };
+
+type ExecOptions = {
+  verbose?: boolean | null;
+};
+
+type StepOptions = {
+  cwd?: string | boolean | null;
+};
+
+type TriggerOptions = {
+  verbose?: boolean;
+};
+
+export { Config, Pipeline, Step, ExecOptions, StepOptions, TriggerOptions };

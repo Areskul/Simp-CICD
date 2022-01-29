@@ -6,7 +6,7 @@ import { green, red, blue } from "picocolors";
 import type { Config } from "@type/index";
 
 const useSimp = (config: Config) => {
-  console.log(blue("SimpCICD"));
+  console.log(blue("\nSimpCICD\n"));
   const cli = useCli(config);
   return cli;
 };

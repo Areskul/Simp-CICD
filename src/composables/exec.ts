@@ -1,20 +1,30 @@
 import { log } from "@composables/logger";
 import { execSync as $ } from "child_process";
+
 import { green, red, blue } from "picocolors";
-import type { Pipeline, Step } from "@type/index";
+import type { Pipeline, Step, ExecOptions } from "@type/index";
 
 export const useExec = () => ({
+  set,
   execPipeline,
   execStep,
   exec
 });
 
+let ctx: ExecOptions = {};
+
+const set = (newCtx: ExecOptions) => {
+  ctx = newCtx;
+  log.info(ctx);
+};
+
 const exec = async (cmd: string) => {
   try {
     const res = await $(cmd, {
-      stdio: ["ignore", "ignore", "pipe"]
+      stdio: ["ignore", "pipe", "pipe"]
     });
     log.debug(green(cmd));
+    if (ctx.verbose) log.debug(res.toString());
     return;
   } catch (err) {
     log.error(err);
