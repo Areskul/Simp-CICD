@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register test/test.ts",
@@ -10,6 +10,7 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
+  "bin": "./bin/simp.js",
   "files": [
     "dist",
     "src"
