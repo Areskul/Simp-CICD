@@ -1,4 +1,4 @@
-import type { Config } from "../src/type/index";
+import type { Config } from "simpcicd";
 
 const config: Config = {
   pipelines: [
