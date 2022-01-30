@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "simp": "ts-node -r tsconfig-paths/register test/test.cli.ts",
@@ -33,7 +33,6 @@
     "@typescript-eslint/parser": "^5.8.1",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
-    "cosmiconfig-typescript-loader": "^1.0.4",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
