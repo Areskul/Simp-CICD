@@ -11,6 +11,10 @@ import type {
 const { execPipeline } = useExec();
 const config = useConfig();
 
+export const useTrigger = () => ({
+  trigger
+});
+
 export const trigger = async () => {
   const conf = config.get();
   if (!conf) return;

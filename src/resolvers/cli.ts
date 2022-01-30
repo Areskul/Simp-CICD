@@ -4,16 +4,19 @@ import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import { trigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
+import { blue } from "picocolors";
 
 const config = useConfig();
 const execCtx = useExec();
 
-export const useCli = (conf: Config) => {
+export const useCli = () => {
   const cli = cac("simp");
-
+  const headerMessage = () => {
+    console.log(blue("\nSimpCICD\n"));
+  };
   const setConfigAction = async (options: any) => {
     try {
-      config.set(conf);
+      config.set();
     } catch (err) {
       log.error(err);
     }
@@ -21,6 +24,7 @@ export const useCli = (conf: Config) => {
   const getConfigAction = async (options: any) => {
     if (!options.printConfig) return;
     try {
+      await config.set();
       const conf = config.get();
       log.info(conf);
     } catch (err) {
@@ -40,6 +44,7 @@ export const useCli = (conf: Config) => {
   cli.option("-v , --verbose", "print successful commands output");
 
   cli.command("").action(async (options: any) => {
+    headerMessage();
     await setConfigAction(options);
     await getConfigAction(options);
   });
@@ -48,6 +53,7 @@ export const useCli = (conf: Config) => {
     .command("trigger")
     .option("-p, --pipeline", "<srting> name of pipeline to execute")
     .action(async (options: any) => {
+      headerMessage();
       await setConfigAction(options);
       await getConfigAction(options);
       setVerbosityAction(options);

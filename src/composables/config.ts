@@ -1,10 +1,12 @@
 import type { Config } from "@type/index";
 import { log } from "@composables/logger";
+import { lilconfig } from "lilconfig";
+import tsloader from "cosmiconfig-typescript-loader";
 
 interface Store {
   config?: any;
 }
-let store: Store = {};
+const store: Store = {};
 
 const useConfig = () => ({
   defineConfig,
@@ -12,19 +14,24 @@ const useConfig = () => ({
   get
 });
 
-const set = async (config: Config) => {
-  if (!!config) {
-    try {
+const set = async () => {
+  try {
+    let config: any = null;
+    const options = {
+      searchPlaces: ["simp.config.js", "simp.config.ts"],
+      loaders: {
+        ".ts": tsloader()
+      }
+    };
+    const res = await lilconfig("simp", options).search();
+    if (res) {
+      config = res!.config;
       store.config = config;
-      return;
-    } catch (err) {
-      log.error(err);
-      return;
     }
-  } else {
-    // cosmiconfig read json or js route file
-    log.info("No Config Object explicitly provided");
-    log.info("Fallback to simp.config{.js|.json}");
+    return;
+  } catch (err) {
+    log.error(err);
+    return;
   }
 };
 const get = () => {
@@ -35,4 +42,4 @@ const defineConfig = (config: Config): Config => {
   return config;
 };
 
-export { useConfig };
+export { useConfig, defineConfig };

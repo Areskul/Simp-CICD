@@ -1,14 +1,5 @@
-import { log } from "@composables/logger";
-import { useDocker } from "@composables/docker";
-import { useConfig } from "@composables/config";
-import { useCli } from "@composables/cli";
-import { green, red, blue } from "picocolors";
-import type { Config } from "@type/index";
+import { useCli } from "@resolvers/cli";
+import { defineConfig } from "@composables/config";
+import { useHooks } from "@resolvers/hooks";
 
-const useSimp = (config: Config) => {
-  console.log(blue("\nSimpCICD\n"));
-  const cli = useCli(config);
-  return cli;
-};
-
-export { useSimp };
+export { defineConfig, useHooks, useCli };

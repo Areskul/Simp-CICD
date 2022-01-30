@@ -25,6 +25,7 @@
     "paths": {
       "@src/*": ["src/*"],
       "@resolvers/*": ["src/resolvers/*"],
+      "@utils/*": ["src/utils/*"],
       "@type/*": ["src/type/*"],
       "@composables/*": ["src/composables/*"]
     }

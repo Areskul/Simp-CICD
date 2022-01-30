@@ -1,10 +1,10 @@
-import type { Config } from "@type/index";
+const { defineConfig } = require("@composables/config");
 
 const app_name = "theeevent";
 const suffix = "front";
 const version = "nightly";
 
-const nightlyConfig: Config = {
+const nightlyConfig = defineConfig({
   pipelines: [
     {
       name: "nightly",
@@ -30,5 +30,5 @@ const nightlyConfig: Config = {
       }
     }
   ]
-};
-export { nightlyConfig };
+});
+module.exports = nightlyConfig;
