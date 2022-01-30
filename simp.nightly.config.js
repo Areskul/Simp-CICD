@@ -1,4 +1,4 @@
-const { defineConfig } = require("@composables/config");
+const { defineConfig } = require("simpcicd");
 
 const app_name = "theeevent";
 const suffix = "front";
@@ -10,18 +10,12 @@ const nightlyConfig = defineConfig({
       name: "nightly",
       steps: [
         {
-          type: "exec",
-          name: "install",
+          name: "build",
           commands: ["yarn", "yarn build"]
         },
         {
-          type: "exec",
-          name: `image:${version}`,
-          commands: [
-            "cd dist",
-            `docker build -t ${app_name}/${suffix}:${version} .`,
-            "cd .."
-          ]
+          name: "loacl install",
+          commands: ["npm i -g"]
         }
       ],
       trigger: {

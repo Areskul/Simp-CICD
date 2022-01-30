@@ -52,7 +52,7 @@ export const useCli = () => {
 
   cli
     .command("trigger")
-    .option("-p, --pipeline", "<srting> name of pipeline to execute")
+    // .option("-p, --pipeline", "<srting> name of pipeline to execute")
     .action(async (options: any) => {
       headerMessage();
       await setConfigAction(options);
