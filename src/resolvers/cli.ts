@@ -2,12 +2,13 @@ import { cac } from "cac";
 import { log } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
-import { trigger } from "@resolvers/trigger";
+import { useTrigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";
 
 const config = useConfig();
 const execCtx = useExec();
+const tri = useTrigger();
 
 export const useCli = () => {
   const cli = cac("simp");
@@ -57,7 +58,7 @@ export const useCli = () => {
       await setConfigAction(options);
       await getConfigAction(options);
       setVerbosityAction(options);
-      trigger();
+      await tri.trigger();
     });
 
   cli.help();

@@ -1,1 +1,3 @@
-export declare const trigger: () => Promise<unknown>;
+export declare const useTrigger: () => {
+    trigger: () => Promise<unknown>;
+};

@@ -1,7 +1,8 @@
 import type { Config } from "@type/index";
 declare const useConfig: () => {
     defineConfig: (config: Config) => Config;
-    set: (config: Config) => Promise<void>;
+    set: () => Promise<void>;
     get: () => any;
 };
-export { useConfig };
+declare const defineConfig: (config: Config) => Config;
+export { useConfig, defineConfig };

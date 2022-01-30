@@ -1,32 +1,37 @@
 import { cac } from 'cac';
 import { Logger } from 'tslog';
+import { lilconfig } from 'lilconfig';
+import tsloader from 'cosmiconfig-typescript-loader';
 import { execSync } from 'child_process';
 import { green, red, blue } from 'picocolors';
 
 const log = new Logger();
-//const LOG_PREFIX = "theeevent";
 
-let store = {};
+const store = {};
 const useConfig = () => ({
     defineConfig,
     set: set$1,
     get
 });
-const set$1 = async (config) => {
-    if (!!config) {
-        try {
+const set$1 = async () => {
+    try {
+        let config = null;
+        const options = {
+            searchPlaces: ["simp.config.js", "simp.config.ts"],
+            loaders: {
+                ".ts": tsloader()
+            }
+        };
+        const res = await lilconfig("simp", options).search();
+        if (res) {
+            config = res.config;
             store.config = config;
-            return;
         }
-        catch (err) {
-            log.error(err);
-            return;
-        }
+        return;
     }
-    else {
-        // cosmiconfig read json or js route file
-        log.info("No Config Object explicitly provided");
-        log.info("Fallback to simp.config{.js|.json}");
+    catch (err) {
+        log.error(err);
+        return;
     }
 };
 const get = () => {
@@ -38,7 +43,7 @@ const defineConfig = (config) => {
 
 const useExec = () => ({
     set,
-    execPipeline: execPipeline$1,
+    execPipeline,
     execStep,
     exec
 });
@@ -74,7 +79,7 @@ const execStep = async (step) => {
         }
     }
 };
-const execPipeline$1 = async (pipeline) => {
+const execPipeline = async (pipeline) => {
     console.log(`pipeline: ${pipeline.name}`);
     for (const step of pipeline.steps) {
         try {
@@ -87,15 +92,20 @@ const execPipeline$1 = async (pipeline) => {
     }
 };
 
-const { execPipeline } = useExec();
+const ex = useExec();
 const config$1 = useConfig();
+const useTrigger = () => {
+    return {
+        trigger
+    };
+};
 const trigger = async () => {
     const conf = config$1.get();
     if (!conf)
         return;
     for (const pipeline of conf.pipelines) {
         try {
-            await execPipeline(pipeline);
+            await ex.execPipeline(pipeline);
         }
         catch (err) {
             return err;
@@ -105,11 +115,15 @@ const trigger = async () => {
 
 const config = useConfig();
 const execCtx = useExec();
-const useCli = (conf) => {
+const tri = useTrigger();
+const useCli = () => {
     const cli = cac("simp");
+    const headerMessage = () => {
+        console.log(blue("\nSimpCICD\n"));
+    };
     const setConfigAction = async (options) => {
         try {
-            config.set(conf);
+            config.set();
         }
         catch (err) {
             log.error(err);
@@ -119,6 +133,7 @@ const useCli = (conf) => {
         if (!options.printConfig)
             return;
         try {
+            await config.set();
             const conf = config.get();
             log.info(conf);
         }
@@ -139,6 +154,7 @@ const useCli = (conf) => {
     cli.option("--print-config", "parse loaded config");
     cli.option("-v , --verbose", "print successful commands output");
     cli.command("").action(async (options) => {
+        headerMessage();
         await setConfigAction();
         await getConfigAction(options);
     });
@@ -146,21 +162,20 @@ const useCli = (conf) => {
         .command("trigger")
         .option("-p, --pipeline", "<srting> name of pipeline to execute")
         .action(async (options) => {
+        headerMessage();
         await setConfigAction();
         await getConfigAction(options);
         setVerbosityAction(options);
-        trigger();
+        await tri.trigger();
     });
     cli.help();
     cli.parse();
     return cli;
 };
 
-const useSimp = (config) => {
-    console.log(blue("\nSimpCICD\n"));
-    const cli = useCli(config);
-    return cli;
+const useHooks = (config) => {
+    // generate hooks from config
 };
 
-export { useSimp };
+export { defineConfig, useCli, useHooks };
 //# sourceMappingURL=index.js.map

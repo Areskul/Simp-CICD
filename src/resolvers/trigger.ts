@@ -8,19 +8,21 @@ import type {
   TriggerOptions
 } from "@type/index";
 
-const { execPipeline } = useExec();
+const ex = useExec();
 const config = useConfig();
 
-export const useTrigger = () => ({
-  trigger
-});
+export const useTrigger = () => {
+  return {
+    trigger
+  };
+};
 
-export const trigger = async () => {
+const trigger = async () => {
   const conf = config.get();
   if (!conf) return;
   for (const pipeline of conf.pipelines) {
     try {
-      await execPipeline(pipeline);
+      await ex.execPipeline(pipeline);
     } catch (err) {
       return err;
     }

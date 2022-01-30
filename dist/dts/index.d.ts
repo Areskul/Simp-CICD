@@ -1,3 +1,4 @@
-import type { Config } from "@type/index";
-declare const useSimp: (config: Config) => import("cac").CAC;
-export { useSimp };
+import { useCli } from "@resolvers/cli";
+import { defineConfig } from "@composables/config";
+import { useHooks } from "@resolvers/hooks";
+export { defineConfig, useHooks, useCli };
