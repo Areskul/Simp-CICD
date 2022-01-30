@@ -14,7 +14,7 @@ export default [
         sourcemap: true
       },
       {
-        file: "dist/esm/index.js",
+        file: "dist/esm/index.mjs",
         format: "esm", // ES Modules
         sourcemap: true
       }
@@ -25,7 +25,7 @@ export default [
         declaration: true
       }),
       typescriptPaths({
-        preserveExtensions: true
+        // preserveExtensions: true
       })
     ]
   },
@@ -49,7 +49,7 @@ export default [
         declaration: true
       }),
       typescriptPaths({
-        preserveExtensions: true
+        // preserveExtensions: true
       })
     ]
   },
