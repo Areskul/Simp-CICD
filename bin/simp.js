@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 function start() {
-  require("dist/cli/cjs/index.js");
+  require("../cli/cjs/index.js");
 }
 
 start();
