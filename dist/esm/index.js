@@ -1,7 +1,6 @@
 import { cac } from 'cac';
 import { Logger } from 'tslog';
 import { lilconfig } from 'lilconfig';
-import tsloader from 'cosmiconfig-typescript-loader';
 import { execSync } from 'child_process';
 import { green, red, blue } from 'picocolors';
 
@@ -17,10 +16,7 @@ const set$1 = async () => {
     try {
         let config = null;
         const options = {
-            searchPlaces: ["simp.config.js", "simp.config.ts"],
-            loaders: {
-                ".ts": tsloader()
-            }
+            searchPlaces: ["simp.config.js"]
         };
         const res = await lilconfig("simp", options).search();
         if (res) {

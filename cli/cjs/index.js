@@ -3,13 +3,8 @@
 var cac = require('cac');
 var tslog = require('tslog');
 var lilconfig = require('lilconfig');
-var tsloader = require('cosmiconfig-typescript-loader');
 var child_process = require('child_process');
 var picocolors = require('picocolors');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var tsloader__default = /*#__PURE__*/_interopDefaultLegacy(tsloader);
 
 const log = new tslog.Logger();
 
@@ -23,10 +18,7 @@ const set$1 = async () => {
     try {
         let config = null;
         const options = {
-            searchPlaces: ["simp.config.js", "simp.config.ts"],
-            loaders: {
-                ".ts": tsloader__default["default"]()
-            }
+            searchPlaces: ["simp.config.js"]
         };
         const res = await lilconfig.lilconfig("simp", options).search();
         if (res) {

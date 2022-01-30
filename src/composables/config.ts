@@ -1,7 +1,6 @@
 import type { Config } from "@type/index";
 import { log } from "@composables/logger";
 import { lilconfig } from "lilconfig";
-import tsloader from "cosmiconfig-typescript-loader";
 
 interface Store {
   config?: any;
@@ -18,10 +17,7 @@ const set = async () => {
   try {
     let config: any = null;
     const options = {
-      searchPlaces: ["simp.config.js", "simp.config.ts"],
-      loaders: {
-        ".ts": tsloader()
-      }
+      searchPlaces: ["simp.config.js"]
     };
     const res = await lilconfig("simp", options).search();
     if (res) {
