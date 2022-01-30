@@ -15,41 +15,35 @@ let ctx: ExecOptions = {};
 
 const set = (newCtx: ExecOptions) => {
   ctx = newCtx;
-  log.info(ctx);
 };
 
 const exec = async (cmd: string) => {
+  const indent = " ".repeat(4);
   try {
     const res = await $(cmd, {
       stdio: ["ignore", "pipe", "pipe"]
     });
-    console.log(green("\t\t" + cmd));
-    if (ctx.verbose) log.debug(res.toString());
+    console.log(green(indent + cmd));
+    if (ctx.verbose) log.debug("\n" + res.toString());
     return;
   } catch (err) {
-    log.error(err);
-    console.log(red("Some commands couldn't be executed"));
-    throw err;
+    console.log(red(indent + cmd));
+    if (ctx.verbose) log.error("\n" + err);
+    throw null;
   }
 };
 const execStep = async (step: Step) => {
-  console.log(`\t step: ${step.name}`);
-  out: for (const command of step.commands) {
-    try {
-      await exec(command);
-    } catch (err) {
-      throw err;
-    }
+  const indent = " ".repeat(2);
+  console.log(indent + `step: ${step.name}`);
+  for (const command of step.commands) {
+    await exec(command);
   }
 };
 const execPipeline = async (pipeline: Pipeline) => {
-  console.log(`pipeline: ${pipeline.name}`);
-  out: for (const step of pipeline.steps) {
-    try {
-      await execStep(step);
-    } catch (err) {
-      throw err;
-      // return err;
-    }
+  const indent = " ".repeat(0);
+  console.log(indent + `pipeline: ${pipeline.name}`);
+  for (const step of pipeline.steps) {
+    await execStep(step);
   }
+  console.log("\n");
 };

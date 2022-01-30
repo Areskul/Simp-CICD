@@ -25,7 +25,6 @@ const trigger = async (name: string) => {
       try {
         await ex.execPipeline(pipeline);
       } catch (err) {
-        log.warn(err);
         return err;
       }
     } else {
