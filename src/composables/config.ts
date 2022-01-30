@@ -24,13 +24,13 @@ const set = async () => {
       config = res!.config;
       store.config = config;
     }
-    return;
+    return store.config;
   } catch (err) {
     log.error(err);
     return;
   }
 };
-const get = () => {
+const get = async () => {
   return store.config;
 };
 

@@ -17,14 +17,19 @@ export const useTrigger = () => {
   };
 };
 
-const trigger = async () => {
-  const conf = config.get();
+const trigger = async (name: string) => {
+  const conf = await config.set();
   if (!conf) return;
   for (const pipeline of conf.pipelines) {
-    try {
-      await ex.execPipeline(pipeline);
-    } catch (err) {
-      return err;
+    if (pipeline.name == name) {
+      try {
+        await ex.execPipeline(pipeline);
+      } catch (err) {
+        log.warn(err);
+        return err;
+      }
+    } else {
+      log.warn(`pipeline \"${name}\" is undefined`);
     }
   }
 };

@@ -26,7 +26,7 @@ export const useCli = () => {
     if (!options.printConfig) return;
     try {
       await config.set();
-      const conf = config.get();
+      const conf = await config.get();
       log.info(conf);
     } catch (err) {
       log.error(err);
@@ -46,19 +46,22 @@ export const useCli = () => {
 
   cli.command("").action(async (options: any) => {
     headerMessage();
+    setVerbosityAction(options);
     await setConfigAction(options);
     await getConfigAction(options);
   });
 
   cli
     .command("trigger")
-    // .option("-p, --pipeline", "<srting> name of pipeline to execute")
+    .option("-p, --pipeline <string>", "[srting] pipeline name")
     .action(async (options: any) => {
       headerMessage();
+      setVerbosityAction(options);
       await setConfigAction(options);
       await getConfigAction(options);
-      setVerbosityAction(options);
-      await tri.trigger();
+      if (!!options.pipeline) {
+        await tri.trigger(options.pipeline);
+      }
     });
 
   cli.help();
