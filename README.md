@@ -39,7 +39,7 @@ yarn add -D simpcicd
 ```
 
 ```bash
-npm install -save-dev simpcicd
+npm install --save-dev simpcicd
 ```
 
 Edit your config file(s) in your project roots
