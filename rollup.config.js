@@ -30,13 +30,36 @@ export default [
     ]
   },
   {
+    input: "src/index.cli.ts",
+    output: [
+      {
+        file: "cli/cjs/index.js",
+        format: "cjs", // ES Modules
+        sourcemap: true
+      },
+      {
+        file: "cli/esm/index.js",
+        format: "esm", // ES Modules
+        sourcemap: true
+      }
+    ],
+    plugins: [
+      typescript({
+        module: "esnext",
+        declaration: true
+      }),
+      typescriptPaths({
+        preserveExtensions: true
+      })
+    ]
+  },
+  {
     input: "dist/dts/index.d.ts",
     output: [{ file: "dist/types/index.d.ts", format: "es" }],
     plugins: [
-      // typescript({
-      //   module: "esnext",
-      //   declaration: true
-      // }),
+      typescript({
+        module: "esnext"
+      }),
       typescriptPaths({
         preserveExtensions: true
       }),
