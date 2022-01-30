@@ -1,21 +1,17 @@
 const { defineConfig } = require("simpcicd");
 
-const app_name = "theeevent";
-const suffix = "front";
-const version = "nightly";
-
 const nightlyConfig = defineConfig({
   pipelines: [
     {
       name: "nightly",
       steps: [
         {
-          name: "build",
-          commands: ["yarn", "yarn build"]
+          name: "pre-build",
+          commands: ["rm -rf dist/*", "rm -rf cli/*"]
         },
         {
-          name: "loacl install",
-          commands: ["npm i -g"]
+          name: "build",
+          commands: ["yarn", "yarn build"]
         }
       ],
       trigger: {
