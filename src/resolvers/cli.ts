@@ -15,6 +15,9 @@ export const useCli = () => {
   const headerMessage = () => {
     console.log(blue("\nSimpCICD\n"));
   };
+  const footerMessage = () => {
+    console.log(blue("\n"));
+  };
   const setConfigAction = async (options: any) => {
     try {
       config.set();
@@ -49,6 +52,7 @@ export const useCli = () => {
     setVerbosityAction(options);
     await setConfigAction(options);
     await getConfigAction(options);
+    footerMessage();
   });
 
   cli
@@ -62,6 +66,7 @@ export const useCli = () => {
       if (!!options.pipeline) {
         await tri.trigger(options.pipeline);
       }
+      footerMessage();
     });
 
   cli.help();

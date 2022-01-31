@@ -1,12 +1,7 @@
 import { log } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
-import type {
-  Pipeline,
-  ExecOptions,
-  StepOptions,
-  TriggerOptions
-} from "@type/index";
+import type { Pipeline, ExecOptions, TriggerOptions } from "@type/index";
 
 const ex = useExec();
 const config = useConfig();
@@ -28,7 +23,7 @@ const trigger = async (name: string) => {
         return err;
       }
     } else {
-      log.warn(`pipeline \"${name}\" is undefined`);
+      log.warn(`pipeline "${name}" is undefined`);
     }
   }
 };

@@ -1,10 +1,12 @@
-const { defineConfig } = require("simpcicd");
-
-const nightlyConfig = defineConfig({
+const nightlyConfig = {
   pipelines: [
     {
-      name: "nightly",
+      name: "default",
       steps: [
+        {
+          name: "test out",
+          commands: ["ls"]
+        },
         {
           name: "pre-build",
           commands: ["rm -rf dist/*", "rm -rf cli/*"]
@@ -12,6 +14,10 @@ const nightlyConfig = defineConfig({
         {
           name: "build",
           commands: ["yarn", "yarn build"]
+        },
+        {
+          name: "patch",
+          commands: ["yarn version --patch"]
         }
       ],
       trigger: {
@@ -20,5 +26,5 @@ const nightlyConfig = defineConfig({
       }
     }
   ]
-});
+};
 module.exports = nightlyConfig;

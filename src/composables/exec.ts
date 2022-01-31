@@ -1,7 +1,7 @@
 import { log } from "@composables/logger";
 import { execSync as $ } from "child_process";
 
-import { green, red, blue } from "picocolors";
+import { green, red, blue, yellow } from "picocolors";
 import type { Pipeline, Step, ExecOptions } from "@type/index";
 
 export const useExec = () => ({
@@ -23,20 +23,31 @@ const exec = async (cmd: string) => {
     const res = await $(cmd, {
       stdio: ["ignore", "pipe", "pipe"]
     });
-    console.log(green(indent + cmd));
-    if (ctx.verbose) log.debug("\n" + res.toString());
-    return;
+    return res;
   } catch (err) {
-    console.log(red(indent + cmd));
-    if (ctx.verbose) log.error("\n" + err);
-    throw null;
+    throw err;
   }
 };
 const execStep = async (step: Step) => {
   const indent = " ".repeat(2);
   console.log(indent + `step: ${step.name}`);
-  for (const command of step.commands) {
-    await exec(command);
+  for (const cmd of step.commands) {
+    const indent = " ".repeat(4);
+    try {
+      const res = await exec(cmd);
+      console.log(green(indent + cmd));
+      if (ctx.verbose) log.debug("\n" + res);
+    } catch (err) {
+      if (step.try_catch) {
+        console.log(yellow(indent + cmd));
+        if (ctx.verbose) log.warn("\n" + err);
+        return err;
+      } else {
+        console.log(red(indent + cmd));
+        if (ctx.verbose) log.error("\n" + err);
+        throw null;
+      }
+    }
   }
 };
 const execPipeline = async (pipeline: Pipeline) => {
@@ -45,5 +56,4 @@ const execPipeline = async (pipeline: Pipeline) => {
   for (const step of pipeline.steps) {
     await execStep(step);
   }
-  console.log("\n");
 };
