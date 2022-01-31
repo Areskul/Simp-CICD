@@ -1,10 +1,11 @@
 {
   "name": "simpcicd",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "simp": "ts-node -r tsconfig-paths/register test/test.cli.ts",
-    "build": "tsc && rollup -c"
+    "build": "tsc && rollup -c",
+    "lint": "tsc"
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
