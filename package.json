@@ -37,7 +37,6 @@
     "rollup": "^2.66.1",
     "rollup-plugin-dts": "^4.1.0",
     "rollup-plugin-typescript-paths": "^1.3.0",
-    "simpcicd": "^0.0.33",
     "simple-git-hooks": "^2.7.0",
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1"
