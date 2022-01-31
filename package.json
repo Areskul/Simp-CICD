@@ -44,11 +44,14 @@
     "tslib": "^2.3.1"
   },
   "keywords": [
-    "simp",
-    "exec",
-    "wrapper",
-    "simpcicd",
     "cicd",
+    "bash",
+    "bash wrapper",
+    "git hooks",
+    "simp",
+    "simpcicd",
+    "simple",
+    "easy",
     "deployment",
     "typescript"
   ],

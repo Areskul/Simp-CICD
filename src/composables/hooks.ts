@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import type { Config } from "@type/index";
 import { useTrigger } from "@resolvers/trigger";
+import { rollup } from "rollup";
 
 export const useHooks = (config?: Config) => ({
   // generate hooks from config
@@ -30,6 +31,14 @@ const VALID_GIT_HOOKS = [
 ];
 
 const VALID_OPTIONS = ["preserveUnused"];
+
+const inputOptions = {...};
+
+// you can create multiple outputs from the same input to generate e.g.
+// different formats like CommonJS and ESM
+const outputOptionsList = [{...}, {...}];
+
+build();
 
 /* create entry file .ts
  * that trigger pipeline
