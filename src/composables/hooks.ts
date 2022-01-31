@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Config } from "@type/index";
+import { useTrigger } from "@resolvers/trigger";
 
 export const useHooks = (config?: Config) => ({
   // generate hooks from config
@@ -30,8 +31,11 @@ const VALID_GIT_HOOKS = [
 
 const VALID_OPTIONS = ["preserveUnused"];
 
+/* create entry file .ts
+ * that trigger pipeline
+ **/
 const makeHook = (config: Config) => {
-  //
+  const { useHook } = require("");
 };
 
 const printHooks = () => {

@@ -1,4 +1,4 @@
-const nightlyConfig = {
+const defaultConfig = {
   pipelines: [
     {
       name: "default",
@@ -27,4 +27,4 @@ const nightlyConfig = {
     }
   ]
 };
-module.exports = nightlyConfig;
+module.exports = defaultConfig;
