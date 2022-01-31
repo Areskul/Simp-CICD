@@ -15,18 +15,18 @@ export const useTrigger = () => {
 const trigger = async (name: string) => {
   const conf = await config.set();
   if (!conf) return;
-  const pipelines = conf.pipelines.filter(
+  const partialConf = conf.pipelines.filter(
     (pipeline: Pipeline) => pipeline.name == name
   );
-  if (pipelines.length == 0) {
+  if (partialConf.pipelines.length == 0) {
     log.warn(`pipeline "${name}" is undefined`);
     return;
   }
-  if (pipelines.length > 1) {
+  if (partialConf.pipelines.length > 1) {
     log.warn(`pipeline "${name}" has duplicates`);
     return;
   }
-  for (const pipeline of pipelines) {
+  for (const pipeline of partialConf.pipelines) {
     try {
       await ex.execPipeline(pipeline);
     } catch (err) {
