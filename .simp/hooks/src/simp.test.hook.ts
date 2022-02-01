@@ -3,5 +3,9 @@ import { useTrigger, useExec } from "simpcicd";
 const { trigger } = useTrigger();
 const { exec } = useExec();
 
-exec("touch itsworking");
-trigger("default");
+const start = async () => {
+  await trigger("default");
+  await process.exit();
+};
+
+start();

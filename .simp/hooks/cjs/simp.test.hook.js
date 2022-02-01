@@ -3,7 +3,11 @@
 var simpcicd = require('simpcicd');
 
 const { trigger } = simpcicd.useTrigger();
-const { exec } = simpcicd.useExec();
+simpcicd.useExec();
 
-exec("touch itsworking");
-trigger("default");
+const start = async () => {
+  await trigger("default");
+  await process.exit();
+};
+
+start();
