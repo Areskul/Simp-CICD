@@ -14,11 +14,11 @@ const defaultConfig = {
         {
           name: "build",
           commands: ["yarn", "yarn build"]
-        },
-        {
-          name: "patch",
-          commands: ["yarn version --patch"]
         }
+        // {
+        //   name: "patch",
+        //   commands: ["yarn version --patch"]
+        // }
       ],
       trigger: {
         branch: ["main", "master", "dev"],
