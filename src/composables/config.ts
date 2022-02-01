@@ -13,9 +13,14 @@ const useConfig = () => ({
   get
 });
 
-const set = async () => {
+const set = async (otherConfig?: Config) => {
+  if (otherConfig) {
+    const config = otherConfig;
+    store.config = config;
+    return store.config;
+  }
   try {
-    let config: any = null;
+    let config: Config | null = null;
     const options = {
       searchPlaces: ["simp.config.js"]
     };

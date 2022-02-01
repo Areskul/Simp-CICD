@@ -1,17 +1,34 @@
 import fs from "fs";
 import path from "path";
 import { log } from "@composables/logger";
-import type { Config } from "@type/index";
+import type { Config, Pipeline } from "@type/index";
 import { useTrigger } from "@resolvers/trigger";
+import { useConfig } from "@composables/config";
 import { rollup, OutputBundle, OutputChunk } from "rollup";
 
-export const useHooks = (config?: Config) => ({
-  // generate hooks from config
-  makeHook,
-  printHooks,
-  build,
-  generateOutputs
-});
+const config = useConfig();
+
+export const useHooks = (conf?: Config) => {
+  const otherConfig = conf;
+  /* create entry file .ts
+   * that trigger pipeline
+   **/
+  const makeHook = async (name: string) => {
+    const conf = await config.set(otherConfig ? otherConfig : undefined);
+    if (!conf) return;
+    const pipelines = conf.pipelines.filter(
+      (pipeline: Pipeline) => pipeline.name == name
+    );
+  };
+
+  return {
+    caller,
+    makeHook,
+    printHooks,
+    build,
+    generateOutputs
+  };
+};
 
 const VALID_GIT_HOOKS = [
   "pre-commit",
@@ -45,8 +62,6 @@ const outputOptions = (name: string) => ({
 });
 
 const build = async () => {
-  let bundle;
-  let buildFailed = false;
   try {
     const bundle = await rollup(inputOptions("test"));
     await generateOutputs(bundle);
@@ -57,7 +72,6 @@ const build = async () => {
 
 const generateOutputs = async (bundle: any) => {
   // replace bundle.generate with bundle.write to directly write to disk
-  // or use buffer.generate
   try {
     const { output } = await bundle.write(outputOptions("test"));
   } catch (err) {
@@ -65,10 +79,10 @@ const generateOutputs = async (bundle: any) => {
   }
 };
 
-/* create entry file .ts
- * that trigger pipeline
- **/
-const makeHook = (config: Config) => {};
+// Calls every script for a given hook
+const caller = () => {
+  //exec evry file in pre-push folder...
+};
 
 const printHooks = () => {
   //
