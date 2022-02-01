@@ -2,7 +2,7 @@ import { cac } from "cac";
 import { log } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
-import { useHooks } from "@composables/hooks";
+import { useHooks } from "@resolvers/hooks";
 import { useTrigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";

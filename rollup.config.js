@@ -54,7 +54,7 @@ export default [
     ]
   },
   {
-    input: "dist/dts/index.d.ts",
+    input: "dts/index.d.ts",
     output: [{ file: "dist/types/index.d.ts", format: "es" }],
     plugins: [
       typescript({

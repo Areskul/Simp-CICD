@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "declarationDir":"dist/dts",
+    "declarationDir":"dts",
     "moduleResolution": "node",
     "strict": true,
     "sourceMap": true,
@@ -21,21 +21,25 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "rootDir": "src",
+    "rootDir": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@resolvers/*": ["src/resolvers/*"],
-      "@utils/*": ["src/utils/*"],
-      "@type/*": ["src/type/*"],
-      "@composables/*": ["src/composables/*"]
+      "@src/*": ["./src/*"],
+      "@resolvers/*": ["./src/resolvers/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@type/*": ["./src/type/*"],
+      "@composables/*": ["./src/composables/*"]
     }
   },
-  "include": ["src/*.ts", "src/**/*.ts"],
+  "include": [
+    "src/*.ts",
+    "src/**/*.ts",
+    "test/*.ts",
+    "test/**/*.ts",
+    ".simp/*.ts",
+    ".simp/**/*.ts"
+  ],
   "exclude": [
-    "node_modules",
-    "**/node_modules",
-    "**/dist",
-    "**/test",
-    "*.test.ts"
+    "/node_modules",
+    "/dist"
   ]
 }

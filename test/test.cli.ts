@@ -1,2 +1,2 @@
-import { useCli } from "../src/index";
+import { useCli } from "@resolvers/cli";
 useCli();
