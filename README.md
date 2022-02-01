@@ -1,13 +1,13 @@
+# Simp CICD
+
+Even the smallest projects need their CICD tools.
+
 <p align="center">
   <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
     <img width="200" src="https://simp.areskul.com/images/simp.png" alt="SimpCICD logo">
   </a>
 </p>
 <br/>
-
-# Simp CICD
-
-Even the smallest projects need their CICD tools.
 
 Deployment made easy.
 
