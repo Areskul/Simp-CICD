@@ -7,6 +7,10 @@
 
 # Simp CICD
 
+Even the smallest projects need their CICD tools.
+
+Deployment made easy.
+
 [Checkout the official documentation](https://simp.areskul.com/)
 
 ## Warning
@@ -16,7 +20,7 @@ Still in active development stage!
 You can now deploy with the CLI.
 Working on the documentation though.
 
-Git Hooks are stil in progress
+Git Hooks are stil in progress...
 
 ## Getting Started
 

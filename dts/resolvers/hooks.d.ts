@@ -2,7 +2,7 @@ import type { Config } from "@type/index";
 export declare const useHooks: (config?: Config | undefined) => {
     makeHook: (config: Config) => void;
     printHooks: () => void;
-    build: () => Promise<never>;
+    build: () => Promise<void>;
     generateOutputs: (bundle: any) => Promise<void>;
 };
 /**

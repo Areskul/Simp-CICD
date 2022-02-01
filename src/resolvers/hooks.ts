@@ -40,7 +40,8 @@ const inputOptions = (name: string) => ({
 });
 
 const outputOptions = (name: string) => ({
-  output: `.simp/hooks/cjs/simp.${name}.hook`
+  file: `.simp/hooks/cjs/simp.${name}.hook.js`,
+  format: "cjs"
 });
 
 const build = async () => {
@@ -48,19 +49,10 @@ const build = async () => {
   let buildFailed = false;
   try {
     const bundle = await rollup(inputOptions("test"));
-    // an array of file names this bundle depends on
-    console.log(bundle.watchFiles);
     await generateOutputs(bundle);
-  } catch (error) {
-    buildFailed = true;
-    // do some error reporting
-    console.error(error);
+  } catch (err) {
+    log.error(err);
   }
-  if (bundle) {
-    // closes the bundle
-    // await bundle.close();
-  }
-  process.exit(buildFailed ? 1 : 0);
 };
 
 const generateOutputs = async (bundle: any) => {
@@ -77,7 +69,7 @@ const generateOutputs = async (bundle: any) => {
       //   source: string | Uint8Array    // the asset source
       //   type: 'asset'                  // signifies that this is an asset
       // }
-      console.log("Asset", chunkOrAsset);
+      log.debug("Asset", chunkOrAsset);
     } else {
       // For chunks, this contains
       // {
