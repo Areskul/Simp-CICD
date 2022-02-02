@@ -16,17 +16,10 @@ import { useConfig } from "@composables/config";
 import { getBranch } from "@utils/branch";
 import { rollup, OutputBundle, OutputChunk } from "rollup";
 
-let config: Config;
-const setConfig = async () => {
-  config = await useConfig();
-};
-setConfig();
-
-const { exec } = useExec();
+let config = useConfig();
 
 export const useHooks = (conf?: Config) => {
-  // config = await useConfig(conf ? conf : undefined);
-  // if (!config) return;
+  config = useConfig(conf);
   /* create entry file .ts
    * that trigger pipeline
    **/
@@ -62,7 +55,8 @@ const VALID_GIT_HOOKS = [
 const VALID_OPTIONS = ["preserveUnused"];
 
 const generateHook = async (name: string) => {
-  const pipelines = config.pipelines.filter(
+  const { exec } = useExec();
+  const pipelines = config!.pipelines.filter(
     (pipeline: Pipeline) => pipeline.name == name
   );
   if (pipelines.length == 0) {

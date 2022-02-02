@@ -8,17 +8,12 @@ import type {
   TriggerOptions
 } from "@type/index";
 
-let config: Config;
-const setConfig = async () => {
-  config = await useConfig();
-};
-setConfig();
-
-const { execPipeline } = useExec();
+let config: Config = useConfig();
 
 export const useTrigger = (conf?: Config) => {
+  const { execPipeline } = useExec();
   const trigger = async (name: string) => {
-    config = await useConfig(conf);
+    config = useConfig(conf);
     if (!config) return;
     const pipelines = config.pipelines.filter(
       (pipeline: Pipeline) => pipeline.name == name

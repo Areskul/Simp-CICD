@@ -7,17 +7,11 @@ import { useTrigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";
 
-let config: Config;
-const setConfig = async () => {
-  config = await useConfig();
-};
-setConfig();
-
-const execCtx = useExec();
-const { trigger } = useTrigger();
-const { generateHook, printHooks } = useHooks();
-
 export const useCli = () => {
+  const { trigger } = useTrigger();
+  const { generateHook, printHooks } = useHooks();
+  const execCtx = useExec();
+
   const cli = cac("simp");
   const headerMessage = () => {
     console.log(blue("\nSimpCICD\n"));
@@ -27,7 +21,7 @@ export const useCli = () => {
   };
   const setConfigAction = async (options: any) => {
     try {
-      await useConfig();
+      useConfig();
     } catch (err) {
       log.error(err);
     }
@@ -35,7 +29,7 @@ export const useCli = () => {
   const getConfigAction = async (options: any) => {
     if (!options.printConfig) return;
     try {
-      const config = await useConfig();
+      const config = useConfig();
       log.info(config);
     } catch (err) {
       log.error(err);

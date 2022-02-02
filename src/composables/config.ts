@@ -3,17 +3,22 @@ import { log } from "@composables/logger";
 import { lilconfig } from "lilconfig";
 
 interface Store {
-  config?: any;
+  config: Config;
 }
-const store: Store = {};
+let store: Store;
 
-const useConfig = async (config?: Config) => {
+const useConfig = (config?: Config) => {
+  set(config);
+  return store.config;
+};
+
+const set = async (config?: Config) => {
   if (config) {
     store.config = config;
     return store.config;
   }
   try {
-    let config: Config | null = null;
+    let config: Config;
     const options = {
       searchPlaces: ["simp.config.js"]
     };
