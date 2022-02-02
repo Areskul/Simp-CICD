@@ -16,7 +16,7 @@ type StepTypeString = keyof typeof StepType;
 
 interface Step {
   type?: StepTypeString;
-  try_catch?: boolean;
+  "non-blocking"?: boolean;
   name: string;
   commands: string[];
 }
@@ -26,12 +26,12 @@ interface Trigger {
   action?: string[];
 }
 
-type ExecOptions = {
-  verbose?: boolean | null;
-};
-
-type TriggerOptions = {
+interface ExecContext {
   verbose?: boolean;
-};
+}
 
-export { Config, Pipeline, Step, ExecOptions, TriggerOptions };
+interface ExecOptions {
+  "non-blocking"?: boolean;
+}
+
+export { Config, Pipeline, Step, ExecOptions, ExecContext };

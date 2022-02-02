@@ -14,14 +14,14 @@ declare enum StepType {
 declare type StepTypeString = keyof typeof StepType;
 interface Step {
     type?: StepTypeString;
-    try_catch?: boolean;
+    "non-blocking"?: boolean;
     name: string;
     commands: string[];
 }
-declare type ExecOptions = {
-    verbose?: boolean | null;
-};
-declare type TriggerOptions = {
+interface ExecContext {
     verbose?: boolean;
-};
-export { Config, Pipeline, Step, ExecOptions, TriggerOptions };
+}
+interface ExecOptions {
+    "non-blocking"?: boolean;
+}
+export { Config, Pipeline, Step, ExecOptions, ExecContext };

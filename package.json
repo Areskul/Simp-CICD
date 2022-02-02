@@ -5,6 +5,7 @@
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/test.cli.ts",
     "test:hooks": "ts-node -r tsconfig-paths/register test/test.hooks.ts",
+    "test:utils": "ts-node -r tsconfig-paths/register test/test.utils.ts",
     "build": "tsc -p tsconfig.build.json && rollup -c",
     "lint": "tsc"
   },

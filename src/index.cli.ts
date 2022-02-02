@@ -1,2 +1,3 @@
 import { useCli } from "@resolvers/cli";
-useCli();
+import { useConfig } from "@composables/config";
+useCli(useConfig());

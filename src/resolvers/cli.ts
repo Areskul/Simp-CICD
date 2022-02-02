@@ -7,38 +7,37 @@ import { useTrigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";
 
-export const useCli = () => {
-  const { trigger } = useTrigger();
-  const { generateHook, printHooks } = useHooks();
-  const execCtx = useExec();
+export const useCli = (config: Config) => {
+  const { trigger } = useTrigger(config);
+  const { generateHook, printHooks } = useHooks(config);
+  const { setContext } = useExec();
 
   const cli = cac("simp");
   const headerMessage = () => {
     console.log(blue("\nSimpCICD\n"));
   };
   const footerMessage = () => {
-    console.log(blue("\n"));
+    console.log(blue("\nDone.\n"));
   };
-  const setConfigAction = async (options: any) => {
+  const setConfigAction = (options: any) => {
     try {
       useConfig();
     } catch (err) {
       log.error(err);
     }
   };
-  const getConfigAction = async (options: any) => {
+  const getConfigAction = (options: any) => {
     if (!options.printConfig) return;
     try {
-      const config = useConfig();
       log.info(config);
     } catch (err) {
       log.error(err);
     }
   };
-  const setVerbosityAction = async (options: any) => {
+  const setVerbosityAction = (options: any) => {
     if (!options.verbose) return;
     try {
-      execCtx.set({ verbose: true });
+      setContext({ verbose: true });
     } catch (err) {
       log.error(err);
     }
@@ -47,11 +46,11 @@ export const useCli = () => {
   cli.option("--print-config", "parse loaded config");
   cli.option("-v , --verbose", "print successful commands output");
 
-  cli.command("").action(async (options: any) => {
+  cli.command("").action((options: any) => {
     headerMessage();
     setVerbosityAction(options);
-    await setConfigAction(options);
-    await getConfigAction(options);
+    setConfigAction(options);
+    getConfigAction(options);
     footerMessage();
   });
 
@@ -61,8 +60,8 @@ export const useCli = () => {
     .action(async (options: any) => {
       headerMessage();
       setVerbosityAction(options);
-      await setConfigAction(options);
-      await getConfigAction(options);
+      setConfigAction(options);
+      getConfigAction(options);
       if (!!options.pipeline) {
         await trigger(options.pipeline);
       }
@@ -78,8 +77,8 @@ export const useCli = () => {
     .action(async (options: any) => {
       headerMessage();
       setVerbosityAction(options);
-      await setConfigAction(options);
-      await getConfigAction(options);
+      setConfigAction(options);
+      getConfigAction(options);
       if (!!options.pipeline) {
         await generateHook(options.pipeline);
       }

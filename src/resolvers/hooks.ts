@@ -16,10 +16,60 @@ import { useConfig } from "@composables/config";
 import { getBranch } from "@utils/branch";
 import { rollup, OutputBundle, OutputChunk } from "rollup";
 
-let config = useConfig();
+export const useHooks = (config?: Config) => {
+  const generateHook = async (name: string) => {
+    const { exec } = useExec();
+    const pipelines = config!.pipelines.filter(
+      (pipeline: Pipeline) => pipeline.name == name
+    );
+    if (pipelines.length == 0) {
+      log.warn(`pipeline "${name}" is undefined`);
+      return;
+    }
+    if (pipelines.length > 1) {
+      log.warn(`pipeline "${name}" has duplicates`);
+      return;
+    }
+    for (const pipeline of pipelines) {
+      if (!pipeline.trigger) return;
+      if (pipeline.trigger.action.includes("push")) {
+        log.debug(pipeline.trigger);
+      }
+      try {
+        const hookPath = `.simp/hooks/src/pre-push/${name}.ts`;
+        await exec(`touch ${hookPath}`);
+        // const hookPath = `/.simp/hooks/src/pre-push/${name}.ts`;
+        // const hookPath = `@hooks/pre-push/${name}.ts`;
+        await writeFile(
+          hookPath,
+          `import {useTrigger} rom "simpcicd"
+        `,
+          (err) => {
+            if (err) {
+              log.error(err);
+              return err;
+            } else {
+              log.info("Successfully generated hook files");
+              return;
+            }
+          }
+        );
+        await chmod(hookPath, 0o0755, (err) => {
+          if (err) {
+            log.error(err);
+            return err;
+          }
+          return;
+        });
+        //file goes in pre-push folder
+        //conditionnal
+      } catch (err) {
+        log.error(err);
+        return err;
+      }
+    }
+  };
 
-export const useHooks = (conf?: Config) => {
-  config = useConfig(conf);
   /* create entry file .ts
    * that trigger pipeline
    **/
@@ -53,59 +103,6 @@ const VALID_GIT_HOOKS = [
 ];
 
 const VALID_OPTIONS = ["preserveUnused"];
-
-const generateHook = async (name: string) => {
-  const { exec } = useExec();
-  const pipelines = config!.pipelines.filter(
-    (pipeline: Pipeline) => pipeline.name == name
-  );
-  if (pipelines.length == 0) {
-    log.warn(`pipeline "${name}" is undefined`);
-    return;
-  }
-  if (pipelines.length > 1) {
-    log.warn(`pipeline "${name}" has duplicates`);
-    return;
-  }
-  for (const pipeline of pipelines) {
-    if (!pipeline.trigger) return;
-    if (pipeline.trigger.action.includes("push")) {
-      log.debug(pipeline.trigger);
-    }
-    try {
-      const hookPath = `.simp/hooks/src/pre-push/${name}.ts`;
-      await exec(`touch ${hookPath}`);
-      // const hookPath = `/.simp/hooks/src/pre-push/${name}.ts`;
-      // const hookPath = `@hooks/pre-push/${name}.ts`;
-      await writeFile(
-        hookPath,
-        `import {useTrigger} rom "simpcicd"
-        `,
-        (err) => {
-          if (err) {
-            log.error(err);
-            return err;
-          } else {
-            log.info("Successfully generated hook files");
-            return;
-          }
-        }
-      );
-      await chmod(hookPath, 0o0755, (err) => {
-        if (err) {
-          log.error(err);
-          return err;
-        }
-        return;
-      });
-      //file goes in pre-push folder
-      //conditionnal
-    } catch (err) {
-      log.error(err);
-      return err;
-    }
-  }
-};
 
 const inputOptions = (name: string) => ({
   input: `.simp/hooks/src/simp.${name}.hook.ts`
