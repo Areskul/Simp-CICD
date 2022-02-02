@@ -16,10 +16,10 @@ import { useConfig } from "@composables/config";
 import { getBranch } from "@utils/branch";
 import { rollup, OutputBundle, OutputChunk } from "rollup";
 
-export const useHooks = (config?: Config) => {
+export const useHooks = (config: Config) => {
   const generateHook = async (name: string) => {
     const { exec } = useExec();
-    const pipelines = config!.pipelines.filter(
+    const pipelines = config.pipelines.filter(
       (pipeline: Pipeline) => pipeline.name == name
     );
     if (pipelines.length == 0) {

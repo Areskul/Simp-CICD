@@ -5,7 +5,7 @@ const defaultConfig = {
       steps: [
         {
           name: "test out",
-          commands: ["lls -a", "ls"]
+          commands: ["lls -a", "ls"],
           "non-blocking": true
         },
         {
@@ -13,7 +13,7 @@ const defaultConfig = {
           commands: ["rm -rf dist/*", "rm -rf cli/*"]
         },
         {
-          name: "test out",
+          name: "test2",
           commands: ["lls -a", "ls"]
         },
         {
