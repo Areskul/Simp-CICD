@@ -1,4 +1,7 @@
 import { useHooks } from "@resolvers/hooks";
 
-const { build, generateOutputs } = useHooks();
-build();
+const start = async () => {
+  const { build, generateOutputs, generateHook } = await useHooks();
+  // build();
+  generateHook("default");
+};

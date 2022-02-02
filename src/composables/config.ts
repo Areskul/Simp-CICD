@@ -7,15 +7,8 @@ interface Store {
 }
 const store: Store = {};
 
-const useConfig = () => ({
-  defineConfig,
-  set,
-  get
-});
-
-const set = async (otherConfig?: Config) => {
-  if (otherConfig) {
-    const config = otherConfig;
+const useConfig = async (config?: Config) => {
+  if (config) {
     store.config = config;
     return store.config;
   }
@@ -35,12 +28,9 @@ const set = async (otherConfig?: Config) => {
     return;
   }
 };
-const get = async () => {
-  return store.config;
-};
 
 const defineConfig = (config: Config): Config => {
   return config;
 };
 
-export { useConfig, defineConfig };
+export { useConfig, defineConfig, Config };

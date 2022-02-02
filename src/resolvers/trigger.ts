@@ -8,16 +8,19 @@ import type {
   TriggerOptions
 } from "@type/index";
 
-const ex = useExec();
-const config = useConfig();
+let config: Config;
+const setConfig = async () => {
+  config = await useConfig();
+};
+setConfig();
+
+const { execPipeline } = useExec();
 
 export const useTrigger = (conf?: Config) => {
-  const otherConfig = conf;
-
   const trigger = async (name: string) => {
-    const conf = await config.set(otherConfig ? otherConfig : undefined);
-    if (!conf) return;
-    const pipelines = conf.pipelines.filter(
+    config = await useConfig(conf);
+    if (!config) return;
+    const pipelines = config.pipelines.filter(
       (pipeline: Pipeline) => pipeline.name == name
     );
     if (pipelines.length == 0) {
@@ -30,7 +33,7 @@ export const useTrigger = (conf?: Config) => {
     }
     for (const pipeline of pipelines) {
       try {
-        await ex.execPipeline(pipeline);
+        await execPipeline(pipeline);
       } catch (err) {
         return err;
       }

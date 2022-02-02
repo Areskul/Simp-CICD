@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "esnext",
     "module": "commonjs",
+    "target": "esnext",
+    "esModuleInterop": true,
     "declarationDir":"dts",
     "moduleResolution": "node",
     "strict": true,
@@ -27,6 +28,7 @@
       "@resolvers/*": ["./src/resolvers/*"],
       "@utils/*": ["./src/utils/*"],
       "@type/*": ["./src/type/*"],
+      "@hooks/*": [".simp/hooks/src/*"],
       "@composables/*": ["./src/composables/*"]
     }
   },

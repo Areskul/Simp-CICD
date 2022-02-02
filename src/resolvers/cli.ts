@@ -7,10 +7,15 @@ import { useTrigger } from "@resolvers/trigger";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";
 
-const config = useConfig();
+let config: Config;
+const setConfig = async () => {
+  config = await useConfig();
+};
+setConfig();
+
 const execCtx = useExec();
-const tri = useTrigger();
-const hoo = useHooks();
+const { trigger } = useTrigger();
+const { generateHook, printHooks } = useHooks();
 
 export const useCli = () => {
   const cli = cac("simp");
@@ -22,7 +27,7 @@ export const useCli = () => {
   };
   const setConfigAction = async (options: any) => {
     try {
-      config.set();
+      await useConfig();
     } catch (err) {
       log.error(err);
     }
@@ -30,9 +35,8 @@ export const useCli = () => {
   const getConfigAction = async (options: any) => {
     if (!options.printConfig) return;
     try {
-      await config.set();
-      const conf = await config.get();
-      log.info(conf);
+      const config = await useConfig();
+      log.info(config);
     } catch (err) {
       log.error(err);
     }
@@ -66,7 +70,7 @@ export const useCli = () => {
       await setConfigAction(options);
       await getConfigAction(options);
       if (!!options.pipeline) {
-        await tri.trigger(options.pipeline);
+        await trigger(options.pipeline);
       }
       footerMessage();
     });
@@ -83,10 +87,10 @@ export const useCli = () => {
       await setConfigAction(options);
       await getConfigAction(options);
       if (!!options.pipeline) {
-        await hoo.makeHook(options.pipeline);
+        await generateHook(options.pipeline);
       }
       if (options.get) {
-        await hoo.printHooks();
+        await printHooks();
       }
       footerMessage();
     });
