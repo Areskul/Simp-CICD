@@ -12,16 +12,14 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/esm/index.mjs",
+  "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
   "bin": {
     "simp": "./dist/bin/index.mjs"
   },
   "files": [
-    "dist",
-    "cli",
-    "bin"
+    "dist"
   ],
   "dependencies": {
     "@sliphua/lilconfig-ts-loader": "^3.2.2",
