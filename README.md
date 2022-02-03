@@ -15,12 +15,15 @@ Deployment made easy.
 
 ## Warning
 
-Still in active development stage!
+Still in active development stage!...
 
-You can now deploy with the CLI.
+But
+
+- [x] You can now deploy with the CLI!
+- [x] Typescript Config files now supported!
+- [ ] Git Hooks are stil in progress...
+
 Working on the documentation though.
-
-Git Hooks are stil in progress...
 
 ## Getting Started
 
@@ -48,14 +51,14 @@ npm install --save-dev simpcicd
 
 Edit your config file(s) in your project roots
 
-```js
-// simp.config.js
+```ts
+// simp.config.ts
 // very tiny config file example
 
-const { defineConfig } = require("simpcicd");
+import { defineConfig } from "simpcicd";
 
 const localFiles = `.vitepress/dist/*`;
-const remoteFoler = `Static/Perso/docs.simp.cicd`;
+const remoteFoler = `Static/docs.simp.cicd`;
 
 const config = defineConfig({
   pipelines: [
@@ -78,7 +81,7 @@ const config = defineConfig({
     }
   ]
 });
-module.exports = config;
+export default config;
 ```
 
 [More in the documentation...](https://simp.areskul.com/)
