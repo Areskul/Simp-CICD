@@ -42,7 +42,7 @@ export const useHooks = (config: Config) => {
         // const hookPath = `@hooks/pre-push/${name}.ts`;
         await writeFile(
           hookPath,
-          `import {useTrigger} rom "simpcicd"
+          `import {useTrigger} from "simpcicd"
         `,
           (err) => {
             if (err) {

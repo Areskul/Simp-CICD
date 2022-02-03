@@ -3,12 +3,9 @@
     "module": "commonjs",
     "target": "esnext",
     "esModuleInterop": true,
-    "declarationDir":"dts",
     "moduleResolution": "node",
     "strict": true,
     "sourceMap": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -42,6 +39,7 @@
   ],
   "exclude": [
     "/node_modules",
-    "/dist"
+    "/dist",
+    "/cli"
   ]
 }

@@ -1,69 +1,45 @@
 import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
+import { cliConfig } from "./rollup.cli.config.js";
+import { typesConfig } from "./rollup.types.config.js";
 // import nodeResolve from "@rollup/plugin-node-resolve";
 // import commonjs from "@rollup/plugin-commonjs";
 
 export default [
   {
     input: "src/index.ts",
-    output: [
-      {
-        file: "dist/cjs/index.js",
-        format: "cjs", // commonJS
-        sourcemap: true
-      },
-      {
-        file: "dist/esm/index.mjs",
-        format: "esm", // ES Modules
-        sourcemap: true
-      }
-    ],
+    output: {
+      file: "dist/cjs/index.js",
+      format: "cjs", // commonJS
+      sourcemap: true
+    },
     plugins: [
       typescript({
-        module: "esnext",
-        declaration: true
-      }),
-      typescriptPaths({
-        // preserveExtensions: true
-      })
-    ]
-  },
-  {
-    input: "src/index.cli.ts",
-    output: [
-      {
-        file: "cli/cjs/index.js",
-        format: "cjs", // ES Modules
-        sourcemap: true
-      },
-      {
-        file: "cli/esm/index.js",
-        format: "esm", // ES Modules
-        sourcemap: true
-      }
-    ],
-    plugins: [
-      typescript({
-        module: "esnext",
-        declaration: true
-      }),
-      typescriptPaths({
-        // preserveExtensions: true
-      })
-    ]
-  },
-  {
-    input: "dts/index.d.ts",
-    output: [{ file: "dist/types/index.d.ts", format: "es" }],
-    plugins: [
-      typescript({
+        tsconfig: "tsconfig.build.json",
         module: "esnext"
       }),
       typescriptPaths({
         preserveExtensions: true
-      }),
-      dts()
+      })
     ]
-  }
+  },
+  {
+    input: "src/index.ts",
+    output: {
+      file: "dist/esm/index.mjs",
+      format: "esm", // ES Modules
+      sourcemap: true
+    },
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.build.json",
+        module: "esnext"
+      }),
+      typescriptPaths({
+        preserveExtensions: true
+      })
+    ]
+  },
+  typesConfig,
+  cliConfig
 ];
