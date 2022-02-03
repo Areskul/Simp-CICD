@@ -7,10 +7,10 @@ export const cliConfig = {
   input: "bin/index.ts",
   output: {
     file: "dist/bin/index.js",
-    format: "cjs", // CommonJS
+    format: "esm",
     sourcemap: true
   },
-  external: ["../cjs/index.js"],
+  external: ["../esm/index.js"],
   plugins: [
     typescript({
       tsconfig: "tsconfig.build.json",

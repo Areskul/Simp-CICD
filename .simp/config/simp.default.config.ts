@@ -28,4 +28,4 @@ const defaultConfig = {
     }
   ]
 };
-module.exports = defaultConfig;
+export { defaultConfig };

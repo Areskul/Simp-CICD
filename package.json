@@ -24,6 +24,7 @@
     "bin"
   ],
   "dependencies": {
+    "@sliphua/lilconfig-ts-loader": "^3.2.2",
     "cac": "^6.7.12",
     "lilconfig": "^2.0.4",
     "picocolors": "^1.0.0",

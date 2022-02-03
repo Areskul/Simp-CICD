@@ -1,6 +1,7 @@
 import type { Config } from "@type/index";
 import { log } from "@composables/logger";
 import { lilconfigSync } from "lilconfig";
+import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
 
 interface Store {
   config: Config;
@@ -16,7 +17,11 @@ const useConfig = (config?: Config) => {
     try {
       let config: Config;
       const options = {
-        searchPlaces: ["simp.config.js"]
+        searchPlaces: ["simp.config.ts", "simp.config.js"],
+        loaders: {
+          ".ts": TypeScriptLoader,
+          ".js": TypeScriptLoader
+        }
       };
       const res = lilconfigSync("simp", options).search();
       if (res) {
