@@ -110,7 +110,7 @@ const inputOptions = (name: string) => ({
 
 const outputOptions = (name: string) => ({
   file: `.simp/hooks/cjs/simp.${name}.hook.js`,
-  format: "cjs"
+  format: "esm"
 });
 
 const build = async () => {
@@ -139,74 +139,3 @@ const caller = () => {
 const printHooks = () => {
   //
 };
-
-/**
- * Parses the config and sets git hooks
- * @param {string} projectRootPath
- * @param {string[]} [argv]
- */
-function setHooksFromConfig(config: any) {
-  const preserveUnused = Array.isArray(config.preserveUnused)
-    ? config.preserveUnused
-    : config.preserveUnused
-    ? VALID_GIT_HOOKS
-    : [];
-
-  for (const hook of VALID_GIT_HOOKS) {
-    if (Object.prototype.hasOwnProperty.call(config, hook)) {
-      setHook(hook, config[hook]);
-    } else if (!preserveUnused.includes(hook)) {
-      removeHook(hook);
-    }
-  }
-}
-
-/**
- * Creates or replaces an existing executable script in .git/hooks/<hook> with provided command
- * @param {string} hook
- * @param {string} command
- * @param {string} projectRoot
- * @private
- */
-function setHook(hook: any, command: any) {
-  const gitRoot = "./git";
-
-  const hookCommand = "#!/bin/sh\n" + command;
-  const hookDirectory = gitRoot + "/hooks/";
-  const hookPath = path.normalize(hookDirectory + hook);
-
-  const normalizedHookDirectory = path.normalize(hookDirectory);
-  if (!existsSync(normalizedHookDirectory)) {
-    mkdirSync(normalizedHookDirectory);
-  }
-
-  writeFileSync(hookPath, hookCommand);
-  chmodSync(hookPath, 0o0755);
-
-  console.log(`[INFO] Successfully set the ${hook} with command: ${command}`);
-}
-
-/**
- * Deletes all git hooks
- * @param {string} projectRoot
- */
-function removeHooks() {
-  for (const configEntry of VALID_GIT_HOOKS) {
-    removeHook(configEntry);
-  }
-}
-
-/**
- * Removes the pre-commit hook from .git/hooks
- * @param {string} hook
- * @param {string} projectRoot
- * @private
- */
-function removeHook(hook: any) {
-  const gitRoot = "./git";
-  const hookPath = path.normalize(gitRoot + "/hooks/" + hook);
-
-  if (existsSync(hookPath)) {
-    unlinkSync(hookPath);
-  }
-}
