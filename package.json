@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/test.cli.ts",
@@ -12,11 +12,11 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "./dist/esm/index.mjs",
+  "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
   "bin": {
-    "simp": "./dist/bin/index.mjs"
+    "simp": "./dist/bin/index.js"
   },
   "files": [
     "dist"
