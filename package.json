@@ -16,7 +16,7 @@
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
   "bin": {
-    "simp": "./bin/index.js"
+    "simp": "./dist/bin/index.mjs"
   },
   "files": [
     "dist",
