@@ -23,7 +23,7 @@ const defaultConfig = {
       ],
       trigger: {
         branch: ["main", "master", "dev"],
-        action: ["push"]
+        action: ["pre-push"]
       }
     }
   ]

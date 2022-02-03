@@ -9,6 +9,23 @@ export default [
   {
     input: "src/index.ts",
     output: {
+      file: "dist/cjs/index.js",
+      format: "cjs", // commonJS
+      sourcemap: true
+    },
+    plugins: [
+      typescript({
+        tsconfig: "tsconfig.build.json",
+        module: "esnext"
+      }),
+      typescriptPaths({
+        preserveExtensions: true
+      })
+    ]
+  },
+  {
+    input: "src/index.ts",
+    output: {
       file: "dist/esm/index.mjs",
       format: "esm", // ES Modules
       sourcemap: true

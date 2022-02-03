@@ -9,7 +9,7 @@ import {
 } from "fs";
 import path from "path";
 import { log } from "@composables/logger";
-import type { Config, Pipeline } from "@type/index";
+import type { Config, Pipeline, Action } from "@type/index";
 import { useTrigger } from "@resolvers/trigger";
 import { useExec } from "@composables/exec";
 import { useConfig } from "@composables/config";
@@ -32,14 +32,10 @@ export const useHooks = (config: Config) => {
     }
     for (const pipeline of pipelines) {
       if (!pipeline.trigger) return;
-      if (pipeline.trigger.action.includes("push")) {
-        log.debug(pipeline.trigger);
-      }
       try {
-        const hookPath = `.simp/hooks/src/pre-push/${name}.ts`;
+        const action: Action = pipeline.trigger.action;
+        const hookPath = `.simp/hooks/src/${action}/${name}.ts`;
         await exec(`touch ${hookPath}`);
-        // const hookPath = `/.simp/hooks/src/pre-push/${name}.ts`;
-        // const hookPath = `@hooks/pre-push/${name}.ts`;
         await writeFile(
           hookPath,
           `import {useTrigger} from "simpcicd"
@@ -82,36 +78,18 @@ export const useHooks = (config: Config) => {
   };
 };
 
-const VALID_GIT_HOOKS = [
-  "pre-commit",
-  "pre-merge-commit",
-  "prepare-commit-msg",
-  "commit-msg",
-  "post-commit",
-  "pre-rebase",
-  "post-checkout",
-  "post-merge",
-  "pre-push",
-  "pre-receive",
-  "update",
-  "proc-receive",
-  "post-receive",
-  "post-update",
-  "pre-auto-gc",
-  "post-rewrite",
-  "fsmonitor-watchman"
-];
-
-const VALID_OPTIONS = ["preserveUnused"];
-
 const inputOptions = (name: string) => ({
   input: `.simp/hooks/src/simp.${name}.hook.ts`
 });
 
-const outputOptions = (name: string) => ({
-  file: `.simp/hooks/cjs/simp.${name}.hook.js`,
-  format: "esm"
-});
+const outputOptions = (name: string) => {
+  const nodeExecPath = "#!/usr/bin/node";
+  return {
+    banner: nodeExecPath,
+    file: `.simp/hooks/cjs/simp.${name}.hook.js`,
+    format: "cjs"
+  };
+};
 
 const build = async () => {
   try {

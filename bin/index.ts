@@ -1,2 +1,2 @@
-import { useCli, useConfig } from "../esm/index.mjs";
+import { useCli, useConfig } from "../cjs/index.js";
 useCli(useConfig());

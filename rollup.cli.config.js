@@ -3,17 +3,16 @@ import { typescriptPaths } from "rollup-plugin-typescript-paths";
 // import nodeResolve from "@rollup/plugin-node-resolve";
 // import commonjs from "@rollup/plugin-commonjs";
 
-const nodeESM = "#!/usr/bin/node --es-module-specifier-resolution=node";
-
+const nodeExecPath = "#!/usr/bin/node";
 export const cliConfig = {
   input: "bin/index.ts",
   output: {
-    file: "dist/bin/index.mjs",
-    format: "esm",
+    file: "dist/bin/index.js",
+    format: "cjs", // CommonJS
     sourcemap: true,
-    banner: nodeESM
+    banner: nodeExecPath
   },
-  external: ["../esm/index.mjs"],
+  external: ["../cjs/index.js"],
   plugins: [
     typescript({
       tsconfig: "tsconfig.build.json",

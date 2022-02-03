@@ -1,9 +1,7 @@
 {
   "extends": "./tsconfig",
   "compilerOptions": {
-    "rootDir": "src",
-    "target": "esnext",
-    "module": "commonjs"
+    "rootDir": "src"
   },
   "include": [
     "src/*.ts",

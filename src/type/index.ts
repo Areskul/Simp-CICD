@@ -33,5 +33,24 @@ interface ExecContext {
 interface ExecOptions {
   "non-blocking"?: boolean;
 }
+enum GitHooks {
+  "pre-commit",
+  "pre-merge-commit",
+  "prepare-commit-msg",
+  "commit-msg",
+  "post-commit",
+  "pre-rebase",
+  "post-checkout",
+  "post-merge",
+  "pre-push",
+  "pre-receive",
+  "update",
+  "proc-receive",
+  "post-receive",
+  "post-update",
+  "pre-auto-gc",
+  "post-rewrite"
+}
+type Action = keyof typeof GitHooks;
 
-export { Config, Pipeline, Step, ExecOptions, ExecContext };
+export { Config, Pipeline, Step, ExecOptions, ExecContext, Action };
