@@ -53,6 +53,11 @@
     "typedoc": "^0.22.11"
   },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Areskul/Simp-CICD"
+  },
+  "homepage": "https://simp.areskul.com",
   "keywords": [
     "cicd",
     "bash",
