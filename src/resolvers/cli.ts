@@ -9,7 +9,7 @@ import { blue } from "picocolors";
 
 export const useCli = (config: Config) => {
   const { trigger } = useTrigger(config);
-  const { generateHook, printHooks } = useHooks(config);
+  const { buildCaller } = useHooks(config);
   const { setContext } = useExec();
 
   const cli = cac("simp");
@@ -68,23 +68,13 @@ export const useCli = (config: Config) => {
       footerMessage();
     });
   cli
-    .command("hook")
-    .option("-g, --get", "get actual hooks info")
-    .option(
-      "-p, --pipeline <string>",
-      "[string] create/refresh hook for given pipeline name"
-    )
+    .command("hook", "create/refresh git hooks")
     .action(async (options: any) => {
       headerMessage();
       setVerbosityAction(options);
       setConfigAction(options);
       getConfigAction(options);
-      if (!!options.pipeline) {
-        await generateHook(options.pipeline);
-      }
-      if (options.get) {
-        await printHooks();
-      }
+      await buildCaller();
       footerMessage();
     });
 

@@ -1,1 +1,0 @@
-import { useTrigger } from "simpcicd";

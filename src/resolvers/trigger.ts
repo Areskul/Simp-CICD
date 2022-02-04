@@ -3,7 +3,7 @@ import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import type { Config, Pipeline } from "@type/index";
 
-export const useTrigger = (config: Config) => {
+export const useTrigger = (config?: Config) => {
   const { execPipeline } = useExec();
   const trigger = async (name: string) => {
     if (!config) return;

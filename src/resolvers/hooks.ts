@@ -5,7 +5,9 @@ import {
   chmodSync,
   existsSync,
   unlinkSync,
-  mkdirSync
+  mkdirSync,
+  symlink,
+  symlinkSync
 } from "fs";
 import path from "path";
 import { log } from "@composables/logger";
@@ -18,69 +20,15 @@ import { typescriptPaths } from "rollup-plugin-typescript-paths";
 
 const { exec } = useExec();
 
-export const useHooks = (config: Config) => {
-  const toHook = async (name: string) => {
-    const pipelines = config.pipelines.filter(
-      (pipeline: Pipeline) => pipeline.name == name
-    );
-    if (pipelines.length == 0) {
-      log.warn(`pipeline "${name}" is undefined`);
-      return;
-    }
-    if (pipelines.length > 1) {
-      log.warn(`pipeline "${name}" has duplicates`);
-      return;
-    }
-    for (const pipeline of pipelines) {
-      if (!pipeline.trigger) return;
-      try {
-        const action: Action = pipeline.trigger.action;
-        const hookPath = `.simp/hooks/src/${action}/${name}.ts`;
-        await exec(`touch ${hookPath}`);
-        await writeFile(
-          hookPath,
-          `
-          import { useTrigger } from "simpcicd"
-          const { trigger } = useTrigger()
-          const detache = async () => {
-            await trigger(${name})
-
-          }
-          const 
-          `,
-          (err) => {
-            if (err) {
-              log.error(err);
-              return err;
-            } else {
-              log.info("Successfully generated hook files");
-              return;
-            }
-          }
-        );
-        await chmod(hookPath, 0o0755, (err) => {
-          if (err) {
-            log.error(err);
-            return err;
-          }
-          return;
-        });
-        //file goes in pre-push folder
-        //conditionnal
-      } catch (err) {
-        log.error(err);
-        return err;
-      }
-    }
-  };
-
-  /* create entry file .ts
-   * that trigger pipeline
-   **/
+export const useHooks = (config?: Config) => {
   return {
     buildCaller,
     toHook
   };
+};
+
+const toHook = async (input: string) => {
+  //turn ts file into hook
 };
 
 const inputOptions = (name: string) => ({
@@ -114,9 +62,31 @@ const generateOutputs = async (bundle: any) => {
 };
 
 const buildCaller = async () => {
+  const action = "pre-push";
   const nodeExecPath = "#!/usr/bin/node";
-  const input = `./src/resolvers/caller.ts`;
-  const output = `.simp/hooks/cjs/caller.js`;
+  const hooksCjs = `.simp/hooks/cjs/${action}/`;
+  const input = `.simp/hooks/src/${action}/index.ts`;
+  const output = `${hooksCjs}/index.js`;
+  // await exec(`touch ${input}`);
+  await exec(`mkdir -p  ${hooksCjs}`);
+  // await writeFile(
+  //   input,
+  //   `
+  //   import { caller } from "@resolvers/caller";
+  //   import { useConfig } from "@composables/config";
+  //
+  //   caller(useConfig());
+  //   `,
+  //   (err) => {
+  //     if (err) {
+  //       log.error(err);
+  //       return err;
+  //     } else {
+  //       log.info("Successfully generated caller");
+  //       return;
+  //     }
+  //   }
+  // );
 
   const plugins = [
     typescript({
@@ -138,8 +108,15 @@ const buildCaller = async () => {
       file: output,
       format: "cjs"
     });
-    await exec(`chmod +x ${output}`);
-    await exec(`ln -sf ../../${output} .git/hooks/pre-push`);
+    // await exec(`chmod +x ${output}`);
+    await chmod(output, 0o0755, (err) => {
+      if (err) {
+        log.error(err);
+        return err;
+      }
+      return;
+    });
+    await exec(`ln -sf ../../${output} .git/hooks/${action}`);
   } catch (err) {
     log.error(err);
     return;

@@ -2,15 +2,17 @@ import { useTrigger } from "@resolvers/trigger";
 import { useConfig } from "@composables/config";
 import { getBranch } from "@utils/branch";
 import type { Config, Pipeline } from "@type/index";
+import { log } from "@composables/logger";
 
-const caller = (config: Config) => {
-  const pipelines = config.pipelines.filter((pipeline: Pipeline) =>
-    pipeline.trigger.branch.includes(getBranch())
+export const caller = async (config: Config) => {
+  const actualBranch = await getBranch();
+
+  config.pipelines = config.pipelines.filter(async (pipeline: Pipeline) =>
+    pipeline.trigger.branch.includes(actualBranch)
   );
-  const { trigger } = useTrigger(useConfig());
-  for (const pipeline of pipelines) {
-    trigger(pipeline.name);
+  log.debug(config);
+  const { trigger } = useTrigger(config);
+  for (const pipeline of config.pipelines) {
+    await trigger(pipeline.name);
   }
 };
-
-caller();
