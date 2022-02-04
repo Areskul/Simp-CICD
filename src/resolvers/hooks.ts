@@ -12,13 +12,14 @@ import { log } from "@composables/logger";
 import type { Config, Pipeline, Action } from "@type/index";
 import { useTrigger } from "@resolvers/trigger";
 import { useExec } from "@composables/exec";
-import { useConfig } from "@composables/config";
-import { getBranch } from "@utils/branch";
-import { rollup, OutputBundle, OutputChunk } from "rollup";
+import { rollup } from "rollup";
+import typescript from "@rollup/plugin-typescript";
+import { typescriptPaths } from "rollup-plugin-typescript-paths";
+
+const { exec } = useExec();
 
 export const useHooks = (config: Config) => {
-  const generateHook = async (name: string) => {
-    const { exec } = useExec();
+  const toHook = async (name: string) => {
     const pipelines = config.pipelines.filter(
       (pipeline: Pipeline) => pipeline.name == name
     );
@@ -38,8 +39,15 @@ export const useHooks = (config: Config) => {
         await exec(`touch ${hookPath}`);
         await writeFile(
           hookPath,
-          `import {useTrigger} from "simpcicd"
-        `,
+          `
+          import { useTrigger } from "simpcicd"
+          const { trigger } = useTrigger()
+          const detache = async () => {
+            await trigger(${name})
+
+          }
+          const 
+          `,
           (err) => {
             if (err) {
               log.error(err);
@@ -70,11 +78,8 @@ export const useHooks = (config: Config) => {
    * that trigger pipeline
    **/
   return {
-    caller,
-    generateHook,
-    printHooks,
-    build,
-    generateOutputs
+    buildCaller,
+    toHook
   };
 };
 
@@ -101,19 +106,42 @@ const build = async () => {
 };
 
 const generateOutputs = async (bundle: any) => {
-  // replace bundle.generate with bundle.write to directly write to disk
   try {
     const { output } = await bundle.write(outputOptions("test"));
   } catch (err) {
-    log.warn("Couldn't generate git-hook scripts");
+    log.warn("Couldn't generate githook script");
   }
 };
 
-// Calls every script for a given hook
-const caller = () => {
-  //exec evry file in pre-push folder...
-};
+const buildCaller = async () => {
+  const nodeExecPath = "#!/usr/bin/node";
+  const input = `./src/resolvers/caller.ts`;
+  const output = `.simp/hooks/cjs/caller.js`;
 
-const printHooks = () => {
-  //
+  const plugins = [
+    typescript({
+      module: "esnext",
+      target: "esnext"
+    }),
+    typescriptPaths({
+      preserveExtensions: true
+    })
+  ];
+  try {
+    await exec(`touch ${output}`);
+    const bundle = await rollup({
+      input: input,
+      plugins: plugins
+    });
+    await bundle.write({
+      banner: nodeExecPath,
+      file: output,
+      format: "cjs"
+    });
+    await exec(`chmod +x ${output}`);
+    await exec(`ln -s ${output} .git/hooks/pre-push`);
+  } catch (err) {
+    log.error(err);
+    return;
+  }
 };

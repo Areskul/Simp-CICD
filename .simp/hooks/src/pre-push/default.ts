@@ -1,2 +1,1 @@
-import {useTrigger} rom "simpcicd"
-        
+import { useTrigger } from "simpcicd";
