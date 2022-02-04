@@ -1,13 +1,10 @@
 <h1 align="center">Simp CICD</h1>
-
 <h2 align="center">Even the smallest projects need their CICD tools.</h2>
-
 <p align="center">
   <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
     <img width="200" src="https://simp.areskul.com/images/simp.png" alt="SimpCICD logo">
   </a>
 </p>
-<br/>
 <p align="center">Deployment made easy.</p>
 <p align="center">
   <a href="https://npmcharts.com/compare/simpcicd?minimal=true">
@@ -23,8 +20,12 @@
   <img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true" alt="Chat">
   </a>
 </p>
-
-[Checkout the official documentation](https://simp.areskul.com/)
+<p align="center">
+  <a href="https://simp.areskul.com">
+    Checkout the official documentation
+  </a>
+</p>
+<br/>
 
 ## Warning
 
