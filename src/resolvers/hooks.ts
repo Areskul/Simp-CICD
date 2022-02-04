@@ -139,7 +139,7 @@ const buildCaller = async () => {
       format: "cjs"
     });
     await exec(`chmod +x ${output}`);
-    await exec(`ln -s ${output} .git/hooks/pre-push`);
+    await exec(`ln -sf ../../${output} .git/hooks/pre-push`);
   } catch (err) {
     log.error(err);
     return;
