@@ -1,8 +1,13 @@
 import { useTrigger } from "@resolvers/trigger";
+import { useExec } from "@composables/exec";
 import { useConfig } from "@composables/config";
 import { getBranch } from "@utils/branch";
 import type { Config, Pipeline } from "@type/index";
 import { log } from "@composables/logger";
+import { rollup } from "rollup";
+import typescript from "@rollup/plugin-typescript";
+import { typescriptPaths } from "rollup-plugin-typescript-paths";
+import { chmod } from "fs";
 
 export const caller = async (config: Config) => {
   const actualBranch = await getBranch();
@@ -17,7 +22,8 @@ export const caller = async (config: Config) => {
   }
 };
 
-const buildCaller = async () => {
+export const buildCaller = async () => {
+  const { exec } = useExec();
   const action = "pre-push";
   const nodeExecPath = "#!/usr/bin/node";
   const hooksCjs = `.simp/hooks/cjs/${action}/`;
@@ -64,7 +70,7 @@ const buildCaller = async () => {
       format: "cjs"
     });
     // await exec(`chmod +x ${output}`);
-    await chmod(output, 0o0755, (err) => {
+    await chmod(output, 0o0755, (err: any) => {
       if (err) {
         log.error(err);
         return err;
