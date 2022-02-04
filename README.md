@@ -1,6 +1,6 @@
-# Simp CICD
+<h1 align="center">Simp CICD</h1>
 
-Even the smallest projects need their CICD tools.
+<h2 align="center">Even the smallest projects need their CICD tools.</h2>
 
 <p align="center">
   <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
@@ -8,8 +8,21 @@ Even the smallest projects need their CICD tools.
   </a>
 </p>
 <br/>
-
-Deployment made easy.
+<p align="center">Deployment made easy.</p>
+<p align="center">
+  <a href="https://npmcharts.com/compare/simpcicd?minimal=true">
+  <img src="https://img.shields.io/npm/dm/simpcicd.svg?sanitize=true" alt="Downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/simpcicd">
+  <img src="https://img.shields.io/npm/v/simpcicd.svg?sanitize=true" alt="Version">
+  </a>
+  <a href="https://www.npmjs.com/package/simpcicd">
+  <img src="https://img.shields.io/npm/l/simpcicd.svg?sanitize=true" alt="License">
+  </a>
+  <a href="https://discord.com/invite/PUkWPNkG">
+  <img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true" alt="Chat">
+  </a>
+</p>
 
 [Checkout the official documentation](https://simp.areskul.com/)
 
