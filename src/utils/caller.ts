@@ -7,7 +7,7 @@ import { log } from "@composables/logger";
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
-import { chmod } from "fs";
+import { chmod, writeFile } from "fs";
 
 export const caller = async (config: Config) => {
   const actualBranch = await getBranch();
@@ -31,24 +31,24 @@ export const buildCaller = async () => {
   const output = `${hooksCjs}/index.js`;
   // await exec(`touch ${input}`);
   await exec(`mkdir -p  ${hooksCjs}`);
-  // await writeFile(
-  //   input,
-  //   `
-  //   import { caller } from "@resolvers/caller";
-  //   import { useConfig } from "@composables/config";
-  //
-  //   caller(useConfig());
-  //   `,
-  //   (err) => {
-  //     if (err) {
-  //       log.error(err);
-  //       return err;
-  //     } else {
-  //       log.info("Successfully generated caller");
-  //       return;
-  //     }
-  //   }
-  // );
+  await writeFile(
+    input,
+    `
+    import { caller } from "@utils/caller";
+    import { useConfig } from "@composables/config";
+
+    caller(useConfig());
+    `,
+    (err: any) => {
+      if (err) {
+        log.error(err);
+        return err;
+      } else {
+        log.info("Successfully generated caller");
+        return;
+      }
+    }
+  );
   const plugins = [
     typescript({
       module: "esnext",

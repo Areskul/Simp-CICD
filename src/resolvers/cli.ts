@@ -4,12 +4,12 @@ import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import { useHooks } from "@resolvers/hooks";
 import { useTrigger } from "@resolvers/trigger";
+import { buildCaller } from "@utils/caller";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";
 
 export const useCli = (config: Config) => {
   const { trigger } = useTrigger(config);
-  const { buildCaller } = useHooks(config);
   const { setContext } = useExec();
 
   const cli = cac("simp");

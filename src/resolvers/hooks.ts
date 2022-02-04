@@ -17,12 +17,10 @@ import { useExec } from "@composables/exec";
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
-import { buildCaller } from "@resolvers/caller";
 
 export const useHooks = (config?: Config) => {
   const { exec } = useExec();
   return {
-    buildCaller,
     toHook
   };
 };

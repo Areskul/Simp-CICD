@@ -1,6 +1,6 @@
 import { useHooks } from "@resolvers/hooks";
 import { useConfig } from "@composables/config";
-import { caller } from "@resolvers/caller";
+import { caller } from "@utils/caller";
 const { buildCaller } = useHooks();
 
 const start = async () => {
