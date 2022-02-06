@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/cli.ts",
@@ -49,7 +49,7 @@
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^4.1.0",
     "rollup-plugin-typescript-paths": "^1.3.0",
-    "simpcicd": "^0.2.16",
+    "simpcicd": "^0.3.4",
     "ts-mocha": "^9.0.2",
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1",
