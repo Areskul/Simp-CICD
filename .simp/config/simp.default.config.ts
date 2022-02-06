@@ -8,18 +8,18 @@ const defaultConfig = {
           commands: ["lls -a", "ls"],
           "non-blocking": true
         },
-        {
-          name: "pre-build",
-          commands: ["rm -rf dist/*", "rm -rf cli/*"]
-        },
+        // {
+        //   name: "pre-build",
+        //   commands: ["rm -rf dist/*", "rm -rf cli/*"]
+        // },
         {
           name: "test2",
           commands: ["lls -a", "ls"]
-        },
-        {
-          name: "build",
-          commands: ["yarn", "yarn build"]
         }
+        // {
+        //   name: "build",
+        //   commands: ["yarn", "yarn build"]
+        // }
       ],
       trigger: {
         branch: ["main", "master", "dev"],

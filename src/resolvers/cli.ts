@@ -4,7 +4,6 @@ import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import { useHooks } from "@resolvers/hooks";
 import { useTrigger } from "@resolvers/trigger";
-import { buildCaller } from "@utils/caller";
 import type { Config } from "@type/index";
 import { blue } from "picocolors";
 
@@ -74,7 +73,6 @@ export const useCli = (config: Config) => {
       setVerbosityAction(options);
       setConfigAction(options);
       getConfigAction(options);
-      await buildCaller();
       footerMessage();
     });
 
