@@ -1,0 +1,1 @@
+/mnt/storage/areskul/Sites/SimpCICD/simp.cicd/.git/hooks/pre-push

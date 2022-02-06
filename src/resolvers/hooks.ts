@@ -5,15 +5,25 @@ import { useExec } from "@composables/exec";
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
+import { useFs } from "@composables/fs";
+import { getGitPath } from "@utils/git";
 
 export const useHooks = (config?: Config) => {
-  const { exec } = useExec();
+  const { ln } = useFs();
+  const linkHooks = async () => {
+    const gitRoot = await getGitPath();
+    await ln({
+      path: "./bin/forker.js",
+      target: `${gitRoot}/.git/hooks/pre-push`
+    });
+  };
   return {
+    linkHooks,
     toHook
   };
 };
 
-const toHook = async (input: string) => {
+const toHook = async (target: string) => {
   //turn ts file into hook
 };
 

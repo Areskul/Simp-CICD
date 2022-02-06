@@ -1,5 +1,5 @@
 import { useTrigger } from "@resolvers/trigger";
-import { getBranch } from "@utils/branch";
+import { getBranch } from "@utils/git";
 import type { Config, Pipeline } from "@type/index";
 import { log } from "@composables/logger";
 
