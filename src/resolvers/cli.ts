@@ -67,7 +67,7 @@ export const useCli = (config: Config) => {
       footerMessage();
     });
   cli
-    .command("hooR", "create/refresh git hooks")
+    .command("hook", "create/refresh git hooks")
     .action(async (options: any) => {
       const { linkHooks } = useHooks();
       headerMessage();
