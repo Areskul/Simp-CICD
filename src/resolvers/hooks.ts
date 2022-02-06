@@ -1,15 +1,3 @@
-import {
-  writeFile,
-  chmod,
-  writeFileSync,
-  chmodSync,
-  existsSync,
-  unlinkSync,
-  mkdirSync,
-  symlink,
-  symlinkSync
-} from "fs";
-import path from "path";
 import { log } from "@composables/logger";
 import type { Config, Pipeline, Action } from "@type/index";
 import { useTrigger } from "@resolvers/trigger";
