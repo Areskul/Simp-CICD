@@ -1,5 +1,7 @@
-<h1 align="center">Simp CICD</h1>
-<h2 align="center">Even the smallest projects need their CICD tools.</h2>
+# Simp CICD
+
+## Even the smallest projects need their CICD tools.
+
 <p align="center">
   <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
     <img width="200" src="https://simp.areskul.com/images/simp.png" alt="SimpCICD logo">
