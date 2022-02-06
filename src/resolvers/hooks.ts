@@ -13,7 +13,7 @@ export const useHooks = (config?: Config) => {
   const linkHooks = async () => {
     const gitRoot = await getGitPath();
     await ln({
-      path: "./bin/forker.js",
+      path: "../bin/forker.js",
       target: `${gitRoot}/.git/hooks/pre-push`
     });
   };

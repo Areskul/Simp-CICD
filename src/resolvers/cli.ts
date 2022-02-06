@@ -69,10 +69,12 @@ export const useCli = (config: Config) => {
   cli
     .command("hook", "create/refresh git hooks")
     .action(async (options: any) => {
+      const { linkHooks } = useHooks();
       headerMessage();
       setVerbosityAction(options);
       setConfigAction(options);
       getConfigAction(options);
+      await linkHooks();
       footerMessage();
     });
 
