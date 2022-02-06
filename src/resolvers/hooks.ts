@@ -12,9 +12,12 @@ export const useHooks = (config?: Config) => {
   const { ln } = useFs();
   const linkHooks = async () => {
     const gitRoot = await getGitPath();
+    const target = "${gitRoot}/node_modules/simpcicd/dist/bin/forker.js";
+    const path = `${gitRoot}/.git/hooks/pre-push`;
+    log.debug(`ln -s ${path} -> ${target}`);
     await ln({
-      target: "../bin/forker.js",
-      path: `${gitRoot}/.git/hooks/pre-push`
+      target: target,
+      path: path
     });
   };
   return {
