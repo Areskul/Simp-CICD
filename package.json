@@ -18,7 +18,7 @@
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
   "bin": {
-    "simp": "./dist/bin/index.js"
+    "simp": "./dist/bin/cli.js"
   },
   "files": [
     "dist"

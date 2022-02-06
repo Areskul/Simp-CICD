@@ -17,10 +17,9 @@ const useConfig = (config?: Config) => {
     try {
       let config: Config;
       const options = {
-        searchPlaces: ["simp.config.ts", "simp.config.js"],
+        searchPlaces: ["simp.config.ts", "simp.config.js", "simp.config.mjs"],
         loaders: {
-          ".ts": TypeScriptLoader,
-          ".js": TypeScriptLoader
+          ".ts": TypeScriptLoader
         }
       };
       const res = lilconfigSync("simp", options).search();

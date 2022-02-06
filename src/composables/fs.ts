@@ -35,6 +35,16 @@ const unln = (target: string) => {
   });
 };
 
+const chmodx = (target: string) => {
+  fs.chmod(target, 0o0755, (err: any) => {
+    if (err) {
+      log.error(err);
+      return err;
+    }
+    return;
+  });
+};
+
 const makeFileTree = () => {
   const directories = [
     ".simp/hooks/src/pre-push",
@@ -49,6 +59,7 @@ const makeFileTree = () => {
 export const useFs = () => ({
   makeFileTree,
   mkdir,
+  chmodx,
   ln,
   unln
 });

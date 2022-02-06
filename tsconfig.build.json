@@ -9,6 +9,7 @@
   ],
   "exclude":[
     ".simp/*.ts",
-    ".simp/**/*.ts"
+    ".simp/**/*.ts",
+    "src/utils/template/*"
   ]
 }

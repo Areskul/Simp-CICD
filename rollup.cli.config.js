@@ -5,14 +5,52 @@ import { typescriptPaths } from "rollup-plugin-typescript-paths";
 
 const nodeExecPath = "#!/usr/bin/node";
 export const cliConfig = {
-  input: "bin/index.ts",
+  input: "bin/cli.ts",
   output: {
-    file: "dist/bin/index.js",
+    file: "dist/bin/cli.js",
     format: "cjs", // CommonJS
     sourcemap: true,
     banner: nodeExecPath
   },
   external: ["../cjs/index.js"],
+  plugins: [
+    typescript({
+      tsconfig: "tsconfig.build.json",
+      module: "esnext"
+    }),
+    typescriptPaths({
+      preserveExtensions: true
+    })
+  ]
+};
+export const callConfig = {
+  input: "bin/caller.ts",
+  output: {
+    file: "dist/bin/caller.js",
+    format: "cjs", // CommonJS
+    sourcemap: true,
+    banner: nodeExecPath
+  },
+  external: ["../cjs/index.js"],
+  plugins: [
+    typescript({
+      tsconfig: "tsconfig.build.json",
+      module: "esnext"
+    }),
+    typescriptPaths({
+      preserveExtensions: true
+    })
+  ]
+};
+export const forkConfig = {
+  input: "bin/forker.ts",
+  output: {
+    file: "dist/bin/forker.js",
+    format: "cjs", // CommonJS
+    sourcemap: true,
+    banner: nodeExecPath
+  },
+  external: ["../cjs/index.js", "./caller.js"],
   plugins: [
     typescript({
       tsconfig: "tsconfig.build.json",

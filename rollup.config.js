@@ -1,6 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
-import { cliConfig } from "./rollup.cli.config.js";
+import { cliConfig, callConfig, forkConfig } from "./rollup.cli.config.js";
 import { typesConfig } from "./rollup.types.config.js";
 // import nodeResolve from "@rollup/plugin-node-resolve";
 // import commonjs from "@rollup/plugin-commonjs";
@@ -41,5 +41,7 @@ export default [
     ]
   },
   typesConfig,
-  cliConfig
+  cliConfig,
+  callConfig,
+  forkConfig
 ];

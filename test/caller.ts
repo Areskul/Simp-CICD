@@ -1,2 +1,2 @@
-import { buildCaller } from "@utils/builder";
-buildCaller();
+import { useBuild } from "@utils/builder";
+useBuild();
