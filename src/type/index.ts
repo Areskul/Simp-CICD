@@ -20,7 +20,11 @@ interface Step {
   name: string;
   commands: string[];
 }
-
+/**
+ * @typedef {object} Trigger - Define a trigger event
+ * @property {string} branch - the branch that will trigger the pipe
+ * @property {string} branch - the action that will trigger the pipe
+ */
 interface Trigger {
   branch?: string[];
   action?: string[];
@@ -51,6 +55,10 @@ enum GitHooks {
   "pre-auto-gc",
   "post-rewrite"
 }
+/**
+ * @typedef {string} Action - Define a trigger event
+ * @property {string} Action - git actions (hooks) that will trigger the pipe
+ */
 type Action = keyof typeof GitHooks;
 
 export { Config, Pipeline, Step, ExecOptions, ExecContext, Action };
