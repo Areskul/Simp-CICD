@@ -1,7 +1,8 @@
-import type { Config } from "@type/index";
+import type { Config, Action } from "@type/index";
 import { log } from "@composables/logger";
 import { lilconfigSync } from "lilconfig";
 import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
+import { uniq } from "lodash";
 
 interface Store {
   config: Config;
@@ -42,4 +43,13 @@ const defineConfig = (config: Config): Config => {
   return config;
 };
 
-export { useConfig, defineConfig, Config };
+const getActions = (config: Config): Action[] => {
+  let actions: Action[] = [];
+  for (const pipeline of config.pipelines) {
+    actions = actions.concat(pipeline.trigger.action);
+  }
+  actions = uniq(actions);
+  return actions;
+};
+
+export { useConfig, defineConfig, Config, getActions };

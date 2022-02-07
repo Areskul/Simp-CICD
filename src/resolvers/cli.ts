@@ -74,7 +74,7 @@ export const useCli = (config: Config) => {
       setVerbosityAction(options);
       setConfigAction(options);
       getConfigAction(options);
-      await linkHooks();
+      await linkHooks(useConfig());
       footerMessage();
     });
 

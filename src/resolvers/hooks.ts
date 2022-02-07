@@ -7,19 +7,31 @@ import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
 import { useFs } from "@composables/fs";
 import { getGitPath } from "@utils/git";
+import { getActions } from "@composables/config";
+import SuperFs from "@supercharge/filesystem";
 
 export const useHooks = (config?: Config) => {
   const { ln } = useFs();
-  const linkHooks = async () => {
+
+  const linkHook = async (action: Action) => {
     const gitRoot = await getGitPath();
+    const path = `${gitRoot}/.git/hooks/${action}`;
     const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker.js`;
-    const path = `${gitRoot}/.git/hooks/pre-push`;
+    if (await SuperFs.exists(target)) return;
     log.debug(`ln -s ${path} -> ${target}`);
     await ln({
       target: target,
       path: path
     });
   };
+
+  const linkHooks = async (config: Config) => {
+    const actions = getActions(config);
+    for (const action of actions) {
+      linkHook(action);
+    }
+  };
+
   return {
     linkHooks,
     toHook
