@@ -8,21 +8,21 @@ import { typescriptPaths } from "rollup-plugin-typescript-paths";
 import { useFs } from "@composables/fs";
 import { getGitPath } from "@utils/git";
 import { getActions } from "@composables/config";
-import SuperFs from "@supercharge/filesystem";
+import Fs from "@supercharge/filesystem";
 
 export const useHooks = (config?: Config) => {
-  const { ln } = useFs();
-
   const linkHook = async (action: Action) => {
     const gitRoot = await getGitPath();
     const path = `${gitRoot}/.git/hooks/${action}`;
     const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker.js`;
-    if (await SuperFs.exists(target)) return;
-    log.debug(`ln -s ${path} -> ${target}`);
-    await ln({
-      target: target,
-      path: path
-    });
+    try {
+      await Fs.ensureSymlink(target, path);
+      log.debug(`ln -s ${path} -> ${target}`);
+      return;
+    } catch (err) {
+      log.error(err);
+      return;
+    }
   };
 
   const linkHooks = async (config: Config) => {
