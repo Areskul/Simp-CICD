@@ -5,6 +5,7 @@ import { useTrigger } from "@resolvers/trigger";
 import { useExec } from "@composables/exec";
 import { fork } from "@utils/forker";
 import { call } from "@utils/caller";
+import { getGitPath, getBranch } from "@utils/git";
 
 export {
   defineConfig,
@@ -14,5 +15,6 @@ export {
   useHooks,
   useCli,
   fork,
-  call
+  call,
+  getGitPath
 };
