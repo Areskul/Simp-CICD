@@ -7,6 +7,7 @@ const logFile = `${logFolder}/rawlogs.json`;
 
 const makeLogger = () => {
   Fs.ensureDir(logFolder);
+  Fs.ensureFile(logFile);
   const logToTransport = (logObject: ILogObject) => {
     appendFileSync(logFile, JSON.stringify(logObject) + "\n");
   };
