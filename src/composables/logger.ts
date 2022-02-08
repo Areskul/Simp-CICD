@@ -13,7 +13,8 @@ const makeLogger = () => {
   };
   const log: Logger = new Logger({
     displayFilePath: "displayAll",
-    type: "pretty"
+    type: "pretty",
+    dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
   });
 
   log.attachTransport(
