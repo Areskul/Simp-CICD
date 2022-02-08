@@ -7,7 +7,7 @@ export const call = async (config: Config) => {
   const actualBranch = await getBranch();
 
   config.pipelines = config.pipelines.filter(async (pipeline: Pipeline) =>
-    pipeline.trigger.branch.includes(actualBranch)
+    pipeline.trigger.branches.includes(actualBranch)
   );
   log.debug(config);
 
