@@ -31,15 +31,26 @@
 
 ## Warning
 
-Still in active development stage!...
+Still in active early development stage!...
 
-But
+[x] Generate log file from git-hooks execution
+[x] Non-ambigous action naming (actions are named according to git-hooks equivalent).
+[] Command to Pretty print raw log files.
 
-- [x] You can now deploy with the CLI!
-- [x] Typescript Config files now supported!
-- [ ] Git Hooks are stil in progress...
+Git hooks are now working!!
+Pipelines will be triggered as background processes for every branch/actions you set.
 
-Working on the documentation though.
+Just activate hook swith.
+
+```bash
+simp hooks
+```
+
+Send me a message on the [discord](https://discord.com/invite/PUkWPNkG)
+for every problem you could encounter!
+
+Don't bother beeing polite! We're talking crucial software improvement!
+I'll do my best to patch the package in the day!
 
 ## Getting Started
 
@@ -92,7 +103,7 @@ const config = defineConfig({
       ],
       trigger: {
         branch: ["main", "master", "dev"],
-        action: ["push"]
+        action: ["pre-push"]
       }
     }
   ]
