@@ -1,11 +1,14 @@
 import { ILogObject, Logger } from "tslog";
 import { appendFileSync, createReadStream } from "fs";
+import Fs from "@supercharge/fs";
 
-const logfile = ".simp/logs/rawlogs.json";
+const logFolder = ".simp/logs";
+const logFile = `${logFolder}/rawlogs.json`;
 
 const makeLogger = () => {
+  Fs.ensureDir(logFolder);
   const logToTransport = (logObject: ILogObject) => {
-    appendFileSync(logfile, JSON.stringify(logObject) + "\n");
+    appendFileSync(logFile, JSON.stringify(logObject) + "\n");
   };
   const log: Logger = new Logger({
     displayFilePath: "displayAll",
@@ -30,7 +33,7 @@ const makeLogger = () => {
 const log = makeLogger();
 
 const printLogs = () => {
-  const stream = createReadStream(logfile);
+  const stream = createReadStream(logFile);
 };
 
 export { log, printLogs };

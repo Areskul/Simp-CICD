@@ -10,6 +10,7 @@ import { blue } from "picocolors";
 export const useCli = (config: Config) => {
   const { trigger } = useTrigger(config);
   const { setContext } = useExec();
+  const { linkHooks } = useHooks();
 
   const cli = cac("simp");
   const headerMessage = () => {
@@ -67,15 +68,15 @@ export const useCli = (config: Config) => {
       footerMessage();
     });
   cli
-    .command("hook", "create/refresh git hooks")
+    .command("hooks", "create/refresh git hooks")
+    .option("-p, --print", "print enabled hooks")
     .action(async (options: any) => {
-      const { linkHooks } = useHooks();
-      await headerMessage();
+      headerMessage();
       setVerbosityAction(options);
       setConfigAction(options);
       getConfigAction(options);
-      await linkHooks(useConfig());
-      await footerMessage();
+      await linkHooks(config);
+      footerMessage();
     });
 
   cli.help();
