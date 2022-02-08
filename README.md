@@ -40,7 +40,7 @@ action -> actions
 
 - [x] Generate log file from git-hooks execution
 - [x] Non-ambigous action naming (actions are named according to git-hooks equivalent).
-- [] Command to Pretty print raw log files.
+- [ ] Command to Pretty print raw log files.
 
 Git hooks are now working!!
 Pipelines will be triggered as background processes for every branch/actions you set.
