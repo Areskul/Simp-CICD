@@ -1,6 +1,6 @@
 # Simp CICD
 
-## Even the smallest projects need their CICD tools.
+Even the smallest projects need their CICD tools.
 
 <p align="center">
   <a href="https://simp.areskul.com/" target="_blank" rel="noopener noreferrer">
@@ -38,9 +38,9 @@ Config file changes:
 branch -> branches
 action -> actions
 
-[x] Generate log file from git-hooks execution
-[x] Non-ambigous action naming (actions are named according to git-hooks equivalent).
-[] Command to Pretty print raw log files.
+- [x] Generate log file from git-hooks execution
+- [x] Non-ambigous action naming (actions are named according to git-hooks equivalent).
+- [] Command to Pretty print raw log files.
 
 Git hooks are now working!!
 Pipelines will be triggered as background processes for every branch/actions you set.
