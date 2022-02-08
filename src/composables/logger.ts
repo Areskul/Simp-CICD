@@ -13,7 +13,6 @@ const makeLogger = () => {
   };
   const log: Logger = new Logger({
     displayFilePath: "displayAll",
-    type: "pretty",
     dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
   });
 
