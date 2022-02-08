@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/cli.ts",
@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "@sliphua/lilconfig-ts-loader": "^3.2.2",
-    "@supercharge/filesystem": "^2.3.0",
+    "@supercharge/fs": "^3.4.0",
     "cac": "^6.7.12",
     "lilconfig": "^2.0.4",
     "lodash": "^4.17.21",
