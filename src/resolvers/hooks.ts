@@ -13,7 +13,7 @@ import Fs from "@supercharge/fs";
 export const useHooks = (config?: Config) => {
   const linkHook = async (action: Action) => {
     const gitRoot = await getGitPath();
-    const path = `${gitRoot}/.git/hooks/${actions}`;
+    const path = `${gitRoot}/.git/hooks/${action}`;
     const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker.js`;
     try {
       await Fs.ensureSymlink(target, path);
