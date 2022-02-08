@@ -33,6 +33,11 @@
 
 Still in active early development stage!...
 
+Config file changes:
+
+branch -> branches
+action -> actions
+
 [x] Generate log file from git-hooks execution
 [x] Non-ambigous action naming (actions are named according to git-hooks equivalent).
 [] Command to Pretty print raw log files.
@@ -40,7 +45,7 @@ Still in active early development stage!...
 Git hooks are now working!!
 Pipelines will be triggered as background processes for every branch/actions you set.
 
-Just activate hook swith.
+Just activate hooks with.
 
 ```bash
 simp hooks
@@ -102,8 +107,8 @@ const config = defineConfig({
         }
       ],
       trigger: {
-        branch: ["main", "master", "dev"],
-        action: ["pre-push"]
+        branches: ["main", "master", "dev"],
+        actions: ["pre-push"]
       }
     }
   ]

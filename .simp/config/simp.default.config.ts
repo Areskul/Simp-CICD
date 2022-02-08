@@ -17,8 +17,8 @@ const defaultConfig = {
         }
       ],
       trigger: {
-        branch: ["main", "master", "dev"],
-        action: ["pre-push"]
+        branches: ["main", "master", "dev"],
+        actions: ["pre-push"]
       }
     }
   ]

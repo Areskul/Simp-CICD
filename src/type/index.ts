@@ -26,8 +26,8 @@ interface Step {
  * @property {string} branch - the action that will trigger the pipe
  */
 interface Trigger {
-  branch?: string[];
-  action?: string[];
+  branches?: string[];
+  actions?: string[];
 }
 
 interface ExecContext {
