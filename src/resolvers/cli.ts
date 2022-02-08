@@ -1,5 +1,5 @@
 import { cac } from "cac";
-import { log } from "@composables/logger";
+import { log, printLogs } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import { useHooks } from "@resolvers/hooks";
@@ -78,6 +78,14 @@ export const useCli = (config: Config) => {
       await linkHooks(config);
       footerMessage();
     });
+  cli.command("logs", "print logs").action(async (options: any) => {
+    headerMessage();
+    setVerbosityAction(options);
+    setConfigAction(options);
+    getConfigAction(options);
+    await printLogs();
+    footerMessage();
+  });
 
   cli.help();
   cli.parse();

@@ -28,6 +28,7 @@
   "dependencies": {
     "@sliphua/lilconfig-ts-loader": "^3.2.2",
     "@supercharge/fs": "^3.4.0",
+    "@supercharge/streams": "^1.0.0",
     "cac": "^6.7.12",
     "lilconfig": "^2.0.4",
     "lodash": "^4.17.21",

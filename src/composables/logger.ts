@@ -1,6 +1,7 @@
 import { ILogObject, Logger } from "tslog";
 import { appendFileSync, createReadStream } from "fs";
 import Fs from "@supercharge/fs";
+import readline from "readline";
 
 const logFolder = ".simp/logs";
 const logFile = `${logFolder}/rawlogs.json`;
@@ -33,8 +34,19 @@ const makeLogger = () => {
 
 const log = makeLogger();
 
-const printLogs = () => {
+const printLogs = async () => {
   const stream = createReadStream(logFile);
+  const rl = readline.createInterface({
+    input: stream,
+    output: process.stdout,
+    terminal: false
+  });
+  rl.on("line", (line) => {
+    console.log(line);
+  });
+  rl.on("close", function () {
+    return;
+  });
 };
 
 export { log, printLogs };
