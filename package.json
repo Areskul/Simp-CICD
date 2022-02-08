@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/cli.ts",
