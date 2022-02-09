@@ -1,4 +1,4 @@
-import { useLogs } from "@composables/logger";
+import { initLogs, useLogs } from "@composables/logger";
 import { execSync as $ } from "child_process";
 import { getDuration } from "@utils/perfomance";
 
@@ -52,6 +52,7 @@ export const useExec = () => {
   };
 
   const execPipeline = async (pipeline: Pipeline) => {
+    await initLogs();
     const { pipelineLog: log } = await useLogs();
     log.info(`pipeline: ${pipeline.name}`);
     for (const step of pipeline.steps) {

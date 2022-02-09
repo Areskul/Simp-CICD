@@ -1,11 +1,8 @@
 import { log } from "@composables/logger";
-import type { Config, Pipeline, Action } from "@type/index";
-import { useTrigger } from "@resolvers/trigger";
-import { useExec } from "@composables/exec";
+import type { Config, Action } from "@type/index";
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
-import { useFs } from "@composables/fs";
 import { getGitPath } from "@utils/git";
 import { getActions } from "@composables/config";
 import Fs from "@supercharge/fs";
