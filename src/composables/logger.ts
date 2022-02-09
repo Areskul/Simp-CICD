@@ -79,7 +79,7 @@ const printFile = async (file: string) => {
       const json = JSON.parse(line);
       for (const cmd of json.argumentsArray) {
         if (json.logLevel == "silly") {
-          console.log(green(cmd));
+          console.log(cmd);
         }
         if (json.logLevel == "info") {
           console.log(green(cmd));
