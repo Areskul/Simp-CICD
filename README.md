@@ -33,24 +33,6 @@ Even the smallest projects need their CICD tools.
 
 Still in active early development stage!...
 
-Config file changes:
-
-branch -> branches
-action -> actions
-
-- [x] Generate log file from git-hooks execution
-- [x] Non-ambigous action naming (actions are named according to git-hooks equivalent).
-- [ ] Command to Pretty print raw log files.
-
-Git hooks are now working!!
-Pipelines will be triggered as background processes for every branch/actions you set.
-
-Just activate hooks with.
-
-```bash
-simp hooks
-```
-
 Send me a message on the [discord](https://discord.com/invite/PUkWPNkG)
 for every problem you could encounter!
 
@@ -114,6 +96,18 @@ const config = defineConfig({
   ]
 });
 export default config;
+```
+
+Activate hooks with
+
+```bash
+simp hooks
+```
+
+Print Logs with
+
+```bash
+simp logs
 ```
 
 [More in the documentation...](https://simp.areskul.com/)
