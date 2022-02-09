@@ -5,13 +5,13 @@ import readline from "readline";
 import { v4 as uuidv4 } from "uuid";
 import { once } from "events";
 import { blue, green, red, yellow } from "picocolors";
+import { getGitPath } from "@utils/git";
 
 type LogOptions = {
   verbose?: boolean;
   path?: string;
 };
 
-const path = ".simp/logs";
 const useLog = () => ({
   defaultLog,
   pipelineLog,
@@ -28,7 +28,9 @@ const defaultLog: Logger = new Logger({
   dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
 });
 
-const touch = (): string => {
+const touch = async (): Promise<string> => {
+  const gitRoot = await getGitPath();
+  const path = `${gitRoot}/.simp/logs`;
   const uuid = uuidv4();
   const file = `${path}/${uuid}.log`;
   Fs.ensureDir(path);
@@ -36,11 +38,13 @@ const touch = (): string => {
   return file;
 };
 
-const makeLogger = () => {
+const makeLogger = async () => {
+  const gitRoot = await getGitPath();
+  const path = `${gitRoot}/.simp/logs`;
   const defaultOptions = {
     verbose: true
   };
-  const logFile = touch();
+  const logFile = await touch();
 
   const logToTransport = (logObject: ILogObject) => {
     appendFileSync(logFile, JSON.stringify(logObject) + "\n");
@@ -65,7 +69,9 @@ const makeLogger = () => {
   );
   return log;
 };
-const pipelineLog = makeLogger();
+
+let pipelineLog: Logger;
+makeLogger().then((res) => (pipelineLog = res));
 
 const printFile = async (file: string) => {
   const stream = createReadStream(file);
@@ -99,6 +105,8 @@ const printFile = async (file: string) => {
   }
 };
 const printLogs = async () => {
+  const gitRoot = await getGitPath();
+  const path = `${gitRoot}/.simp/logs`;
   const allFiles = await Fs.allFiles(path);
   for (const file of allFiles) {
     await printFile(file);
