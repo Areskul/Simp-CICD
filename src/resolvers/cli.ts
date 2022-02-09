@@ -1,5 +1,5 @@
 import { cac } from "cac";
-import { log, printLogs } from "@composables/logger";
+import { log, printLogs, useLogs } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import { useHooks } from "@resolvers/hooks";
@@ -33,10 +33,11 @@ export const useCli = (config: Config) => {
       log.error(err);
     }
   };
-  const setVerbosityAction = (options: any) => {
+  const setVerbosityAction = async (options: any) => {
+    const { verbose } = useLogs();
     if (!options.verbose) return;
     try {
-      //
+      verbose.set(!!options.verbose);
     } catch (err) {
       log.error(err);
     }
@@ -56,9 +57,10 @@ export const useCli = (config: Config) => {
   cli
     .command("trigger")
     .option("-p, --pipeline <string>", "[string] pipeline name")
+    .option("-v, --verbose", "set verbosity level")
     .action(async (options: any) => {
       headerMessage();
-      setVerbosityAction(options);
+      await setVerbosityAction(options);
       setConfigAction(options);
       getConfigAction(options);
       if (!!options.pipeline) {
@@ -77,14 +79,17 @@ export const useCli = (config: Config) => {
       await linkHooks(config);
       footerMessage();
     });
-  cli.command("logs", "print logs").action(async (options: any) => {
-    headerMessage();
-    setVerbosityAction(options);
-    setConfigAction(options);
-    getConfigAction(options);
-    await printLogs();
-    footerMessage();
-  });
+  cli
+    .command("logs", "print logs")
+    .option("-v, --verbose", "set verbosity level")
+    .action(async (options: any) => {
+      headerMessage();
+      await setVerbosityAction(options);
+      setConfigAction(options);
+      getConfigAction(options);
+      await printLogs();
+      footerMessage();
+    });
 
   cli.help();
   cli.parse();

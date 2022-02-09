@@ -7,21 +7,21 @@ import type { Pipeline, Step, ExecOptions } from "@type/index";
 
 export const useExec = () => {
   const exec = async (cmd: string, opts?: ExecOptions) => {
-    const { pipelineLog: log } = await useLogs();
+    const { pipelineLog: log, verbose } = await useLogs();
     try {
       const res = await $(cmd, {
         stdio: ["ignore", "pipe", "pipe"]
       });
       log.debug(green(cmd));
-      log.silly("\n" + res);
+      log.trace("\n" + res);
       return res;
     } catch (err) {
       if (opts && opts["non-blocking"]) {
         log.warn(yellow(cmd));
-        log.warn("\n" + err);
+        log.trace("\n" + err);
         return err;
       } else {
-        log.error(red(cmd));
+        log.warn(red(cmd));
         log.error("\n" + err);
         throw err;
       }
@@ -33,10 +33,12 @@ export const useExec = () => {
     const opts: ExecOptions = {
       "non-blocking": !!step["non-blocking"]
     };
-    log.info(`step: ${step.name}`);
     if (step["non-blocking"]) {
-      log.debug(opts);
+      log.info(`non-blocking step: ${step.name}`);
+    } else {
+      log.info(`step: ${step.name}`);
     }
+    log.debug(opts);
     for (const cmd of step.commands) {
       try {
         await exec(cmd, opts);

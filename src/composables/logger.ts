@@ -79,7 +79,12 @@ const useLogs = () => {
   const defaultLog = ctx.defaultLog;
   const miniLog = ctx.miniLog;
   const pipelineLog = ctx.pipelineLog as Logger;
+  const set = (val: boolean) => {
+    ctx.verbose = val;
+  };
+  const verbose = { set: set };
   return {
+    verbose,
     defaultLog,
     miniLog,
     pipelineLog
@@ -134,7 +139,10 @@ const printFile = async (file: string) => {
           console.log(cmd);
         }
         if (json.logLevel == "debug") {
-          console.log(indent.md + green(cmd));
+          console.log(indent.md + cmd);
+        }
+        if (json.logLevel == "trace" && ctx.verbose) {
+          console.log(cmd);
         }
         if (json.logLevel == "info") {
           cmd = cmd.replace("step", indent.sm + "step");
@@ -142,10 +150,10 @@ const printFile = async (file: string) => {
           console.log(cmd);
         }
         if (json.logLevel == "warn") {
-          console.log(indent.md + yellow(cmd));
+          console.log(indent.md + cmd);
         }
-        if (json.logLevel == "error") {
-          console.log(indent.md + red(cmd));
+        if (json.logLevel == "error" && ctx.verbose) {
+          console.log(indent.md + cmd);
         }
       }
     });
@@ -160,7 +168,8 @@ const printFile = async (file: string) => {
 const printLogs = async () => {
   await initPath();
   const allFiles = await Fs.allFiles(ctx.path as string);
-  for (const file of allFiles) {
+  const sorted = allFiles.sort();
+  for (const file of sorted) {
     await printState(file);
     await printFile(file);
   }
