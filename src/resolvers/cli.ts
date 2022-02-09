@@ -9,7 +9,6 @@ import { blue } from "picocolors";
 
 export const useCli = (config: Config) => {
   const { trigger } = useTrigger(config);
-  const { setContext } = useExec();
   const { linkHooks } = useHooks();
 
   const cli = cac("simp");
@@ -37,7 +36,7 @@ export const useCli = (config: Config) => {
   const setVerbosityAction = (options: any) => {
     if (!options.verbose) return;
     try {
-      setContext({ verbose: true });
+      //
     } catch (err) {
       log.error(err);
     }
@@ -79,12 +78,12 @@ export const useCli = (config: Config) => {
       footerMessage();
     });
   cli.command("logs", "print logs").action(async (options: any) => {
-    headerMessage();
+    await headerMessage();
     setVerbosityAction(options);
     setConfigAction(options);
     getConfigAction(options);
     await printLogs();
-    footerMessage();
+    await footerMessage();
   });
 
   cli.help();
