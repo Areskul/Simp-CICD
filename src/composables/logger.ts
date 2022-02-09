@@ -10,7 +10,23 @@ type LogOptions = {
   verbose?: boolean;
   path?: string;
 };
+
 const path = ".simp/logs";
+const useLog = () => ({
+  defaultLog,
+  pipelineLog,
+  miniLog
+});
+
+const miniLog: Logger = new Logger({
+  displayFilePath: "hidden",
+  dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+});
+
+const defaultLog: Logger = new Logger({
+  displayFilePath: "displayAll",
+  dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+});
 
 const touch = (): string => {
   const uuid = uuidv4();
@@ -32,8 +48,7 @@ const makeLogger = () => {
 
   const log: Logger = new Logger({
     displayFilePath: "displayAll",
-    dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    minLevel: "info"
+    dateTimeTimezone: Intl.DateTimeFormat().resolvedOptions().timeZone
   });
 
   log.attachTransport(
@@ -50,8 +65,8 @@ const makeLogger = () => {
   );
   return log;
 };
+const pipelineLog = makeLogger();
 
-const log = makeLogger();
 const printFile = async (file: string) => {
   const stream = createReadStream(file);
   const rl = readline.createInterface({
@@ -63,17 +78,23 @@ const printFile = async (file: string) => {
     rl.on("line", (line) => {
       const json = JSON.parse(line);
       for (const cmd of json.argumentsArray) {
+        if (json.logLevel == "silly") {
+          console.log(green(cmd));
+        }
         if (json.logLevel == "info") {
           console.log(green(cmd));
         }
         if (json.logLevel == "error") {
           console.log(red(cmd));
         }
+        if (json.logLevel == "warn") {
+          console.log(yellow(cmd));
+        }
       }
     });
     await once(rl, "close");
   } catch (err) {
-    log.error(err);
+    miniLog.error(err);
     return;
   }
 };
@@ -84,4 +105,4 @@ const printLogs = async () => {
   }
 };
 
-export { log, printLogs };
+export { defaultLog as log, printLogs, useLog };

@@ -31,7 +31,7 @@ export const useExec = () => {
     const opts: ExecOptions = {
       "non-blocking": !!step["non-blocking"]
     };
-    log.info(`step: ${step.name}`);
+    log.silly(`step: ${step.name}`);
     if (step["non-blocking"]) {
       log.debug(opts);
     }
@@ -50,7 +50,7 @@ export const useExec = () => {
   };
 
   const execPipeline = async (pipeline: Pipeline) => {
-    log.info(`pipeline: ${pipeline.name}`);
+    log.silly(`pipeline: ${pipeline.name}`);
     for (const step of pipeline.steps) {
       await execStep(step);
     }
