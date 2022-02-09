@@ -47,7 +47,7 @@ export const useCli = (config: Config) => {
 
   cli.command("").action((options: any) => {
     headerMessage();
-    setVerbosityAction(options);
+    // setVerbosityAction(options);
     setConfigAction(options);
     getConfigAction(options);
     footerMessage();
@@ -78,12 +78,12 @@ export const useCli = (config: Config) => {
       footerMessage();
     });
   cli.command("logs", "print logs").action(async (options: any) => {
-    await headerMessage();
+    headerMessage();
     setVerbosityAction(options);
     setConfigAction(options);
     getConfigAction(options);
     await printLogs();
-    await footerMessage();
+    footerMessage();
   });
 
   cli.help();

@@ -1,4 +1,4 @@
-import { log } from "@composables/logger";
+import { useLogs } from "@composables/logger";
 import { execSync as $ } from "child_process";
 import { getDuration } from "@utils/perfomance";
 
@@ -7,12 +7,13 @@ import type { Pipeline, Step, ExecOptions } from "@type/index";
 
 export const useExec = () => {
   const exec = async (cmd: string, opts?: ExecOptions) => {
+    const { pipelineLog: log } = await useLogs();
     try {
       const res = await $(cmd, {
         stdio: ["ignore", "pipe", "pipe"]
       });
       log.debug(green(cmd));
-      log.debug("\n" + res);
+      log.silly("\n" + res);
       return res;
     } catch (err) {
       if (opts && opts["non-blocking"]) {
@@ -28,10 +29,11 @@ export const useExec = () => {
   };
 
   const execStep = async (step: Step) => {
+    const { pipelineLog: log } = await useLogs();
     const opts: ExecOptions = {
       "non-blocking": !!step["non-blocking"]
     };
-    log.silly(`step: ${step.name}`);
+    log.info(`step: ${step.name}`);
     if (step["non-blocking"]) {
       log.debug(opts);
     }
@@ -50,7 +52,8 @@ export const useExec = () => {
   };
 
   const execPipeline = async (pipeline: Pipeline) => {
-    log.silly(`pipeline: ${pipeline.name}`);
+    const { pipelineLog: log } = await useLogs();
+    log.info(`pipeline: ${pipeline.name}`);
     for (const step of pipeline.steps) {
       await execStep(step);
     }

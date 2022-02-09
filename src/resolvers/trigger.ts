@@ -1,10 +1,12 @@
-import { log } from "@composables/logger";
+import { defaultLog } from "@composables/logger";
 import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import type { Config, Pipeline } from "@type/index";
 
 export const useTrigger = (config: Config) => {
+  const log = defaultLog;
   const { execPipeline } = useExec();
+
   const trigger = async (name: string) => {
     if (!config) return;
     const pipelines = config.pipelines.filter(
