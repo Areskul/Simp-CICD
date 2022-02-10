@@ -17,11 +17,11 @@ export const useExec = () => {
       return res;
     } catch (err) {
       if (opts && opts["non-blocking"]) {
-        log.warn(yellow(cmd));
+        log.warn(red(cmd));
         log.trace("\n" + err);
         return err;
       } else {
-        log.error(red(cmd));
+        log.warn(red(cmd));
         log.error("\n" + err);
         throw err;
       }
