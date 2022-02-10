@@ -3,7 +3,7 @@ import simpleGit, { SimpleGit, CleanOptions } from "simple-git";
 const git: SimpleGit = simpleGit().clean(CleanOptions.FORCE);
 
 export const getBranch = async () => {
-  const name = git.revparse(["--abbrev-ref HEAD"]);
+  const name = await git.revparse(["--abbrev-ref", "HEAD"]);
   return name;
 };
 

@@ -1,8 +1,8 @@
 import { initLogs, useLogs } from "@composables/logger";
 import { execSync as $ } from "child_process";
 import { getDuration } from "@utils/perfomance";
-
-import { green, red, blue, yellow } from "picocolors";
+import { getBranch } from "@utils/git";
+import { green, red } from "picocolors";
 import type { Pipeline, Step, ExecOptions } from "@type/index";
 
 export const useExec = () => {
@@ -13,12 +13,6 @@ export const useExec = () => {
       fileLog: flog,
       verbose
     } = await useLogs();
-    const indent = {
-      xs: " ".repeat(2),
-      sm: " ".repeat(4),
-      md: " ".repeat(6),
-      lg: " ".repeat(8)
-    };
     try {
       const res = await $(cmd, {
         stdio: ["ignore", "pipe", "pipe"]
@@ -67,6 +61,8 @@ export const useExec = () => {
   const execPipeline = async (pipeline: Pipeline) => {
     await initLogs();
     const { pipelineLog: log } = await useLogs();
+    const branch = await getBranch();
+    log.info(`branch: ${branch}`);
     log.silly(`pipeline: ${pipeline.name}`);
     for (const step of pipeline.steps) {
       await execStep(step);

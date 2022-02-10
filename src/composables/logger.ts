@@ -4,7 +4,7 @@ import Fs from "@supercharge/fs";
 import readline from "readline";
 import { once } from "events";
 import { magenta, green, red, yellow } from "picocolors";
-import { getGitPath } from "@utils/git";
+import { getGitPath, getBranch } from "@utils/git";
 
 type SuperLog = {
   verbose?: boolean;
@@ -152,6 +152,7 @@ const printFile = async (file: string) => {
           console.log(cmd);
         }
         if (json.logLevel == "info") {
+          if (cmd.includes("branch")) cmd = indent.xs + cmd;
           console.log(magenta(cmd));
         }
         if (json.logLevel == "warn") {
