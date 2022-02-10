@@ -165,10 +165,30 @@ const printFile = async (file: string) => {
   }
 };
 
-const printLogs = async () => {
+const removeLogs = async (forDeletion: string[]) => {
+  for (const path of forDeletion) {
+    if (await Fs.exists(path)) {
+      await Fs.remove(path);
+    }
+  }
+};
+
+const rotateLogs = async () => {
   await initPath();
+  const maxItems = 6;
   const allFiles = await Fs.allFiles(ctx.path as string);
   const sorted = allFiles.sort();
+  if (sorted.length > maxItems) {
+    const forDeletion = sorted.slice(0, sorted.length - maxItems);
+    const truncated = sorted.slice(sorted.length - maxItems);
+    await removeLogs(forDeletion);
+    return truncated;
+  } else {
+    return sorted;
+  }
+};
+const printLogs = async () => {
+  const sorted = await rotateLogs();
   for (const file of sorted) {
     await printState(file);
     await printFile(file);

@@ -42,10 +42,10 @@ export const useExec = () => {
     for (const cmd of step.commands) {
       try {
         await exec(cmd, opts);
-        // return;
+        return;
       } catch (err) {
         if (opts["non-blocking"]) {
-          // return;
+          return;
         } else {
           throw null;
         }
