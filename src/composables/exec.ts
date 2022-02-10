@@ -21,7 +21,7 @@ export const useExec = () => {
         log.trace("\n" + err);
         return err;
       } else {
-        log.warn(red(cmd));
+        log.error(red(cmd));
         log.error("\n" + err);
         throw err;
       }
@@ -34,11 +34,10 @@ export const useExec = () => {
       "non-blocking": !!step["non-blocking"]
     };
     if (step["non-blocking"]) {
-      log.info(`non-blocking step: ${step.name}`);
+      log.silly(`non-blocking step: ${step.name}`);
     } else {
-      log.info(`step: ${step.name}`);
+      log.silly(`step: ${step.name}`);
     }
-    log.debug(opts);
     for (const cmd of step.commands) {
       try {
         await exec(cmd, opts);
@@ -56,7 +55,7 @@ export const useExec = () => {
   const execPipeline = async (pipeline: Pipeline) => {
     await initLogs();
     const { pipelineLog: log } = await useLogs();
-    log.info(`pipeline: ${pipeline.name}`);
+    log.silly(`pipeline: ${pipeline.name}`);
     for (const step of pipeline.steps) {
       await execStep(step);
     }

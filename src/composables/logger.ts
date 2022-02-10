@@ -63,7 +63,7 @@ const initLogger = async () => {
         error: logToTransport,
         fatal: logToTransport
       },
-      "debug"
+      "silly"
     );
     ctx.pipelineLog = log;
   };
@@ -136,24 +136,24 @@ const printFile = async (file: string) => {
       // defaultLog.debug(json);
       for (let cmd of json.argumentsArray) {
         if (json.logLevel == "silly") {
+          cmd = cmd.replace("step", indent.sm + "step");
+          cmd = cmd.replace("pipeline", indent.xs + "pipeline");
           console.log(cmd);
         }
         if (json.logLevel == "debug") {
-          console.log(indent.md + cmd);
+          console.log(indent.md + green(cmd));
         }
         if (json.logLevel == "trace" && ctx.verbose) {
           console.log(cmd);
         }
         if (json.logLevel == "info") {
-          cmd = cmd.replace("step", indent.sm + "step");
-          cmd = cmd.replace("pipeline", indent.xs + "pipeline");
-          console.log(cmd);
+          console.log(magenta(cmd));
         }
         if (json.logLevel == "warn") {
-          console.log(indent.md + cmd);
+          console.log(indent.md + yellow(cmd));
         }
         if (json.logLevel == "error" && ctx.verbose) {
-          console.log(indent.md + cmd);
+          console.log(indent.md + red(cmd));
         }
       }
     });
