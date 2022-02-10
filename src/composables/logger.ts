@@ -13,6 +13,7 @@ type SuperLog = {
   defaultLog: Logger;
   miniLog: Logger;
   pipelineLog?: Logger;
+  fileLog?: Logger;
 };
 const miniLog: Logger = new Logger({
   displayFilePath: "hidden",
@@ -66,6 +67,7 @@ const initLogger = async () => {
       "silly"
     );
     ctx.pipelineLog = log;
+    ctx.fileLog = log.getChildLogger({ suppressStdOutput: true });
   };
   await makeLogger();
 };
@@ -79,15 +81,18 @@ const useLogs = () => {
   const defaultLog = ctx.defaultLog;
   const miniLog = ctx.miniLog;
   const pipelineLog = ctx.pipelineLog as Logger;
+  const fileLog = ctx.fileLog as Logger;
   const set = (val: boolean) => {
     ctx.verbose = val;
   };
-  const verbose = { set: set };
+  const get = () => ctx.verbose;
+  const verbose = { set: set, get: get };
   return {
     verbose,
     defaultLog,
     miniLog,
-    pipelineLog
+    pipelineLog,
+    fileLog
   };
 };
 const printState = async (file: string) => {
@@ -136,8 +141,8 @@ const printFile = async (file: string) => {
       // defaultLog.debug(json);
       for (let cmd of json.argumentsArray) {
         if (json.logLevel == "silly") {
-          cmd = cmd.replace("step", indent.sm + "step");
-          cmd = cmd.replace("pipeline", indent.xs + "pipeline");
+          if (cmd.includes("step")) cmd = indent.sm + cmd;
+          if (cmd.includes("pipeline")) cmd = indent.xs + cmd;
           console.log(cmd);
         }
         if (json.logLevel == "debug") {

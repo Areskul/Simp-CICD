@@ -7,13 +7,25 @@ import type { Pipeline, Step, ExecOptions } from "@type/index";
 
 export const useExec = () => {
   const exec = async (cmd: string, opts?: ExecOptions) => {
-    const { pipelineLog: log, verbose } = await useLogs();
+    const {
+      pipelineLog: log,
+      defaultLog,
+      fileLog: flog,
+      verbose
+    } = await useLogs();
+    const indent = {
+      xs: " ".repeat(2),
+      sm: " ".repeat(4),
+      md: " ".repeat(6),
+      lg: " ".repeat(8)
+    };
     try {
       const res = await $(cmd, {
         stdio: ["ignore", "pipe", "pipe"]
       });
       log.debug(green(cmd));
-      log.trace("\n" + res);
+      if (verbose.get()) defaultLog.trace("\n" + res);
+      flog.trace("\n" + res);
       return res;
     } catch (err) {
       if (opts && opts["non-blocking"]) {
@@ -22,7 +34,8 @@ export const useExec = () => {
         return err;
       } else {
         log.warn(red(cmd));
-        log.error("\n" + err);
+        if (verbose.get()) defaultLog.error("\n" + err);
+        flog.error("\n" + err);
         throw err;
       }
     }
@@ -41,7 +54,6 @@ export const useExec = () => {
     for (const cmd of step.commands) {
       try {
         await exec(cmd, opts);
-        return;
       } catch (err) {
         if (opts["non-blocking"]) {
           return;
