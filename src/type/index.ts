@@ -46,11 +46,11 @@ enum GitHooks {
   // "pre-rebase",
   // "post-checkout",
   // "post-merge",
-  "pre-push"
+  "pre-push",
   "pre-receive",
   "update",
   // "proc-receive",
-  "post-receive",
+  "post-receive"
   // "post-update",
   // "pre-auto-gc",
   // "post-rewrite"
