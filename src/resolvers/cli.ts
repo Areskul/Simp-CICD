@@ -65,6 +65,8 @@ export const useCli = (config: Config) => {
       getConfigAction(options);
       if (!!options.pipeline) {
         await trigger(options.pipeline);
+      } else {
+        await trigger();
       }
       footerMessage();
     });

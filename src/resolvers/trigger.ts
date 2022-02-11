@@ -7,13 +7,14 @@ export const log = defaultLog;
 export const useTrigger = (config: Config) => {
   const { execPipeline } = useExec();
 
-  const trigger = async (name: string) => {
+  const trigger = async (name?: string) => {
+    const n = name ? name : "default";
     if (!config) return;
     const hasName = config.pipelines.filter(
-      (pipeline: Pipeline) => pipeline.name == name
+      (pipeline: Pipeline) => pipeline.name == n
     );
     if (hasName.length == 0) {
-      log.debug(`couldn't find pipeline named "${name}"`);
+      log.debug(`couldn't find pipeline named "${n}"`);
       return;
     }
     const actualBranch = await getBranch();
@@ -21,7 +22,7 @@ export const useTrigger = (config: Config) => {
       pipeline.trigger.branches.includes(actualBranch)
     );
     if (hasBranch.length == 0) {
-      log.debug(`checkout to permitted branch to triggger this pipeline`);
+      log.debug(`checkout to permitted branch to triggger pipeline "${n}"`);
       return;
     }
     for (const pipeline of hasBranch) {
