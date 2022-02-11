@@ -1,9 +1,10 @@
 import { log } from "@composables/logger";
 import { useExec } from "@composables/exec";
-import type { Config, Pipeline } from "@type/index";
+import type { Config, Pipeline, Action } from "@type/index";
 import { getBranch } from "@utils/git";
 type Args = {
   name?: string;
+  action?: string;
   config: Config;
 };
 
@@ -23,9 +24,13 @@ export const useTrigger = (config: Config) => {
     }
   };
 
-  const bulkTrigger = async () => {
+  const bulkTrigger = async (action: Action) => {
     const hasBranch = await reducerBranch({ config: config });
-    for (const pipeline of hasBranch.pipelines) {
+    const hasAction = await reducerAction({
+      action: action,
+      config: hasBranch
+    });
+    for (const pipeline of hasAction.pipelines) {
       try {
         await execPipeline(pipeline);
       } catch (err) {
@@ -52,6 +57,16 @@ export const useTrigger = (config: Config) => {
     );
     if (config.pipelines.length == 0) {
       log.debug(`couldn't find pipeline "${n}"`);
+    }
+    return config;
+  };
+  const reducerAction = async ({ action, config }: Args): Promise<Config> => {
+    const a = action ? action : null;
+    config.pipelines = config.pipelines.filter((pipeline: Pipeline) =>
+      pipeline.trigger.actions.includes(a)
+    );
+    if (config.pipelines.length == 0) {
+      //
     }
     return config;
   };

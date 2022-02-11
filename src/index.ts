@@ -3,7 +3,8 @@ import { defineConfig, useConfig } from "@composables/config";
 import { useHooks } from "@resolvers/hooks";
 import { useTrigger } from "@resolvers/trigger";
 import { useExec } from "@composables/exec";
-import { fork } from "@utils/forker";
+import { forkPush } from "@utils/forker/pre-push";
+import { forkCommit } from "@utils/forker/pre-commit";
 import { call } from "@utils/caller";
 import { getGitPath, getBranch } from "@utils/git";
 
@@ -14,7 +15,8 @@ export {
   useTrigger,
   useHooks,
   useCli,
-  fork,
+  forkPush,
+  forkCommit,
   call,
   getGitPath
 };

@@ -1,2 +1,2 @@
-import { fork } from "@utils/forker";
-fork();
+import { forkPush } from "@utils/forker/pre-push";
+forkPush();

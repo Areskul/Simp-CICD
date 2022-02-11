@@ -1,8 +1,8 @@
 import { useTrigger } from "@resolvers/trigger";
-import { getBranch } from "@utils/git";
-import type { Config } from "@type/index";
+import type { Config, Action } from "@type/index";
 
 export const call = async (config: Config) => {
+  const action = process.argv[2] as Action;
   const { bulkTrigger } = useTrigger(config);
-  await bulkTrigger();
+  await bulkTrigger(action);
 };
