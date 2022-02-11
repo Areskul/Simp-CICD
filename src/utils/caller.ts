@@ -6,10 +6,9 @@ import { log } from "@composables/logger";
 export const call = async (config: Config) => {
   const actualBranch = await getBranch();
 
-  config.pipelines = config.pipelines.filter(async (pipeline: Pipeline) =>
+  config.pipelines = config.pipelines.filter((pipeline: Pipeline) =>
     pipeline.trigger.branches.includes(actualBranch)
   );
-  log.debug(config);
 
   const { trigger } = useTrigger(config);
   for (const pipeline of config.pipelines) {
