@@ -22,7 +22,7 @@ const defaultConfig = {
       }
     },
     {
-      name: "test",
+      name: "default",
       steps: [
         {
           name: "linting",

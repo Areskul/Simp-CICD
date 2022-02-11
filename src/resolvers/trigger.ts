@@ -1,7 +1,7 @@
 import { defaultLog } from "@composables/logger";
-import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import type { Config, Pipeline } from "@type/index";
+import { getBranch } from "@utils/git";
 
 export const log = defaultLog;
 export const useTrigger = (config: Config) => {
@@ -9,11 +9,22 @@ export const useTrigger = (config: Config) => {
 
   const trigger = async (name: string) => {
     if (!config) return;
-    const pipelines = config.pipelines.filter(
+    const hasName = config.pipelines.filter(
       (pipeline: Pipeline) => pipeline.name == name
     );
-    if (!isUnique(pipelines)) return;
-    for (const pipeline of pipelines) {
+    if (hasName.length == 0) {
+      log.debug(`couldn't find pipeline named "${name}"`);
+      return;
+    }
+    const actualBranch = await getBranch();
+    const hasBranch = hasName.filter((pipeline: Pipeline) =>
+      pipeline.trigger.branches.includes(actualBranch)
+    );
+    if (hasBranch.length == 0) {
+      log.debug(`checkout to permitted branch to triggger this pipeline`);
+      return;
+    }
+    for (const pipeline of hasBranch) {
       try {
         await execPipeline(pipeline);
       } catch (err) {
@@ -21,21 +32,7 @@ export const useTrigger = (config: Config) => {
       }
     }
   };
-  const isUnique = (pipelines: Pipeline[]) => {
-    if (pipelines.length == 0) {
-      log.warn(`pipeline "${name}" is undefined`);
-      return false;
-    }
-    if (pipelines.length > 1) {
-      log.warn(`pipeline "${name}" has duplicates`);
-      return false;
-    } else {
-      return true;
-    }
-  };
-
   return {
-    trigger,
-    isUnique
+    trigger
   };
 };
