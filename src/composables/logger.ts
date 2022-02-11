@@ -79,6 +79,7 @@ const initLogs = async () => {
   await initLogger();
 };
 const useLogs = () => {
+  initPath();
   const defaultLog = ctx.defaultLog;
   const miniLog = ctx.miniLog;
   const pipelineLog = ctx.pipelineLog as Logger;
