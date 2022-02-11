@@ -28,8 +28,10 @@ export const useHooks = (config?: Config) => {
       await linkHook(action);
     }
   };
+  const makeHooks = linkHooks;
 
   return {
+    makeHooks,
     linkHooks,
     toHook
   };

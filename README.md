@@ -110,4 +110,11 @@ Print Logs with
 simp logs
 ```
 
+The non-verbose "minimal" output looks actually like that.
+And is likely to change for the better.
+
+<p align="center">
+  <img style="width: 100%" src="https://simp.areskul.com/images/logs.png" alt="pretty logs">
+</p>
+
 [More in the documentation...](https://simp.areskul.com/)
