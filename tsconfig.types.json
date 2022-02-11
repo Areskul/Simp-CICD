@@ -12,6 +12,7 @@
     "src/**/*.ts"
   ],
   "exclude":[
+    "test",
     "node_modules",
     ".simp/*.ts",
     ".simp/**/*.ts"
