@@ -17,7 +17,20 @@ const defaultConfig = {
         }
       ],
       trigger: {
-        branches: ["main", "master", "dev"],
+        branches: ["main", "master"],
+        actions: ["pre-push"]
+      }
+    },
+    {
+      name: "test",
+      steps: [
+        {
+          name: "linting",
+          commands: ["yarn lint"]
+        }
+      ],
+      trigger: {
+        branches: ["dev"],
         actions: ["pre-push"]
       }
     }
