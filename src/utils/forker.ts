@@ -1,9 +1,9 @@
 import cp from "child_process";
 import { getGitPath } from "@utils/git";
+import type { Action } from "@type/index";
 
-export const forkCommit = async () => {
+export const fork = async (action: Action) => {
   const gitRoot = await getGitPath();
-  const action = "pre-commit";
   const target = `${gitRoot}/node_modules/simpcicd/dist/bin/caller.js`;
   const subprocess = cp.spawn(target, [action], {
     detached: true,

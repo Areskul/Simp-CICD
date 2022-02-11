@@ -1,2 +1,3 @@
 import { useConfig, call } from "../cjs/index.js";
-call(useConfig());
+const action = process.argv[2];
+call({ config: useConfig(), action: action });

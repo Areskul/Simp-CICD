@@ -43,5 +43,5 @@ export default [
   typesConfig,
   cliConfig,
   callConfig,
-  forkConfig
+  ...forkConfig()
 ];
