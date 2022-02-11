@@ -39,21 +39,10 @@ interface ExecOptions {
 }
 enum GitHooks {
   "pre-commit",
-  // "pre-merge-commit",
-  // "prepare-commit-msg",
-  // "commit-msg",
-  // "post-commit",
-  // "pre-rebase",
-  // "post-checkout",
-  // "post-merge",
   "pre-push",
   "pre-receive",
   "update",
-  // "proc-receive",
   "post-receive"
-  // "post-update",
-  // "pre-auto-gc",
-  // "post-rewrite"
 }
 /**
  * @typedef {string} Action - Define a trigger event
@@ -61,4 +50,4 @@ enum GitHooks {
  */
 type Action = keyof typeof GitHooks;
 
-export { Config, Pipeline, Step, ExecOptions, ExecContext, Action };
+export { Config, Pipeline, Step, ExecOptions, ExecContext, GitHooks, Action };

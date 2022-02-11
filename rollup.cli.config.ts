@@ -1,8 +1,14 @@
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";
-import { GitHooks } from "@type/index";
 // import nodeResolve from "@rollup/plugin-node-resolve";
 // import commonjs from "@rollup/plugin-commonjs";
+const GitHooks = [
+  "pre-commit",
+  "pre-push",
+  "pre-receive",
+  "update",
+  "post-receive"
+];
 
 const nodeExecPath = "#!/usr/bin/node";
 export const cliConfig = {
@@ -10,7 +16,7 @@ export const cliConfig = {
   output: {
     file: "dist/bin/cli.js",
     format: "cjs", // CommonJS
-    sourcemap: true,
+    sourcemap: false,
     banner: nodeExecPath
   },
   external: ["../cjs/index.js"],
@@ -29,7 +35,7 @@ export const callConfig = {
   output: {
     file: "dist/bin/caller.js",
     format: "cjs", // CommonJS
-    sourcemap: true,
+    sourcemap: false,
     banner: nodeExecPath
   },
   external: ["../cjs/index.js"],
@@ -46,13 +52,13 @@ export const callConfig = {
 
 export const forkConfig = () => {
   const config = [];
-  for (let action in GitHooks) {
+  for (const action of GitHooks) {
     config.push({
-      input: "bin/forker.ts",
+      input: `bin/forker/${action}.ts`,
       output: {
-        file: "dist/bin/forker.js",
+        file: `dist/bin/forker/${action}.js`,
         format: "cjs", // CommonJS
-        sourcemap: true,
+        sourcemap: false,
         banner: nodeExecPath
       },
       external: ["../../cjs/index.js"],

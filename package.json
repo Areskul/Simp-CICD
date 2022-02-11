@@ -8,7 +8,7 @@
     "test:forker": "ts-node -r tsconfig-paths/register test/forker.ts",
     "test:hooks": "ts-node -r tsconfig-paths/register test/hooks.ts",
     "test:utils": "ts-node -r tsconfig-paths/register test/utils.ts",
-    "build": "tsc -p tsconfig.types.json && rollup -c",
+    "build": "tsc -p tsconfig.types.json && rollup --config rollup.config.ts --configPlugin typescript",
     "build:doc": "npx typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts src/types/index.ts",
     "lint": "tsc --noEmit"
   },
