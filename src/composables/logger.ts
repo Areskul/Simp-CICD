@@ -32,6 +32,7 @@ const ctx: SuperLog = {
 const initPath = async () => {
   const gitRoot = await getGitPath();
   const path = `${gitRoot}/.simp/logs`;
+  await Fs.ensureDir(path);
   ctx.path = path;
 };
 const touch = async () => {
