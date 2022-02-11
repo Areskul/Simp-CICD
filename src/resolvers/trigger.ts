@@ -14,7 +14,7 @@ export const useTrigger = (config: Config) => {
       (pipeline: Pipeline) => pipeline.name == n
     );
     if (hasName.length == 0) {
-      log.debug(`couldn't find pipeline named "${n}"`);
+      log.debug(`couldn't find pipeline "${n}"`);
       return;
     }
     const actualBranch = await getBranch();
