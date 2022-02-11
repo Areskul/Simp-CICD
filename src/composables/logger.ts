@@ -156,7 +156,7 @@ const printFile = async (file: string) => {
           console.log(magenta(cmd));
         }
         if (json.logLevel == "warn") {
-          console.log(indent.md + yellow(cmd));
+          console.log(indent.md + red(cmd));
         }
         if (json.logLevel == "error" && ctx.verbose) {
           console.log(indent.md + red(cmd));
