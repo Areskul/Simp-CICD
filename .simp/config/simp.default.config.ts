@@ -13,7 +13,7 @@ const defaultConfig = {
         },
         {
           name: "bin files mode",
-          commands: ["chmod -R +x dist/bin/*.js"]
+          commands: ["chmod +x dist/bin/*.js", "chmod +x dist/bin/forker/*.js"]
         }
       ],
       trigger: {
