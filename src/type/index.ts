@@ -5,7 +5,7 @@ interface Pipeline {
   name: string;
   commands?: string[];
   steps: Step[];
-  trigger?: any;
+  trigger?: Trigger;
 }
 
 enum StepType {
@@ -27,7 +27,7 @@ interface Step {
  */
 interface Trigger {
   branches?: string[];
-  actions?: string[];
+  actions?: Action[];
 }
 
 interface ExecContext {

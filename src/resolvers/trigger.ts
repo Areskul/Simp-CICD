@@ -2,12 +2,6 @@ import { log } from "@composables/logger";
 import { useExec } from "@composables/exec";
 import type { Config, Pipeline, Action } from "@type/index";
 import { getBranch } from "@utils/git";
-type Args = {
-  name?: string;
-  action?: string;
-  config: Config;
-};
-
 export const useTrigger = (config: Config) => {
   const { execPipeline } = useExec();
 
@@ -39,35 +33,49 @@ export const useTrigger = (config: Config) => {
     }
   };
 
-  const reducerBranch = async ({ name, config }: Args): Promise<Config> => {
-    const n = name ? name : "";
+  type reducerArgs = {
+    name?: string;
+    config: Config;
+  };
+
+  const reducerName = async ({
+    name,
+    config
+  }: reducerArgs): Promise<Config> => {
+    config.pipelines = config.pipelines.filter(
+      (pipeline: Pipeline) => pipeline.name == name
+    );
+    if (config.pipelines.length == 0) {
+      log.debug(`couldn't find pipeline "${name}"`);
+    }
+    return config;
+  };
+
+  const reducerBranch = async ({
+    name,
+    config
+  }: reducerArgs): Promise<Config> => {
     const actualBranch = await getBranch();
     config.pipelines = config.pipelines.filter((pipeline: Pipeline) =>
-      pipeline.trigger.branches.includes(actualBranch)
+      pipeline.trigger?.branches?.includes(actualBranch)
     );
     if (config.pipelines.length == 0) {
-      log.debug(`checkout to permitted branch to triggger pipeline ${n}`);
+      log.debug(`checkout to permitted branch to triggger pipeline ${name}`);
     }
     return config;
   };
-  const reducerName = async ({ name, config }: Args): Promise<Config> => {
-    const n = name ? name : "";
-    config.pipelines = config.pipelines.filter(
-      (pipeline: Pipeline) => pipeline.name == n
-    );
-    if (config.pipelines.length == 0) {
-      log.debug(`couldn't find pipeline "${n}"`);
-    }
-    return config;
+
+  type reducerActionArgs = {
+    action: Action;
+    config: Config;
   };
-  const reducerAction = async ({ action, config }: Args): Promise<Config> => {
-    const a = action ? action : null;
+  const reducerAction = async ({
+    action,
+    config
+  }: reducerActionArgs): Promise<Config> => {
     config.pipelines = config.pipelines.filter((pipeline: Pipeline) =>
-      pipeline.trigger.actions.includes(a)
+      pipeline.trigger?.actions?.includes(action)
     );
-    if (config.pipelines.length == 0) {
-      //
-    }
     return config;
   };
   return {
