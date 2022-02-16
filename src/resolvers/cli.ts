@@ -8,6 +8,7 @@ import type { Config } from "@def/types";
 import { blue } from "picocolors";
 
 export const useCli = (config: Config) => {
+  const version = "latest";
   const { trigger } = useTrigger(config);
   const { linkHooks } = useHooks();
 
@@ -80,7 +81,7 @@ export const useCli = (config: Config) => {
       await printLogs();
       footerMessage();
     });
-
+  cli.version(version);
   cli.help();
   cli.parse();
   return cli;

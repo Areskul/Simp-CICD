@@ -16,7 +16,6 @@ const useConfig = async (config?: Config) => {
       return store.config;
     }
     try {
-      let config: Config;
       const options = {
         searchPlaces: ["simp.config.ts", "simp.config.js", "simp.config.mjs"],
         loaders: {
@@ -26,7 +25,7 @@ const useConfig = async (config?: Config) => {
       };
       const res = await lilconfig("simp", options).search();
       if (res) {
-        const config = res.config;
+        const config = res.config as Config;
         store.config = config;
       }
       return store.config;
