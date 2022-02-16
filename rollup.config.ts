@@ -6,6 +6,7 @@ import { typesConfig } from "./rollup.types.config.js";
 // import commonjs from "@rollup/plugin-commonjs";
 
 export default [
+  typesConfig,
   {
     input: "src/index.ts",
     output: {
@@ -15,8 +16,7 @@ export default [
     },
     plugins: [
       typescript({
-        tsconfig: "tsconfig.build.json",
-        module: "esnext"
+        tsconfig: "tsconfig.build.json"
       }),
       typescriptPaths({
         preserveExtensions: true
@@ -32,15 +32,13 @@ export default [
     },
     plugins: [
       typescript({
-        tsconfig: "tsconfig.build.json",
-        module: "esnext"
+        tsconfig: "tsconfig.build.json"
       }),
       typescriptPaths({
         preserveExtensions: true
       })
     ]
   },
-  typesConfig,
   cliConfig,
   callConfig,
   ...forkConfig()

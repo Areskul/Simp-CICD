@@ -8,14 +8,7 @@ interface Pipeline {
   trigger?: Trigger;
 }
 
-enum StepType {
-  exec,
-  docker
-}
-type StepTypeString = keyof typeof StepType;
-
 interface Step {
-  type?: StepTypeString;
   "non-blocking"?: boolean;
   name: string;
   commands: string[];
@@ -37,17 +30,23 @@ interface ExecContext {
 interface ExecOptions {
   "non-blocking"?: boolean;
 }
-enum GitHooks {
+const GitHooks = [
   "pre-commit",
   "pre-push",
   "pre-receive",
   "update",
   "post-receive"
-}
+];
+
+type Action =
+  | "pre-commit"
+  | "pre-push"
+  | "pre-receive"
+  | "update"
+  | "post-receive";
 /**
  * @typedef {string} Action - Define a trigger event
  * @property {string} Action - git actions (hooks) that will trigger the pipe
  */
-type Action = keyof typeof GitHooks;
 
 export { Config, Pipeline, Step, ExecOptions, ExecContext, GitHooks, Action };

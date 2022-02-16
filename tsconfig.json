@@ -22,11 +22,11 @@
     "rootDir": ".",
     "paths": {
       "@src/*": ["./src/*"],
+      "@composables/*": ["./src/composables/*"],
       "@resolvers/*": ["./src/resolvers/*"],
       "@utils/*": ["./src/utils/*"],
       "@type/*": ["./src/type/*"],
-      "@hooks/*": [".simp/hooks/src/*"],
-      "@composables/*": ["./src/composables/*"]
+      "@hooks/*": [".simp/hooks/src/*"]
     }
   },
   "include": [
