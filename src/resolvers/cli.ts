@@ -18,9 +18,9 @@ export const useCli = (config: Config) => {
   const footerMessage = () => {
     console.log(blue("\nDone.\n"));
   };
-  const setConfigAction = (options: any) => {
+  const setConfigAction = async (options: any) => {
     try {
-      useConfig();
+      await useConfig();
     } catch (err) {
       log.error(err);
     }
@@ -76,8 +76,8 @@ export const useCli = (config: Config) => {
     .action(async (options: any) => {
       headerMessage();
       setVerbosityAction(options);
-      setConfigAction(options);
-      getConfigAction(options);
+      await setConfigAction(options);
+      await getConfigAction(options);
       await linkHooks(config);
       footerMessage();
     });

@@ -1,6 +1,6 @@
 import type { Config, Action } from "@def/types";
 import { log } from "@composables/logger";
-import { lilconfigSync } from "lilconfig";
+import { lilconfig } from "lilconfig";
 import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
 import { uniq } from "lodash";
 
@@ -8,9 +8,9 @@ interface Store {
   config: Config;
 }
 
-const useConfig = (config?: Config) => {
+const useConfig = async (config?: Config) => {
   const store: Store = { config: {} as Config };
-  const set = (config?: Config) => {
+  const set = async (config?: Config) => {
     if (!!config) {
       store.config = config;
       return store.config;
@@ -24,9 +24,9 @@ const useConfig = (config?: Config) => {
           ".mjs": TypeScriptLoader
         }
       };
-      const res = lilconfigSync("simp", options).search();
+      const res = await lilconfig("simp", options).search();
       if (res) {
-        config = res.config;
+        const config = res.config;
         store.config = config;
       }
       return store.config;
@@ -35,7 +35,7 @@ const useConfig = (config?: Config) => {
       return;
     }
   };
-  set(config);
+  await set(config);
   return store.config;
 };
 
