@@ -1,2 +1,6 @@
 import { useCli, useConfig } from "../cjs/index.js";
-useCli(useConfig());
+const start = async () => {
+  const config = await useConfig();
+  useCli(config);
+};
+start();

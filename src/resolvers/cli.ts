@@ -18,14 +18,7 @@ export const useCli = (config: Config) => {
   const footerMessage = () => {
     console.log(blue("\nDone.\n"));
   };
-  const setConfigAction = async (options: any) => {
-    try {
-      await useConfig();
-    } catch (err) {
-      log.error(err);
-    }
-  };
-  const getConfigAction = (options: any) => {
+  const getConfigAction = async (options: any) => {
     if (!options.printConfig) return;
     try {
       log.info(config);
@@ -46,11 +39,9 @@ export const useCli = (config: Config) => {
   cli.option("--print-config", "parse loaded config");
   cli.option("-v , --verbose", "print successful commands output");
 
-  cli.command("").action((options: any) => {
+  cli.command("").action(async (options: any) => {
     headerMessage();
-    // setVerbosityAction(options);
-    setConfigAction(options);
-    getConfigAction(options);
+    await getConfigAction(options);
     footerMessage();
   });
 
@@ -61,8 +52,7 @@ export const useCli = (config: Config) => {
     .action(async (options: any) => {
       headerMessage();
       await setVerbosityAction(options);
-      setConfigAction(options);
-      getConfigAction(options);
+      await getConfigAction(options);
       if (!!options.pipeline) {
         await trigger(options.pipeline);
       } else {
@@ -76,7 +66,6 @@ export const useCli = (config: Config) => {
     .action(async (options: any) => {
       headerMessage();
       setVerbosityAction(options);
-      await setConfigAction(options);
       await getConfigAction(options);
       await linkHooks(config);
       footerMessage();
@@ -87,8 +76,7 @@ export const useCli = (config: Config) => {
     .action(async (options: any) => {
       headerMessage();
       await setVerbosityAction(options);
-      setConfigAction(options);
-      getConfigAction(options);
+      await getConfigAction(options);
       await printLogs();
       footerMessage();
     });
