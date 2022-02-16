@@ -1,6 +1,6 @@
 import cp from "child_process";
 import { getGitPath } from "@utils/git";
-import type { Action } from "@type/index";
+import type { Action } from "@def/types";
 
 export const fork = async (action: Action) => {
   const gitRoot = await getGitPath();

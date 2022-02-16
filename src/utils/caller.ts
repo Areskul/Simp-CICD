@@ -1,5 +1,5 @@
 import { useTrigger } from "@resolvers/trigger";
-import type { Config, Action } from "@type/index";
+import type { Config, Action } from "@def/types";
 
 interface Args {
   action: Action;

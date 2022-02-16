@@ -1,6 +1,6 @@
 import { log } from "@composables/logger";
 import { useExec } from "@composables/exec";
-import type { Config, Pipeline, Action } from "@type/index";
+import type { Config, Pipeline, Action } from "@def/types";
 import { getBranch } from "@utils/git";
 export const useTrigger = (config: Config) => {
   const { execPipeline } = useExec();

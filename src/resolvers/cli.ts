@@ -4,7 +4,7 @@ import { useConfig } from "@composables/config";
 import { useExec } from "@composables/exec";
 import { useHooks } from "@resolvers/hooks";
 import { useTrigger } from "@resolvers/trigger";
-import type { Config } from "@type/index";
+import type { Config } from "@def/types";
 import { blue } from "picocolors";
 
 export const useCli = (config: Config) => {

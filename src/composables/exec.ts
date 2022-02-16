@@ -3,7 +3,7 @@ import { execSync as $ } from "child_process";
 import { getDuration } from "@utils/perfomance";
 import { getBranch } from "@utils/git";
 import { green, red } from "picocolors";
-import type { Pipeline, Step, ExecOptions } from "@type/index";
+import type { Pipeline, Step, ExecOptions } from "@def/types";
 
 export const useExec = () => {
   const exec = async (cmd: string, opts?: ExecOptions) => {

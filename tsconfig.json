@@ -25,8 +25,7 @@
       "@composables/*": ["./src/composables/*"],
       "@resolvers/*": ["./src/resolvers/*"],
       "@utils/*": ["./src/utils/*"],
-      "@type/*": ["./src/type/*"],
-      "@hooks/*": [".simp/hooks/src/*"]
+      "@def/*": ["./src/def/*"]
     }
   },
   "include": [
@@ -38,7 +37,6 @@
     ".simp/**/*.ts"
   ],
   "exclude": [
-    "/node_modules",
-    "/dist"
+    "/node_modules"
   ]
 }

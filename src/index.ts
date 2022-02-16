@@ -15,5 +15,14 @@ export {
   useCli,
   fork,
   call,
-  getGitPath
+  getGitPath,
+  getBranch
 };
+export type {
+  Config,
+  Pipeline,
+  Step,
+  ExecOptions,
+  ExecContext,
+  Action
+} from "./def/types";

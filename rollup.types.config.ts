@@ -6,16 +6,16 @@ import del from "rollup-plugin-delete";
 // import commonjs from "@rollup/plugin-commonjs";
 
 export const typesConfig = {
-  input: "dist/dts/type/index.d.ts",
+  input: "dist/dts/index.d.ts",
   output: [{ file: "dist/types/index.d.ts", format: "es" }],
   plugins: [
     typescript({
-      tsconfig: "tsconfig.types.json"
+      tsconfig: "tsconfig.build.json"
     }),
     typescriptPaths({
       preserveExtensions: true
     }),
     dts(),
-    del({ targets: "dts", hook: "buildEnd" })
+    del({ targets: "dist/dts", hook: "buildEnd" })
   ]
 };

@@ -1,3 +1,5 @@
+import { log } from "@composables/logger";
+
 interface Config {
   pipelines: Pipeline[];
 }
@@ -37,16 +39,15 @@ const GitHooks = [
   "update",
   "post-receive"
 ];
-
+/**
+ * @typedef {string} Action - Define a trigger event
+ * @property {string} Action - git actions (hooks) that will trigger the pipe
+ */
 type Action =
   | "pre-commit"
   | "pre-push"
   | "pre-receive"
   | "update"
   | "post-receive";
-/**
- * @typedef {string} Action - Define a trigger event
- * @property {string} Action - git actions (hooks) that will trigger the pipe
- */
 
-export { Config, Pipeline, Step, ExecOptions, ExecContext, GitHooks, Action };
+export { Config, Pipeline, Step, ExecOptions, ExecContext, Action };

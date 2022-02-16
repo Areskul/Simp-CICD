@@ -1,5 +1,5 @@
 import { log } from "@composables/logger";
-import type { Config, Action } from "@type/index";
+import type { Config, Action } from "@def/types";
 import { rollup } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import { typescriptPaths } from "rollup-plugin-typescript-paths";

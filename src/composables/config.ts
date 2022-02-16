@@ -1,8 +1,8 @@
-import type { Config, Action, Pipeline } from "@type/index";
+import type { Config, Action } from "@def/types";
 import { log } from "@composables/logger";
 import { lilconfigSync } from "lilconfig";
 import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
-import { uniq, isEqual } from "lodash";
+import { uniq } from "lodash";
 
 interface Store {
   config: Config;
