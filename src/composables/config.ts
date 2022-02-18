@@ -1,8 +1,9 @@
-import type { Config, Action } from "@def/types";
+import type { Config, Pipeline, Action } from "@def/types";
 import { log } from "@composables/logger";
 import { lilconfig } from "lilconfig";
 import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
 import { uniq } from "lodash";
+import { getBranch } from "@utils/git";
 
 interface Store {
   config: Config;
@@ -53,4 +54,52 @@ const getActions = (config: Config): Action[] => {
   return actions;
 };
 
-export { useConfig, defineConfig, Config, getActions };
+type reducerArgs = {
+  name?: string;
+  config: Config;
+};
+const reducerName = async ({ name, config }: reducerArgs): Promise<Config> => {
+  config.pipelines = config.pipelines.filter(
+    (pipeline: Pipeline) => pipeline.name == name
+  );
+  if (config.pipelines.length == 0) {
+    log.debug(`couldn't find pipeline "${name}"`);
+  }
+  return config;
+};
+const reducerBranch = async ({
+  name,
+  config
+}: reducerArgs): Promise<Config> => {
+  const actualBranch = await getBranch();
+  config.pipelines = config.pipelines.filter((pipeline: Pipeline) =>
+    pipeline.trigger?.branches?.includes(actualBranch)
+  );
+  if (config.pipelines.length == 0) {
+    log.debug(`checkout to permitted branch to triggger pipeline ${name}`);
+  }
+  return config;
+};
+
+type reducerActionArgs = {
+  action: Action;
+  config: Config;
+};
+const reducerAction = async ({
+  action,
+  config
+}: reducerActionArgs): Promise<Config> => {
+  config.pipelines = config.pipelines.filter((pipeline: Pipeline) =>
+    pipeline.trigger?.actions?.includes(action)
+  );
+  return config;
+};
+export {
+  useConfig,
+  defineConfig,
+  Config,
+  getActions,
+  reducerName,
+  reducerAction,
+  reducerBranch
+};

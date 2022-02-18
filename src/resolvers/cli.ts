@@ -56,7 +56,7 @@ export const useCli = (config: Config) => {
       await setVerbosityAction(options);
       await getConfigAction(options);
       let opts = {};
-      if (!!options.background) {
+      if (options.background) {
         opts = { spawn: true };
       }
       if (!!options.pipeline) {

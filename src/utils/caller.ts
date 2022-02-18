@@ -1,5 +1,7 @@
 import { useTrigger } from "@resolvers/trigger";
+import { useExec } from "@composables/exec";
 import type { Config, Pipeline, Action } from "@def/types";
+import { reducerName, reducerBranch } from "@composables/config";
 
 interface Args {
   action: Action;
@@ -8,9 +10,14 @@ interface Args {
 }
 
 export const call = async ({ config, action, pipeline }: Args) => {
-  const { bulkTrigger, trigger } = useTrigger(config);
+  const { execPipeline } = useExec();
+  const { bulkTrigger } = useTrigger(config);
   if (!!pipeline) {
-    trigger(pipeline);
+    const hasName = await reducerName({ name: pipeline, config: config });
+    const hasBranch = await reducerBranch({ name: pipeline, config: hasName });
+    for (const pipeline of hasBranch.pipelines) {
+      execPipeline(pipeline);
+    }
   }
   await bulkTrigger(action);
 };
