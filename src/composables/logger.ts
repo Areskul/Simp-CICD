@@ -218,16 +218,18 @@ const filterLogs = async (
     try {
       rl.on("line", (line) => {
         const json = JSON.parse(line);
-        for (let cmd of json.argumentsArray) {
+        for (const cmd of json.argumentsArray) {
           if (
             json.logLevel == "info" &&
-            cmd.includes("branch: ${options.branch}")
+            !!options &&
+            cmd.includes(`branch: ${options.branch}`)
           ) {
             filtered.push(file);
           }
           if (
             json.logLevel == "silly" &&
-            cmd.includes("pipeline: ${options.pipeline}")
+            !!options &&
+            cmd.includes(`pipeline: ${options.pipeline}`)
           ) {
             filtered.push(file);
           }
@@ -244,7 +246,7 @@ const filterLogs = async (
 const printLogs = async (options?: fileOptions) => {
   const sorted = await rotateLogs();
   const filtered = await filterLogs(sorted, options);
-  for (const file of sorted) {
+  for (const file of filtered) {
     await printState(file);
     await printFile(file);
   }

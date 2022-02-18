@@ -80,13 +80,13 @@ export const useCli = (config: Config) => {
   cli
     .command("logs", "print logs")
     .option("-v, --verbose", "set verbosity level")
-    .option("-b, --branch", "set the branch")
-    .option("--pipeline", "set the pipeline")
+    .option("-b, --branch <string>", "[string] set the branch")
+    .option("-p, --pipeline <string>", "[string) set the pipeline")
     .action(async (options: any) => {
       headerMessage();
       await setVerbosityAction(options);
       await getConfigAction(options);
-      await printLogs();
+      await printLogs({ pipeline: options.pipeline, branch: options.branch });
       footerMessage();
     });
   cli.version(version);
