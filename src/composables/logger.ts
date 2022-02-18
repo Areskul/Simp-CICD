@@ -245,7 +245,12 @@ const filterLogs = async (
 
 const printLogs = async (options?: fileOptions) => {
   const sorted = await rotateLogs();
-  const filtered = await filterLogs(sorted, options);
+  let filtered = [];
+  if (!!options?.branch || !!options?.pipeline) {
+    filtered = await filterLogs(sorted, options);
+  } else {
+    filtered = sorted;
+  }
   for (const file of filtered) {
     await printState(file);
     await printFile(file);
