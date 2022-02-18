@@ -124,11 +124,10 @@ const printState = async (file: string) => {
   }
 };
 
-interface fileOptions {
-  branch?: string;
-  pipeline?: string;
+interface fileOptions{
+  branch: string
 }
-const printFile = async (file: string, options?: fileOptions) => {
+const printFile = async (file: string) => {
   const indent = {
     xs: " ".repeat(2),
     sm: " ".repeat(4),
@@ -152,7 +151,7 @@ const printFile = async (file: string, options?: fileOptions) => {
           console.log(cmd);
         }
         if (json.logLevel == "debug") {
-          cmd = cmd.replace(/  +/g, "\n" + indent.md);
+          cmd = cmd.replace(/  +/g, " ");
           console.log(indent.md + green(cmd));
         }
         if (json.logLevel == "trace" && ctx.verbose) {
@@ -163,7 +162,7 @@ const printFile = async (file: string, options?: fileOptions) => {
           console.log(magenta(cmd));
         }
         if (json.logLevel == "warn") {
-          cmd = cmd.replace(/  +/g, "\n" + indent.md);
+          cmd = cmd.replace(/  +/g, " ");
           console.log(indent.md + red(cmd));
         }
         if (json.logLevel == "error" && ctx.verbose) {
