@@ -76,7 +76,7 @@ const reducerBranch = async ({
     pipeline.trigger?.branches?.includes(actualBranch)
   );
   if (config.pipelines.length == 0) {
-    log.debug(`checkout to permitted branch to triggger pipeline ${name}`);
+    log.debug(`checkout to permitted branch to trigger pipeline ${name}`);
   }
   return config;
 };

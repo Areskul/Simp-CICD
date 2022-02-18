@@ -1,6 +1,6 @@
 import { useTrigger } from "@resolvers/trigger";
 import { useExec } from "@composables/exec";
-import type { Config, Pipeline, Action } from "@def/types";
+import type { Config, Action } from "@def/types";
 import { reducerName, reducerBranch } from "@composables/config";
 
 interface Args {
