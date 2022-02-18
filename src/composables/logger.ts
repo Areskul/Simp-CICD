@@ -148,6 +148,7 @@ const printFile = async (file: string) => {
           console.log(cmd);
         }
         if (json.logLevel == "debug") {
+          cmd = cmd.replace(/  +/g, " ");
           console.log(indent.md + green(cmd));
         }
         if (json.logLevel == "trace" && ctx.verbose) {
@@ -158,6 +159,7 @@ const printFile = async (file: string) => {
           console.log(magenta(cmd));
         }
         if (json.logLevel == "warn") {
+          cmd = cmd.replace(/  +/g, " ");
           console.log(indent.md + red(cmd));
         }
         if (json.logLevel == "error" && ctx.verbose) {
