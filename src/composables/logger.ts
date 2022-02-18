@@ -111,7 +111,7 @@ const printState = async (file: string) => {
     rl.on("line", (line) => {
       const json = JSON.parse(line);
       if (json.logLevel == "error") {
-        state = red("● Failed ");
+        state = red("● Fail ");
       } else {
         state = green("● Succeed ");
       }
