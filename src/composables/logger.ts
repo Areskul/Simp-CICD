@@ -124,11 +124,7 @@ const printState = async (file: string) => {
   }
 };
 
-interface fileOptions {
-  branch?: string;
-  pipeline?: string;
-}
-const printFile = async (file: string, options?: fileOptions) => {
+const printFile = async (file: string) => {
   const indent = {
     xs: " ".repeat(2),
     sm: " ".repeat(4),
@@ -201,8 +197,53 @@ const rotateLogs = async () => {
     return sorted;
   }
 };
-const printLogs = async () => {
+
+interface fileOptions {
+  branch?: string;
+  pipeline?: string;
+}
+const filterLogs = async (
+  files: string[],
+  options?: fileOptions
+): Promise<string[]> => {
+  const filtered: string[] = [];
+  for (const file of files) {
+    const name = Fs.basename(file, ".log");
+    const stream = createReadStream(file);
+    const rl = readline.createInterface({
+      input: stream,
+      output: process.stdout,
+      terminal: false
+    });
+    try {
+      rl.on("line", (line) => {
+        const json = JSON.parse(line);
+        for (let cmd of json.argumentsArray) {
+          if (
+            json.logLevel == "info" &&
+            cmd.includes("branch: ${options.branch}")
+          ) {
+            filtered.push(file);
+          }
+          if (
+            json.logLevel == "silly" &&
+            cmd.includes("pipeline: ${options.pipeline}")
+          ) {
+            filtered.push(file);
+          }
+        }
+      });
+      await once(rl, "close");
+    } catch (err) {
+      defaultLog.error(err);
+    }
+  }
+  return filtered;
+};
+
+const printLogs = async (options?: fileOptions) => {
   const sorted = await rotateLogs();
+  const filtered = await filterLogs(sorted, options);
   for (const file of sorted) {
     await printState(file);
     await printFile(file);

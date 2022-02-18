@@ -50,20 +50,26 @@ export const useCli = (config: Config) => {
     .command("trigger")
     .option("-p, --pipeline <string>", "[string] pipeline name")
     .option("-v, --verbose", "set verbosity level")
+    .option("-b, --background", "run proccess in background")
     .action(async (options: any) => {
       headerMessage();
       await setVerbosityAction(options);
       await getConfigAction(options);
+      let opts = {};
+      if (!!options.background) {
+        opts = { spawn: true };
+      }
       if (!!options.pipeline) {
-        await trigger(options.pipeline);
+        await trigger(options.pipeline, opts);
       } else {
-        await trigger();
+        await trigger(options, opts);
       }
       footerMessage();
     });
   cli
     .command("hooks", "create/refresh git hooks")
     .option("-p, --print", "print enabled hooks")
+    .option("-d, --delete", "delete simp hooks")
     .action(async (options: any) => {
       headerMessage();
       setVerbosityAction(options);
@@ -74,6 +80,8 @@ export const useCli = (config: Config) => {
   cli
     .command("logs", "print logs")
     .option("-v, --verbose", "set verbosity level")
+    .option("-b, --branch", "set the branch")
+    .option("--pipeline", "set the pipeline")
     .action(async (options: any) => {
       headerMessage();
       await setVerbosityAction(options);

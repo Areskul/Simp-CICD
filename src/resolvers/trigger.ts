@@ -2,15 +2,19 @@ import { log } from "@composables/logger";
 import { useExec } from "@composables/exec";
 import type { Config, Pipeline, Action } from "@def/types";
 import { getBranch } from "@utils/git";
+import { fork } from "@utils/forker";
 export const useTrigger = (config: Config) => {
   const { execPipeline } = useExec();
 
-  const trigger = async (name?: string) => {
+  const trigger = async (name?: string, options?: any) => {
     const n = name ? name : "default";
     const hasName = await reducerName({ name: n, config: config });
     const hasBranch = await reducerBranch({ name: n, config: hasName });
     for (const pipeline of hasBranch.pipelines) {
       try {
+        if (options.spawn) {
+          fork({ pipeline: n });
+        }
         await execPipeline(pipeline);
       } catch (err) {
         return err;

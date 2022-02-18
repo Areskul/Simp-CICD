@@ -1,2 +1,2 @@
 import { fork } from "@utils/forker";
-fork("pre-push");
+fork({ action: "pre-push" });

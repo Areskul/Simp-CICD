@@ -1,2 +1,2 @@
 import { fork } from "../../cjs/index.js";
-fork("pre-commit");
+fork({ action: "pre-commit" });
