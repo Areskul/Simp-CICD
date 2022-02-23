@@ -18,7 +18,7 @@ Even the smallest projects need their CICD tools.
   <a href="https://www.npmjs.com/package/simpcicd">
   <img src="https://img.shields.io/npm/l/simpcicd.svg?sanitize=true" alt="License">
   </a>
-  <a href="https://discord.com/invite/PUkWPNkG">
+  <a href="https://discord.gg/swNRD3Xysz">
   <img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true" alt="Chat">
   </a>
 </p>
@@ -33,7 +33,7 @@ Even the smallest projects need their CICD tools.
 
 Still in active early development stage!...
 
-Send me a message on the [discord](https://discord.com/invite/PUkWPNkG)
+Send me a message on the [discord](https://discord.gg/swNRD3Xysz)
 for every problem you could encounter!
 
 Don't bother beeing polite! We're talking crucial software improvement!
