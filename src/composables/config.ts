@@ -14,7 +14,11 @@ interface Store {
 const useConfig = async (config?: Config) => {
   const store: Store = { config: {} as Config };
   const options = {
-    searchPlaces: ["simp.config.ts", "simp.config.js", "simp.config.mjs"],
+    searchPlaces: [
+      "simp.config.ts",
+      "simp.config.js"
+      // "simp.config.mjs"
+    ],
     loaders: {
       ".ts": TypeScriptLoader
       // ".mjs": TypeScriptLoader
