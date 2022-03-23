@@ -1,7 +1,9 @@
 import type { Config, Pipeline, Action } from "@def/types";
 import { log } from "@composables/logger";
-import { lilconfig } from "lilconfig";
-import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
+// import { lilconfig } from "lilconfig";
+// import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
+import cosmiconfig from "cosmiconfig";
+import TypeScriptLoader from "@endemolshinegroup/cosmiconfig-typescript-loader";
 import { uniq } from "lodash";
 import { getBranch } from "@utils/git";
 
@@ -24,7 +26,7 @@ const useConfig = async (config?: Config) => {
           ".mjs": TypeScriptLoader
         }
       };
-      const res = await lilconfig("simp", options).search();
+      const res = await cosmiconfig("simp", options).search();
       if (res) {
         const config = res.config as Config;
         store.config = config;
