@@ -30,8 +30,8 @@ const useConfig = async (config?: Config) => {
       if (res) {
         const config = res.config;
         store.config = config;
-        return store.config;
       }
+      return store.config;
     } catch (err) {
       log.error(err);
       return;
