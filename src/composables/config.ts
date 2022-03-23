@@ -2,7 +2,7 @@ import type { Config, Pipeline, Action } from "@def/types";
 import { log } from "@composables/logger";
 // import { lilconfig } from "lilconfig";
 // import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
-import cosmiconfig from "cosmiconfig";
+import { cosmiconfig } from "cosmiconfig";
 import TypeScriptLoader from "@endemolshinegroup/cosmiconfig-typescript-loader";
 import { uniq } from "lodash";
 import { getBranch } from "@utils/git";
