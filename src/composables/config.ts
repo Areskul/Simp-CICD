@@ -27,7 +27,7 @@ const useConfig = async (config?: Config) => {
     }
     try {
       const res = await cosmiconfig("simp", options).search();
-      const config = res.config as Config;
+      const config = res!.config as Config;
       store.config = config;
       return store.config;
     } catch (err) {
