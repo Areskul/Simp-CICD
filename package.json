@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.5.45",
+  "version": "0.5.46",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/cli.ts",
@@ -31,6 +31,7 @@
     "@supercharge/fs": "^3.4.0",
     "cac": "^6.7.12",
     "cosmiconfig": "^7.0.1",
+    "cosmiconfig-lite": "^1.0.0",
     "lilconfig": "^2.0.4",
     "lodash": "^4.17.21",
     "picocolors": "^1.0.0",
