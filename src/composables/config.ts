@@ -16,8 +16,8 @@ const useConfig = async (config?: Config) => {
   const options = {
     searchPlaces: ["simp.config.ts", "simp.config.js", "simp.config.mjs"],
     loaders: {
-      ".ts": TypeScriptLoader,
-      ".mjs": TypeScriptLoader
+      ".ts": TypeScriptLoader
+      // ".mjs": TypeScriptLoader
     }
   };
   const set = async (config?: Config) => {
@@ -27,9 +27,11 @@ const useConfig = async (config?: Config) => {
     }
     try {
       const res = await cosmiconfig("simp", options).search();
-      const config = res!.config as Config;
-      store.config = config;
-      return store.config;
+      if (res) {
+        const config = res.config;
+        store.config = config;
+        return store.config;
+      }
     } catch (err) {
       log.error(err);
       return;
