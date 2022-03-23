@@ -13,24 +13,22 @@ interface Store {
 
 const useConfig = async (config?: Config) => {
   const store: Store = { config: {} as Config };
+  const options = {
+    searchPlaces: ["simp.config.ts", "simp.config.js", "simp.config.mjs"],
+    loaders: {
+      ".ts": TypeScriptLoader,
+      ".mjs": TypeScriptLoader
+    }
+  };
   const set = async (config?: Config) => {
     if (!!config) {
       store.config = config;
       return store.config;
     }
     try {
-      const options = {
-        searchPlaces: ["simp.config.ts", "simp.config.js", "simp.config.mjs"],
-        loaders: {
-          ".ts": TypeScriptLoader,
-          ".mjs": TypeScriptLoader
-        }
-      };
       const res = await cosmiconfig("simp", options).search();
-      if (res) {
-        const config = res.config as Config;
-        store.config = config;
-      }
+      const config = res.config as Config;
+      store.config = config;
       return store.config;
     } catch (err) {
       log.error(err);
