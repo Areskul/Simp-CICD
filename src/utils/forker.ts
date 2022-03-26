@@ -10,7 +10,7 @@ interface ForkOptions {
 
 export const fork = async ({ action, pipeline }: ForkOptions) => {
   const gitRoot = await getGitPath();
-  const target = `${gitRoot}/node_modules/simpcicd/dist/bin/caller.js`;
+  const target = `${gitRoot}/node_modules/simpcicd/dist/bin/caller.mjs`;
   const argv: string[] = [];
   if (!!action) {
     argv.push(action as string);

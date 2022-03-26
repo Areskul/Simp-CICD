@@ -1,2 +1,2 @@
-import { fork } from "../../cjs/index.js";
+import { fork } from "../../esm/index.mjs";
 fork({ action: "pre-commit" });

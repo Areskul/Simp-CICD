@@ -11,7 +11,7 @@ export const useHooks = (config?: Config) => {
   const linkHook = async (action: Action) => {
     const gitRoot = await getGitPath();
     const path = `${gitRoot}/.git/hooks/${action}`;
-    const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker/${action}.js`;
+    const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker/${action}.mjs`;
     try {
       await Fs.ensureSymlink(target, path);
       await log.info(`ln -s ${path} -> ${target}`);
