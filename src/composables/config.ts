@@ -4,7 +4,6 @@ import { log } from "@composables/logger";
 import lodash from "lodash";
 import { getBranch } from "@utils/git";
 import Fs from "@supercharge/fs";
-import { tsImport } from "ts-import";
 
 interface Store {
   config: Config;
@@ -18,8 +17,7 @@ const useConfig = async (config?: Config) => {
       return store.config;
     }
     try {
-      const jsPath = `${cwd()}/simp.config.js`;
-      const jsConfig = await Fs.exists(jsPath);
+      const jsPath = `${cwd()}/simp.config.mjs`;
       const file = await import(jsPath);
       const config = file.default;
       store.config = config;
