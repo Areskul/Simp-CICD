@@ -13,7 +13,11 @@ const defaultConfig = {
         },
         {
           name: "bin files mode",
-          commands: ["chmod +x dist/bin/*.js", "chmod +x dist/bin/forker/*.js"]
+          "non-blocking": true,
+          commands: [
+            "chmod +x dist/bin/*.mjs",
+            "chmod +x dist/bin/forker/*.mjs"
+          ]
         }
       ],
       trigger: {

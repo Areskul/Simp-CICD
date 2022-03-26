@@ -1,9 +1,10 @@
 import type { Config, Pipeline, Action } from "@def/types";
 import { cwd } from "process";
 import { log } from "@composables/logger";
-import { uniq } from "lodash";
+import lodash from "lodash";
 import { getBranch } from "@utils/git";
 import Fs from "@supercharge/fs";
+import { tsImport } from "ts-import";
 
 interface Store {
   config: Config;
@@ -23,10 +24,10 @@ const useConfig = async (config?: Config) => {
       const jsConfig = await Fs.exists(jsPath);
       let file = null;
       if (jsConfig) {
-        file = await require(jsPath);
+        file = await import(jsPath);
       }
       if (tsConfig) {
-        file = await require(tsPath);
+        file = await tsImport.compile(tsPath);
       } else {
         log.error(
           "no config file provided on project root (simp.config.js or simp.config.ts)"
@@ -58,7 +59,7 @@ const getActions = (config: Config): Action[] => {
       actions = actions.concat(pipeline.trigger?.actions);
     }
   }
-  actions = uniq(actions);
+  actions = lodash.uniq(actions);
   return actions;
 };
 

@@ -2,7 +2,7 @@ import { initLogs, useLogs } from "@composables/logger";
 import { execSync as $ } from "child_process";
 import { getDuration } from "@utils/perfomance";
 import { getBranch } from "@utils/git";
-import { green, red } from "picocolors";
+import pc from "picocolors";
 import type { Pipeline, Step, ExecOptions } from "@def/types";
 
 export const useExec = () => {
@@ -17,17 +17,17 @@ export const useExec = () => {
       const res = await $(cmd, {
         stdio: ["ignore", "pipe", "pipe"]
       });
-      log.debug(green(cmd));
+      log.debug(pc.green(cmd));
       if (verbose.get()) defaultLog.trace("\n" + res);
       flog.trace("\n" + res);
       return res;
     } catch (err) {
       if (opts && opts["non-blocking"]) {
-        log.warn(red(cmd));
+        log.warn(pc.red(cmd));
         log.trace("\n" + err);
         return err;
       } else {
-        log.warn(red(cmd));
+        log.warn(pc.red(cmd));
         if (verbose.get()) defaultLog.error("\n" + err);
         flog.error("\n" + err);
         throw err;

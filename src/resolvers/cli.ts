@@ -5,7 +5,7 @@ import { useExec } from "@composables/exec";
 import { useHooks } from "@resolvers/hooks";
 import { useTrigger } from "@resolvers/trigger";
 import type { Config } from "@def/types";
-import { blue } from "picocolors";
+import pc from "picocolors";
 
 export const useCli = (config: Config) => {
   const version = "latest";
@@ -14,10 +14,10 @@ export const useCli = (config: Config) => {
 
   const cli = cac("simp");
   const headerMessage = () => {
-    console.log(blue("\nSimpCICD\n"));
+    console.log(pc.blue("\nSimpCICD\n"));
   };
   const footerMessage = () => {
-    console.log(blue("\nDone.\n"));
+    console.log(pc.blue("\nDone.\n"));
   };
   const getConfigAction = async (options: any) => {
     if (!options.printConfig) return;

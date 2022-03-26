@@ -3,7 +3,7 @@ import { appendFileSync, createReadStream } from "fs";
 import Fs from "@supercharge/fs";
 import readline from "readline";
 import { once } from "events";
-import { magenta, green, red, yellow } from "picocolors";
+import pc from "picocolors";
 import { getGitPath, getBranch } from "@utils/git";
 
 type SuperLog = {
@@ -111,13 +111,13 @@ const printState = async (file: string) => {
     rl.on("line", (line) => {
       const json = JSON.parse(line);
       if (json.logLevel == "error") {
-        state = red("● Fail ");
+        state = pc.red("● Fail ");
       } else {
-        state = green("● Succeed ");
+        state = pc.green("● Succeed ");
       }
     });
     await once(rl, "close");
-    console.log(state + magenta(date));
+    console.log(state + pc.magenta(date));
   } catch (err) {
     defaultLog.error(err);
     return;
@@ -149,21 +149,21 @@ const printFile = async (file: string) => {
         }
         if (json.logLevel == "debug") {
           cmd = cmd.replace(/  +/g, "\n" + indent.md);
-          console.log(indent.md + green(cmd));
+          console.log(indent.md + pc.green(cmd));
         }
         if (json.logLevel == "trace" && ctx.verbose) {
           console.log(cmd);
         }
         if (json.logLevel == "info") {
           if (cmd.includes("branch")) cmd = indent.xs + cmd;
-          console.log(magenta(cmd));
+          console.log(pc.magenta(cmd));
         }
         if (json.logLevel == "warn") {
           cmd = cmd.replace(/  +/g, "\n" + indent.md);
-          console.log(indent.md + red(cmd));
+          console.log(indent.md + pc.red(cmd));
         }
         if (json.logLevel == "error" && ctx.verbose) {
-          console.log(indent.md + red(cmd));
+          console.log(indent.md + pc.red(cmd));
         }
       }
     });
