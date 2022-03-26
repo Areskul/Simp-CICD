@@ -25,14 +25,9 @@
     "dist"
   ],
   "dependencies": {
-    "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",
     "@rollup/plugin-typescript": "^8.3.0",
-    "@sliphua/lilconfig-ts-loader": "^3.2.2",
     "@supercharge/fs": "^3.4.0",
     "cac": "^6.7.12",
-    "cosmiconfig": "^7.0.1",
-    "cosmiconfig-lite": "^1.0.0",
-    "lilconfig": "^2.0.4",
     "lodash": "^4.17.21",
     "picocolors": "^1.0.0",
     "rollup": "^2.67.2",
