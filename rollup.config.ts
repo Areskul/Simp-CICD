@@ -11,7 +11,7 @@ export default [
     input: "src/index.ts",
     output: {
       file: "dist/esm/index.mjs",
-      format: "esm", // ES Modules
+      format: "esm",
       sourcemap: true
     },
     plugins: [

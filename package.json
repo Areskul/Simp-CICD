@@ -15,7 +15,6 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "./dist/esm/index.mjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
   "bin": {
