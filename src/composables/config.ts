@@ -25,13 +25,8 @@ const useConfig = async (config?: Config) => {
       let file = null;
       if (jsConfig) {
         file = await import(jsPath);
-      }
-      if (tsConfig) {
-        file = await tsImport.compile(tsPath);
       } else {
-        log.error(
-          "no config file provided on project root (simp.config.js or simp.config.ts)"
-        );
+        log.error("no config file provided on project root (simp.config.js)");
         return;
       }
       if (file) {
