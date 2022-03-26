@@ -1,11 +1,9 @@
 import type { Config, Pipeline, Action } from "@def/types";
+import { cwd } from "process";
 import { log } from "@composables/logger";
-// import { lilconfig } from "lilconfig";
-// import { TypeScriptLoader } from "@sliphua/lilconfig-ts-loader";
-import { cosmiconfig } from "cosmiconfig";
-import TypeScriptLoader from "@endemolshinegroup/cosmiconfig-typescript-loader";
 import { uniq } from "lodash";
 import { getBranch } from "@utils/git";
+import Fs from "@supercharge/fs";
 
 interface Store {
   config: Config;
@@ -13,26 +11,30 @@ interface Store {
 
 const useConfig = async (config?: Config) => {
   const store: Store = { config: {} as Config };
-  const options = {
-    searchPlaces: [
-      "simp.config.ts",
-      "simp.config.js"
-      // "simp.config.mjs"
-    ],
-    loaders: {
-      ".ts": TypeScriptLoader
-      // ".mjs": TypeScriptLoader
-    }
-  };
   const set = async (config?: Config) => {
     if (!!config) {
       store.config = config;
       return store.config;
     }
     try {
-      const res = await cosmiconfig("simp", options).search();
-      if (res) {
-        const config = res.config;
+      const jsPath = `${cwd()}/simp.config.js`;
+      const tsPath = `${cwd()}/simp.config.ts`;
+      const tsConfig = await Fs.exists(tsPath);
+      const jsConfig = await Fs.exists(jsPath);
+      let file = null;
+      if (jsConfig) {
+        file = await import(jsPath);
+      }
+      if (tsConfig) {
+        file = await import(tsPath);
+      } else {
+        log.error(
+          "no config file provided on project root (simp.config.js or simp.config.ts)"
+        );
+        return;
+      }
+      if (file) {
+        const config = file.default;
         store.config = config;
       }
       return store.config;
