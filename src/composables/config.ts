@@ -23,7 +23,7 @@ const useConfig = async (config?: Config) => {
       const jsConfig = await Fs.exists(jsPath);
       let file = null;
       if (jsConfig) {
-        file = await import(jsPath);
+        file = await require(jsPath);
       }
       if (tsConfig) {
         file = await require(tsPath);
