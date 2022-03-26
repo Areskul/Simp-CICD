@@ -19,20 +19,10 @@ const useConfig = async (config?: Config) => {
     }
     try {
       const jsPath = `${cwd()}/simp.config.js`;
-      const tsPath = `${cwd()}/simp.config.ts`;
-      const tsConfig = await Fs.exists(tsPath);
       const jsConfig = await Fs.exists(jsPath);
-      let file = null;
-      if (jsConfig) {
-        file = await import(jsPath);
-      } else {
-        log.error("no config file provided on project root (simp.config.js)");
-        return;
-      }
-      if (file) {
-        const config = file.default;
-        store.config = config;
-      }
+      const file = await import(jsPath);
+      const config = file.default;
+      store.config = config;
       return store.config;
     } catch (err) {
       log.error(err);
