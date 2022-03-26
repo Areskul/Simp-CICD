@@ -13,6 +13,7 @@ export const useHooks = (config?: Config) => {
     const path = `${gitRoot}/.git/hooks/${action}`;
     const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker/${action}.mjs`;
     try {
+      await Fs.removeFile(path);
       await Fs.ensureSymlink(target, path);
       await log.info(`ln -s ${path} -> ${target}`);
       return;
