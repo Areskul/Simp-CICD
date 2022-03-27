@@ -65,8 +65,10 @@ npm install --save-dev simpcicd
 
 Edit your config file(s) in your project roots
 
-```ts
-// simp.config.ts
+Only [ESM](https://learnjsx.com/category/2/posts/es6-moduleExports) config files are supported! See the import/export syntax below.
+
+```mjs
+// simp.config.mjs
 // very tiny config file example
 
 import { defineConfig } from "simpcicd";
