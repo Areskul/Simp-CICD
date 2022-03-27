@@ -11,7 +11,7 @@ export const useHooks = (config?: Config) => {
   const linkHook = async (action: Action) => {
     const gitRoot = await getGitPath();
     const path = `${gitRoot}/.git/hooks/${action}`;
-    const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker/${action}.mjs`;
+    const target = `${gitRoot}/node_modules/simpcicd/dist/bin/forker/${action}.js`;
     try {
       await Fs.removeFile(path);
       await Fs.ensureSymlink(target, path);
@@ -47,11 +47,11 @@ const inputOptions = (name: string) => ({
 });
 
 const outputOptions = (name: string) => {
-  const nodeExecPath = "#!/usr/bin/node";
+  const nodeExecPath = "#!/usr/bin/node --expermiental-modules";
   return {
     banner: nodeExecPath,
     file: `.simp/hooks/cjs/simp.${name}.hook.js`,
-    format: "cjs"
+    format: "esm"
   };
 };
 

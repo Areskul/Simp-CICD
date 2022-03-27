@@ -15,9 +15,13 @@ const defaultConfig = {
           name: "bin files mode",
           "non-blocking": true,
           commands: [
-            "chmod +x dist/bin/*.mjs",
-            "chmod +x dist/bin/forker/*.mjs"
+            "chmod +x dist/bin/*.js",
+            "chmod +x dist/bin/forker/*.js"
           ]
+        },
+        {
+          name: "explicit esm",
+          commands: ["cp public/package.json dist"]
         }
       ],
       trigger: {
