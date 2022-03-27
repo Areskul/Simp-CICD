@@ -1,6 +1,6 @@
 {
   "name": "simpcicd",
-  "version": "0.5.61",
+  "version": "0.5.62",
   "author": "Areskul <areskul@areskul.com>",
   "scripts": {
     "test:cli": "ts-node -r tsconfig-paths/register test/cli.ts",
@@ -15,10 +15,10 @@
   "engines": {
     "node": ">=12"
   },
-  "module": "./dist/esm/index.mjs",
+  "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
   "bin": {
-    "simp": "./dist/bin/cli.mjs"
+    "simp": "./dist/bin/cli.js"
   },
   "files": [
     "dist"
@@ -51,7 +51,7 @@
     "prettier": "^2.5.1",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^4.1.0",
-    "simpcicd": "^0.5.60",
+    "simpcicd": "^0.5.61",
     "ts-mocha": "^9.0.2",
     "tsconfig-paths": "^3.12.0",
     "tslib": "^2.3.1",
