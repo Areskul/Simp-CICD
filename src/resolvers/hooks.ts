@@ -50,7 +50,7 @@ const outputOptions = (name: string) => {
   const nodeExecPath = "#!/usr/bin/node --expermiental-modules";
   return {
     banner: nodeExecPath,
-    file: `.simp/hooks/cjs/simp.${name}.hook.js`,
+    file: `.simp/hooks/esm/simp.${name}.hook.js`,
     format: "esm"
   };
 };
