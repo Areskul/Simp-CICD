@@ -1,4 +1,4 @@
-import { useConfig, call } from "../esm/index.mjs";
+import { useConfig, call } from "../esm/index.js";
 const action = process.argv[2];
 const pipeline = process.argv[3];
 const start = async () => {

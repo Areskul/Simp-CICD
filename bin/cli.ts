@@ -1,4 +1,4 @@
-import { useCli, useConfig } from "../esm/index.mjs";
+import { useCli, useConfig } from "../esm/index.js";
 const start = async () => {
   const config = await useConfig();
   await useCli(config);

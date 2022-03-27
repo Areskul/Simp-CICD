@@ -19,8 +19,9 @@ const useConfig = async (config?: Config) => {
     try {
       const jsPath = `${cwd()}/simp.config.mjs`;
       const file = await import(jsPath);
-      const config = file.default;
-      store.config = config;
+      if (file) {
+        store.config = file.default;
+      }
       return store.config;
     } catch (err) {
       log.error(err);

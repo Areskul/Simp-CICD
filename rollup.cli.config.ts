@@ -10,16 +10,16 @@ const GitHooks = [
   "post-receive"
 ];
 
-const nodeExecPath = "#!/usr/bin/node";
+const nodeExecPath = "#!/usr/bin/node --experimental-modules";
 export const cliConfig = {
   input: "bin/cli.ts",
   output: {
-    file: "dist/bin/cli.mjs",
+    file: "dist/bin/cli.js",
     format: "esm",
     sourcemap: false,
     banner: nodeExecPath
   },
-  external: ["../esm/index.mjs"],
+  external: ["../esm/index.js"],
   plugins: [
     typescript({
       tsconfig: "tsconfig.build.json",
@@ -33,12 +33,12 @@ export const cliConfig = {
 export const callConfig = {
   input: "bin/caller.ts",
   output: {
-    file: "dist/bin/caller.mjs",
+    file: "dist/bin/caller.js",
     format: "esm",
     sourcemap: false,
     banner: nodeExecPath
   },
-  external: ["../esm/index.mjs"],
+  external: ["../esm/index.js"],
   plugins: [
     typescript({
       tsconfig: "tsconfig.build.json",
@@ -56,12 +56,12 @@ export const forkConfig = () => {
     config.push({
       input: `bin/forker/${action}.ts`,
       output: {
-        file: `dist/bin/forker/${action}.mjs`,
+        file: `dist/bin/forker/${action}.js`,
         format: "esm",
         sourcemap: false,
         banner: nodeExecPath
       },
-      external: ["../../esm/index.mjs"],
+      external: ["../../esm/index.js"],
       plugins: [
         typescript({
           tsconfig: "tsconfig.build.json",
