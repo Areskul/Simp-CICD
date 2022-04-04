@@ -185,7 +185,7 @@ const removeLogs = async (forDeletion: string[]) => {
 
 const rotateLogs = async () => {
   await initPath();
-  const maxItems = 6;
+  const maxItems = 10;
   const allFiles = await Fs.allFiles(ctx.path as string);
   const sorted = allFiles.sort();
   if (sorted.length > maxItems) {
