@@ -1,7 +1,6 @@
 {
   "type": "module",
   "module": "./esm/index.js",
-  "main": "./esm/index.js",
   "types": "./types/index.d.ts",
   "bin": {
     "simp": "./bin/cli.js"

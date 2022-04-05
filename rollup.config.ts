@@ -5,6 +5,7 @@ import { typesConfig } from "./rollup.types.config.js";
 // import nodeResolve from "@rollup/plugin-node-resolve";
 // import commonjs from "@rollup/plugin-commonjs";
 
+const nodeExecPath = "#!/usr/bin/node --experimental-modules";
 export default [
   typesConfig,
   {
@@ -12,7 +13,8 @@ export default [
     output: {
       file: "dist/esm/index.js",
       format: "esm",
-      sourcemap: true
+      sourcemap: true,
+      banner: nodeExecPath
     },
     plugins: [
       typescript({
