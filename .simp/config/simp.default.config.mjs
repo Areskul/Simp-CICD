@@ -1,4 +1,4 @@
-import { defineConfig } from "../../node_modules/simpcicd";
+import { defineConfig } from "simpcicd";
 const defaultConfig = defineConfig({
   pipelines: [
     {
