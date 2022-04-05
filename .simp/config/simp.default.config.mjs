@@ -1,4 +1,5 @@
-const defaultConfig = {
+import { defineConfig } from "simpcicd";
+const defaultConfig = defineConfig({
   pipelines: [
     {
       name: "default",
@@ -14,10 +15,7 @@ const defaultConfig = {
         {
           name: "bin files mode",
           "non-blocking": true,
-          commands: [
-            "chmod +x dist/bin/*.js",
-            "chmod +x dist/bin/forker/*.js"
-          ]
+          commands: ["chmod +x dist/bin/*.js", "chmod +x dist/bin/forker/*.js"]
         },
         {
           name: "explicit esm",
@@ -43,5 +41,5 @@ const defaultConfig = {
       }
     }
   ]
-};
+});
 export { defaultConfig };
