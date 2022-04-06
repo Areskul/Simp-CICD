@@ -846,7 +846,6 @@ export function sortUserPlugins(
 }
 
 export async function loadConfigFromFile(
-  configEnv: ConfigEnv,
   configFile?: string,
   configRoot: string = process.cwd(),
   logLevel?: LogLevel

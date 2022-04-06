@@ -1,4 +1,4 @@
-import type { Config } from "@def";
+import type { Config } from "@def/types";
 import fs from "fs";
 import path from "path";
 import { log } from "@composables/logger";
@@ -6,15 +6,7 @@ import { build } from "esbuild";
 
 const { debug, error } = log;
 
-import {
-  arraify,
-  createDebugger,
-  isExternalUrl,
-  isObject,
-  lookupFile,
-  normalizePath,
-  dynamicImport
-} from "vite/packages/vite/src/node/utils";
+import { isObject, lookupFile, normalizePath, dynamicImport } from "./utils";
 
 const myPackage = {
   name: "simp",
@@ -27,6 +19,7 @@ export async function loadConfigFromFile(
 ): Promise<{
   config: Config;
   dependencies: string[];
+  path: string;
 } | null> {
   const start = performance.now();
   const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
@@ -50,7 +43,10 @@ export async function loadConfigFromFile(
   if (configFile) {
     // explicit config path is always resolved from cwd
     resolvedPath = path.resolve(configFile);
-    isTS = configFile.endsWith(".ts");
+    if (configFile.endsWith(".ts")) {
+      isTS = true;
+      isESM = true;
+    }
 
     if (configFile.endsWith(".mjs")) {
       isESM = true;
@@ -100,18 +96,22 @@ export async function loadConfigFromFile(
   }
 
   try {
-    let config: Config;
+    let config: Config | null = null;
 
     if (isESM) {
-      const fileUrl = require("url").pathToFileURL(resolvedPath);
+      // const fileUrl = require("url").pathToFileURL(resolvedPath);
+      const fileUrl = resolvedPath;
+      console.log(`this is the fileUrl ${resolvedPath}`);
       const bundled = await bundleConfigFile(resolvedPath, true);
       dependencies = bundled.dependencies;
       if (isTS) {
+        console.log("myloop");
         // before we can register loaders without requiring users to run node
         // with --experimental-loader themselves, we have to do a hack here:
         // bundle the config file w/ ts transforms first, write it to disk,
         // load it with native Node ESM, then delete the file.
         fs.writeFileSync(resolvedPath + ".js", bundled.code);
+
         config = (await dynamicImport(`${fileUrl}.js?t=${Date.now()}`)).default;
         fs.unlinkSync(resolvedPath + ".js");
         debug(`TS + native esm config loaded in ${getTime()}`, fileUrl);
@@ -169,6 +169,10 @@ async function bundleConfigFile(
             if (id[0] !== "." && !path.isAbsolute(id)) {
               return {
                 external: true
+              };
+            } else {
+              return {
+                external: false
               };
             }
           });

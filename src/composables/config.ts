@@ -18,11 +18,14 @@ const useConfig = async (config?: Config) => {
       return store.config;
     }
     try {
-      // const jsPath = `${cwd()}/simp.config.js`;
+      const jsPath = `${cwd()}/simp.config.ts`;
       // const file = await import(jsPath);
-      if (file) {
-        store.config = file.default;
-      }
+      // const { config, dependencies }
+      const f = await loadConfigFromFile(jsPath);
+      log.debug(f);
+      // if (file) {
+      //   store.config = file.default;
+      // }
       return store.config;
     } catch (err) {
       log.error(err);
