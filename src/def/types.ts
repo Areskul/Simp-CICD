@@ -1,5 +1,3 @@
-import { log } from "@composables/logger";
-
 interface Config {
   pipelines: Pipeline[];
 }
