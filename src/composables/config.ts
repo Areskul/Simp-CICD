@@ -4,7 +4,7 @@ import { log } from "@composables/logger";
 import lodash from "lodash";
 import { getBranch } from "@utils/git";
 import Fs from "@supercharge/fs";
-import { loadConfigFromFile } from "./vite-config-2";
+import { loadConfigFromFile } from "./vite-config-base";
 
 interface Store {
   config: Config;
